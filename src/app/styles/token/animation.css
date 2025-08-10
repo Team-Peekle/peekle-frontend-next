@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@layer utilities {
+  .transition-spring {
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
