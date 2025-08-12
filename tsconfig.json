@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,10 +18,27 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@styles/*": ["styles/*"],
+      "@assets/*": ["assets/*"],
+      "@lib/*": ["lib/*"],
+      "@icons/*": ["common/components/icons/*"],
+      "@svgs/*": ["assets/svgs/*"],
+      "@common/types/*": ["common/types/*"],
+      "@common/constants/*": ["common/constants/*"],
+      "@common/schemas/*": ["common/schemas/*"],
+      "@common/utils/*": ["common/utils/*"],
+      "@common/hooks/*": ["common/hooks/*"],
+      "@common/apis/*": ["common/apis/*"],
+      "@common/components/*": ["common/components/*"],
+      "@common/stores/*": ["common/stores/*"],
+      "@common/*": ["common/*"],
+      "@buttons/*": ["common/components/buttons/*"],
+      "@features/*": ["features/*"],
+      "@/*": ["*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".next"]
 }

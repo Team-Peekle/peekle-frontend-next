@@ -1,13 +1,13 @@
-import { SvgWrapper } from "./SvgWrapper";
+import { SvgWrapper } from './SvgWrapper';
 
 interface ScrapProps extends React.HTMLAttributes<HTMLElement> {
-  fill?: "outlined" | "weight";
+  fill?: 'outlined' | 'weight';
 }
 
-export function Scrap({ fill = "outlined", ...props }: ScrapProps) {
+export const Scrap = ({ fill = 'outlined', ...props }: ScrapProps) => {
   return (
     <SvgWrapper {...props}>
-      {fill === "outlined" ? (
+      {fill === 'outlined' ? (
         <svg
           width="24"
           height="24"

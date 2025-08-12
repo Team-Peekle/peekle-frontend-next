@@ -1,6 +1,6 @@
-import { SvgWrapper } from "./SvgWrapper";
+import { SvgWrapper } from './SvgWrapper';
 
-export function Check(props: React.HTMLAttributes<HTMLElement>) {
+export const Check = (props: React.HTMLAttributes<HTMLElement>) => {
   return (
     <SvgWrapper {...props}>
       <svg

@@ -1,6 +1,6 @@
-import { SvgWrapper } from "./SvgWrapper";
+import { SvgWrapper } from './SvgWrapper';
 
-export function Close(props: React.HTMLAttributes<HTMLElement>) {
+export const Close = (props: React.HTMLAttributes<HTMLElement>) => {
   return (
     <SvgWrapper {...props}>
       <svg

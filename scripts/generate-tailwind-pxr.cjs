@@ -17,7 +17,7 @@ const output = generateCss(
   prefixes,
   Array.from({ length: 1024 }, (_, i) => i + 1),
 );
-const rootDir = path.resolve(__dirname, '..'); 
+const rootDir = path.resolve(__dirname, '..');
 const outputPath = path.join(rootDir, 'src/app/styles/token/pxrs.css');
 
 fs.writeFileSync(outputPath, output, 'utf8');

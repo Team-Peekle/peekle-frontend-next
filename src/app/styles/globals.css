@@ -1,8 +1,8 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "./token/colors.css";
-@import "./token/fonts.css";
-@import "./token/pxrs.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './token/colors.css';
+@import './token/fonts.css';
+@import './token/pxrs.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -118,7 +118,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     font-family: var(--font-pretendard), sans-serif;
   }
 }
