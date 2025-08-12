@@ -17,4 +17,4 @@ export const Back = (props: React.HTMLAttributes<HTMLElement>) => {
       </svg>
     </SvgWrapper>
   );
-}
+};

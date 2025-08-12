@@ -11,4 +11,4 @@ export const Coins = (props: React.HTMLAttributes<HTMLElement>) => {
       </svg>
     </SvgWrapper>
   );
-}
+};

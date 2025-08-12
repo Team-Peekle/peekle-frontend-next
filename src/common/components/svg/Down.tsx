@@ -17,4 +17,4 @@ export const Down = (props: React.HTMLAttributes<HTMLElement>) => {
       </svg>
     </SvgWrapper>
   );
-}
+};

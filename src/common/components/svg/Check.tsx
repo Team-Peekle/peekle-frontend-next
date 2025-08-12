@@ -13,11 +13,11 @@ export const Check = (props: React.HTMLAttributes<HTMLElement>) => {
         <path
           d="M6 11.794L10.154 15.5L18 8.5"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </SvgWrapper>
   );
-}
+};

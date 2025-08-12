@@ -16,4 +16,4 @@ export const MenuIcon = (props: React.HTMLAttributes<HTMLElement>) => {
       </svg>
     </SvgWrapper>
   );
-}
+};
