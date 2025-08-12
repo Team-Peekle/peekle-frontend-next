@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 
+import Navbar from '@/common/layout/Navbar';
+
 import './styles/globals.css';
 
 export const metadata: Metadata = {
   title: '피클',
-  description: '액티브 시니어 커뮤니티 플랫폼',
+  description: '피클',
 };
 
 const RootLayout = ({
@@ -13,8 +15,13 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang="ko">
-      <body className="">{children}</body>
+    <html lang="en">
+      <body>
+        <div className="mx-auto w-full max-w-[1200px]">
+          <Navbar />
+          {children}
+        </div>
+      </body>
     </html>
   );
 };

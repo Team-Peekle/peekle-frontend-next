@@ -122,3 +122,71 @@
     font-family: var(--font-pretendard), sans-serif;
   }
 }
+
+@theme {
+  --font-pretendard: "Pretendard";
+}
+
+@layer utilities {
+  /* Responsive Headings */
+  .text-h2 {
+    @apply text-[1.75rem] leading-[1.6em] font-bold tracking-[-0.03em] max-[800px]:text-[1.5rem];
+  }
+
+  .text-h3 {
+    @apply text-[1.5rem] leading-[1.6em] font-bold tracking-[-0.03em] max-[800px]:text-[1.375rem];
+  }
+
+  .text-p18-20 {
+    @apply text-[1.25rem] font-extrabold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[1.125rem];
+  }
+
+  .text-p16-17 {
+    @apply text-[1.0625rem] font-extrabold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[1rem];
+  }
+
+  .text-p15-16 {
+    @apply text-[1rem] font-medium leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[0.9375rem];
+  }
+
+  .text-p13-14 {
+    @apply text-[0.875rem] font-bold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[0.8125rem];
+  }
+
+  /* Fixed Typography */
+  .text-p18 {
+    @apply text-[1.125rem] font-normal leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p17b {
+    @apply text-[1.0625rem] font-bold leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p17m {
+    @apply text-[1.0625rem] font-medium leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p16b {
+    @apply text-[1rem] font-bold leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p16sb {
+    @apply text-[1rem] font-semibold leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p16m {
+    @apply text-[1rem] font-medium leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p15b {
+    @apply text-[0.9375rem] font-bold leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p15m {
+    @apply text-[0.9375rem] font-medium leading-[1.5em] tracking-[-0.02em];
+  }
+
+  .text-p14 {
+    @apply text-[0.875rem] font-normal leading-[1.5em] tracking-[-0.02em];
+  }
+}
