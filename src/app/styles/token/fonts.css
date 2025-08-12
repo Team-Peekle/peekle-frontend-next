@@ -5,132 +5,65 @@
 }
 
 @layer utilities {
-  /* Responsive */
+  /* Responsive Headings */
   .text-h2 {
-    font-size: 1.75rem;
-    line-height: 1.6em;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-
-    @media (max-width: 800px) {
-      font-size: 1.5rem;
-    }
+    @apply text-[1.75rem] leading-[1.6em] font-bold tracking-[-0.03em] max-[800px]:text-[1.5rem];
   }
 
   .text-h3 {
-    font-size: 1.5rem;
-    line-height: 1.6em;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-
-    @media (max-width: 800px) {
-      font-size: 1.375rem;
-    }
+    @apply text-[1.5rem] leading-[1.6em] font-bold tracking-[-0.03em] max-[800px]:text-[1.375rem];
   }
+
   .text-p18-20 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
-
-    @media (max-width: 800px) {
-      font-size: 1.125rem;
-    }
+    @apply text-[1.25rem] font-extrabold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[1.125rem];
   }
-  .text-p16-17 {
-    font-size: 1.0625rem;
-    font-weight: 800;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
 
-    @media (max-width: 800px) {
-      font-size: 1rem;
-    }
+  .text-p16-17 {
+    @apply text-[1.0625rem] font-extrabold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[1rem];
   }
 
   .text-p15-16 {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
-
-    @media (max-width: 800px) {
-      font-size: 1rem;
-    }
+    @apply text-[1rem] font-medium leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[0.9375rem];
   }
 
   .text-p13-14 {
-    font-size: 0.8125rem;
-    font-weight: 700;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
-
-    @media (max-width: 800px) {
-      font-size: 0.875rem;
-    }
+    @apply text-[0.875rem] font-bold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[0.8125rem];
   }
 
-  /* Fixed */
+  /* Fixed Typography */
   .text-p18 {
-    font-size: 1.125rem;
-    font-weight: 400;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[1.125rem] font-normal leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p17b {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[1.0625rem] font-bold leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p17m {
-    font-size: 1.0625rem;
-    font-weight: 500;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[1.0625rem] font-medium leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p16b {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[1rem] font-bold leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p16sb {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[1rem] font-semibold leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p16m {
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[1rem] font-medium leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p15b {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[0.9375rem] font-bold leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p15m {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[0.9375rem] font-medium leading-[1.5em] tracking-[-0.02em];
   }
 
   .text-p14 {
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5em;
-    letter-spacing: -0.02em;
+    @apply text-[0.875rem] font-normal leading-[1.5em] tracking-[-0.02em];
   }
 }
