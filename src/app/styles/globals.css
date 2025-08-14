@@ -3,6 +3,7 @@
 @import './token/colors.css';
 @import './token/fonts.css';
 @import './token/pxrs.css';
+@import './token/animation.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -120,6 +121,20 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-pretendard), sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 }
 

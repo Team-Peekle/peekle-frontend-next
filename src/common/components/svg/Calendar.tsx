@@ -11,4 +11,4 @@ export const Calendar = (props: React.HTMLAttributes<HTMLElement>) => {
       </svg>
     </SvgWrapper>
   );
-}
+};
