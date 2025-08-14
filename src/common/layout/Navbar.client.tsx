@@ -5,7 +5,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import Profile from '@/common/components/Profile';
+import Profile from '@common/components/Profile.server';
+
 import { Close } from '@/common/components/svg/Close';
 import { MenuIcon } from '@/common/components/svg/Menu';
 import PeekleLogo from '@/common/components/svg/PeekleLogo';

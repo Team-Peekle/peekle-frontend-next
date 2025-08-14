@@ -1,8 +1,6 @@
-import React from 'react';
-
 import Image from 'next/image';
 
-import DefaultNavbar from '@common/layout/DefaultNavbar';
+import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
 export default function SignupCompletePage() {
   return (

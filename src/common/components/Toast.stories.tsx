@@ -1,17 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Toast from "./Toast";
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+import Toast from './Toast.client';
 
 const meta: Meta<typeof Toast> = {
-  title: "Common/Components/Toast",
+  title: 'Common/Components/Toast',
   component: Toast,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     text: {
-      control: "text",
-      description: "토스트에 표시될 메시지",
+      control: 'text',
+      description: '토스트에 표시될 메시지',
     },
   },
 };
@@ -21,6 +22,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: "기본 토스트 메시지",
+    text: '기본 토스트 메시지',
   },
 };
