@@ -5,11 +5,12 @@ import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { SessionProvider } from 'next-auth/react';
 
-import Cta from '@common/components/btn/Cta/Cta.sejong.client';
 import Google from '@common/components/svg/Google';
 import Kakao from '@common/components/svg/Kakao';
 
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
+
+import Cta from '@/sign/components/SignButton.client';
 
 export default function SigninPage() {
   const handleSocialLogin = async (provider: 'google' | 'kakao') => {
@@ -44,13 +45,13 @@ export default function SigninPage() {
         </main>
         <footer className="p-16pxr mt-32pxr gap-16pxr flex flex-col items-center">
           <Cta
-            className="text-p16sb gap-16pxr px-106pxr max-mb:px-70pxr w-fit cursor-pointer bg-[#FEE500] text-gray-900"
+            className="text-p16sb px-106pxr max-mb:px-70pxr w-fit cursor-pointer gap-[8px] bg-[#FEE500] text-gray-900"
             onClick={() => handleSocialLogin('kakao')}
           >
             <Kakao className="size-6 text-black" /> 카카오계정으로 계속하기
           </Cta>
           <Cta
-            className="text-p16sb gap-16pxr px-106pxr max-mb:px-80pxr w-fit cursor-pointer bg-gray-100 text-gray-900"
+            className="text-p16sb px-116pxr max-mb:px-80pxr w-fit cursor-pointer gap-[8px] bg-gray-100 text-gray-900"
             onClick={() => handleSocialLogin('google')}
           >
             <Google className="size-5" /> 구글계정으로 계속하기
