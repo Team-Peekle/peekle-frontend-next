@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import clsx from 'clsx';
+import { cn } from '@lib/utils';
 
 import { ButtonsCommonProps, ScrapLineColorType } from '@common/types/btn';
 
@@ -35,7 +35,7 @@ const ScrapLine = ({ color, isScrapped = false, onStateChange, ...props }: Scrap
       {scrapped ? (
         <ScrapIcon
           fill="weight"
-          className={clsx({
+          className={cn({
             'text-primary-500': color === ScrapLineColorType.WHITE,
             'text-gray-900': color === ScrapLineColorType.GRAY,
           })}
@@ -43,7 +43,7 @@ const ScrapLine = ({ color, isScrapped = false, onStateChange, ...props }: Scrap
       ) : (
         <ScrapIcon
           fill="outlined"
-          className={clsx({
+          className={cn({
             'text-gray-0': color === ScrapLineColorType.WHITE,
             'text-gray-600': color === ScrapLineColorType.GRAY,
           })}
