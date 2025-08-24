@@ -68,14 +68,14 @@ const eslintConfig = [
       'react/react-in-jsx-scope': 'off',
       // prop-types 검사 비활성화 (ts 사용 시 TypeScript가 prop-types 역할을 함)
       'react/prop-types': 'off',
-      // 함수형 컴포넌트 정의 방식 설정 (화살표 함수 사용)
-      'react/function-component-definition': [
-        2,
-        {
-          namedComponents: 'arrow-function',
-          unnamedComponents: 'arrow-function',
-        },
-      ],
+      // // 함수형 컴포넌트 정의 방식 설정 (화살표 함수 사용) -> 에바임
+      // 'react/function-component-definition': [
+      //   2,
+      //   {
+      //     namedComponents: 'arrow-function',
+      //     unnamedComponents: 'arrow-function',
+      //   },
+      // ],
     },
   },
   prettierConfig,

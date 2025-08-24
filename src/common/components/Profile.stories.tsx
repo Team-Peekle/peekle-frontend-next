@@ -1,25 +1,22 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Profile from "./Profile";
-import { ProfileVariant } from "./svg/Profile";
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+import Profile from './Profile.server';
+import { ProfileVariant } from './svg/Profile';
 
 const meta: Meta<typeof Profile> = {
-  title: "Common/Profile",
+  title: 'Common/Profile',
   component: Profile,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: "select" },
-      options: [
-        ProfileVariant.SIZE_32,
-        ProfileVariant.SIZE_40,
-        ProfileVariant.SIZE_64,
-      ],
+      control: { type: 'select' },
+      options: [ProfileVariant.SIZE_32, ProfileVariant.SIZE_40, ProfileVariant.SIZE_64],
     },
-    src: { control: "text" },
-    alt: { control: "text" },
+    src: { control: 'text' },
+    alt: { control: 'text' },
   },
 };
 

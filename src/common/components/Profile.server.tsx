@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 import { Profile as ProfileIcon, ProfileVariant } from './svg/Profile';
