@@ -1,19 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Popup from "./Popup";
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+import Popup from './Popup.server';
 
 const meta: Meta<typeof Popup> = {
-  title: "Common/Popup",
+  title: 'Common/Popup',
   component: Popup,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    title: { control: "text" },
-    leftText: { control: "text" },
-    rightText: { control: "text" },
-    onLeft: { action: "left clicked" },
-    onRight: { action: "right clicked" },
+    title: { control: 'text' },
+    leftText: { control: 'text' },
+    rightText: { control: 'text' },
+    onLeft: { action: 'left clicked' },
+    onRight: { action: 'right clicked' },
   },
 };
 
@@ -22,8 +23,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: "정말 삭제하시겠습니까?",
-    leftText: "취소",
-    rightText: "삭제",
+    title: '정말 삭제하시겠습니까?',
+    leftText: '취소',
+    rightText: '삭제',
   },
 };

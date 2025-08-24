@@ -1,16 +1,17 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import DefaultNavbar from "./DefaultNavbar";
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+import DefaultNavbar from './DefaultNavbar.client';
 
 const meta: Meta<typeof DefaultNavbar> = {
-  title: "Layout/DefaultNavbar",
+  title: 'Layout/DefaultNavbar',
   component: DefaultNavbar,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div className="w-full max-w-[1200px] mx-auto">
+      <div className="mx-auto w-full max-w-[1200px]">
         <Story />
       </div>
     ),
@@ -31,12 +32,10 @@ export const WithScroll: Story = {
     <div>
       <DefaultNavbar />
       <div className="h-screen bg-gray-100 p-4">
-        <p className="text-sm text-gray-600">
-          스크롤 영역 (스크롤하면 하단에 선이 나타남)
-        </p>
+        <p className="text-sm text-gray-600">스크롤 영역 (스크롤하면 하단에 선이 나타남)</p>
         <div className="mt-4 space-y-2">
           {Array.from({ length: 50 }, (_, i) => (
-            <div key={i} className="h-8 bg-white rounded p-2">
+            <div key={i} className="h-8 rounded bg-white p-2">
               콘텐츠 {i + 1}
             </div>
           ))}

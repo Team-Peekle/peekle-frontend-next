@@ -1,17 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Checkbox from "./Checkbox";
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+import Checkbox from './Checkbox.client';
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Common/Checkbox",
+  title: 'Common/Checkbox',
   component: Checkbox,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    checked: { control: "boolean" },
-    onChange: { action: "changed" },
-    disabled: { control: "boolean" },
+    checked: { control: 'boolean' },
+    onChange: { action: 'changed' },
+    disabled: { control: 'boolean' },
   },
 };
 

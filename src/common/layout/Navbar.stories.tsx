@@ -1,17 +1,19 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Navbar from "./Navbar";
-import { loginStore } from "@/common/store/loginStore";
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+import { loginStore } from '@/common/store/loginStore';
+
+import Navbar from './Navbar.client';
 
 const meta: Meta<typeof Navbar> = {
-  title: "Layout/Navbar",
+  title: 'Layout/Navbar',
   component: Navbar,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div className="w-full max-w-[1200px] mx-auto">
+      <div className="mx-auto w-full max-w-[1200px]">
         <Story />
       </div>
     ),
@@ -77,9 +79,7 @@ export const MobileMenuOpenLoggedIn: Story = {
       <div className="max-w-[799px]">
         <Navbar />
         <div className="h-96 bg-gray-100 p-4">
-          <p className="text-sm text-gray-600">
-            스크롤 영역 (메뉴가 펼쳐진 상태)
-          </p>
+          <p className="text-sm text-gray-600">스크롤 영역 (메뉴가 펼쳐진 상태)</p>
         </div>
       </div>
     );
@@ -94,9 +94,7 @@ export const MobileMenuOpenLoggedOut: Story = {
       <div className="max-w-[799px]">
         <Navbar />
         <div className="h-96 bg-gray-100 p-4">
-          <p className="text-sm text-gray-600">
-            스크롤 영역 (메뉴가 펼쳐진 상태)
-          </p>
+          <p className="text-sm text-gray-600">스크롤 영역 (메뉴가 펼쳐진 상태)</p>
         </div>
       </div>
     );
