@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@lib/utils';
 
 import { ButtonsCommonProps } from '@common/types/btn';
 import { WriteType } from '@common/types/btn';
@@ -18,7 +18,7 @@ const Write = ({ writeType, onClick, ...props }: WriteProps) => {
   return (
     <button
       aria-label="글쓰기 버튼"
-      className={clsx('rounded-50pxr gap-10pxr flex items-center justify-center bg-gray-900', {
+      className={cn('rounded-50pxr gap-10pxr flex items-center justify-center bg-gray-900', {
         'w-99pxr h-48pxr gap-6pxr': V1,
         'w-60pxr h-60pxr': V2,
       })}

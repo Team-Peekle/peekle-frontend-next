@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@lib/utils';
 
 import { ButtonsCommonProps } from '@common/types/btn';
 
@@ -17,7 +17,7 @@ const Post = ({ onClick, disabled = false, ...props }: ButtonsCommonProps) => {
       disabled={disabled}
       {...props}
     >
-      <p className={clsx('text-p18', disabled ? 'text-gray-200' : 'text-primary-500')}>게시</p>
+      <p className={cn('text-p18', disabled ? 'text-gray-200' : 'text-primary-500')}>게시</p>
     </button>
   );
 };

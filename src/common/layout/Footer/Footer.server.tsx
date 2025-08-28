@@ -14,7 +14,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="pt-40pxr pb-24pxr px-18pxr gap-8pxr bg-gray-0 flex flex-col items-center">
+    <footer className="pt-40pxr pb-24pxr px-18pxr gap-8pxr bg-gray-0 flex flex-col items-center">
       <div className="gap-x-4pxr flex items-center">
         <FooterButton termsType={TermsType.PRIVACY} onClick={handleClick} />
         <Divider />
@@ -23,7 +23,7 @@ const Footer = () => {
         <FooterButton termsType={TermsType.CONTACT} onClick={handleClick} />
       </div>
       <p className="text-p13-14 text-center text-gray-300">ⓒ 2025 Peekle. All rights reserved</p>
-    </div>
+    </footer>
   );
 };
 
