@@ -41,3 +41,9 @@ export const Size64: Story = {
     variant: ProfileVariant.SIZE_64,
   },
 };
+
+export const Size96: Story = {
+  args: {
+    variant: ProfileVariant.SIZE_96,
+  },
+};

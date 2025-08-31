@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { ProfileVariant } from '@common/types/profile';
+
 import Cta from '@common/components/btn/Cta/Cta.client';
 import { Plus } from '@common/components/svg/Plus';
 
@@ -47,13 +49,13 @@ const ProfileEdit = () => {
         <span className="gap-16pxr flex flex-col">
           <p className="text-p16sb text-gray-800">프로필 이미지</p>
           <div className="gap-40pxr flex flex-row items-center justify-center">
-            <Profile src={currentProfileSrc} variant="size-96" />
+            <Profile src={currentProfileSrc} variant={ProfileVariant.SIZE_96} />
             <span className="gap-10pxr flex flex-row items-center">
               {initialProfiles.map((src) => (
                 <Profile
                   key={src}
                   src={src}
-                  variant="size-40"
+                  variant={ProfileVariant.SIZE_40}
                   isSelected={currentProfileSrc === src}
                   onClick={() => handleProfileClick(src)}
                 />

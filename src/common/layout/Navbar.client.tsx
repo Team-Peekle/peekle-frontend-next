@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { ProfileVariant } from '@common/types/profile';
+
 import Profile from '@common/components/Profile.server';
 
 import { Close } from '@/common/components/svg/Close';
@@ -121,7 +123,7 @@ Navbar.Web = function NavbarWeb() {
           <Search className="size-20pxr text-gray-600" />
         </Link>
         {isLoggedIn ? (
-          <Profile variant="size-32" />
+          <Profile variant={ProfileVariant.SIZE_32} />
         ) : (
           <Link
             href={'/login'}
