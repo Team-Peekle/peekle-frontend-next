@@ -5,8 +5,11 @@ import { ChipType } from '@common/types/chip';
 import { DropdownType } from '@common/types/dropdown';
 import { PopupType } from '@common/types/popup';
 
+import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.server';
+import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
+import Sort from '@common/components/SortMenu/SortMenu.client';
 import Terms from '@common/components/Terms/Terms.client';
 import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
@@ -135,6 +138,9 @@ const JoyTestPage = () => {
           console.log('새상태:', newState, '이전상태:', bookmarked);
         }}
       />
+      <Sort />
+      <Category />
+      <DropdownBar />
       <Footer />
     </div>
   );

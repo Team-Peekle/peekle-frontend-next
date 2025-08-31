@@ -17,19 +17,27 @@ interface DropdownProps extends ButtonsCommonProps {
 }
 
 export const Dropdown = ({ dropdownType, text, onClick }: DropdownProps) => {
+  const handleClick = () => {
+    // VAR4는 버튼이 아닌 태그 내의 X 아이콘이 클릭되도록 하기 위해 onClick 무시
+    if (dropdownType === DropdownType.VAR4) {
+      return;
+    }
+    onClick();
+  };
   return (
     <button
       className={cn(
-        'px-10pxr py-6pxr gap-6pxr rounded-8pxr transition-spring flex h-fit w-fit items-center justify-center shadow-[0_0_10px_0_rgba(0,0,0,0.05)]',
+        'px-10pxr py-6pxr gap-6pxr rounded-8pxr transition-spring flex h-fit w-fit items-center justify-center shadow-[0_0_10pxr_0_rgba(0,0,0,0.05)]',
         {
           'bg-gray-0 hover:bg-gray-100':
             dropdownType === DropdownType.VAR1 ||
             dropdownType === DropdownType.VAR5 ||
             dropdownType === DropdownType.VAR6,
+          'cursor-default': dropdownType === DropdownType.VAR4,
           'bg-gray-800': dropdownType === DropdownType.VAR2 || dropdownType === DropdownType.VAR4,
         },
       )}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {dropdownType === DropdownType.VAR5 && (
         <HeartIcon fill="outlined" className="h-13pxr w-15pxr text-gray-400" />
@@ -54,7 +62,9 @@ export const Dropdown = ({ dropdownType, text, onClick }: DropdownProps) => {
           })}
         />
       )}
-      {dropdownType === DropdownType.VAR4 && <Close className="w-19pxr h-19pxr text-gray-0" />}
+      {dropdownType === DropdownType.VAR4 && (
+        <Close className="w-19pxr h-19pxr text-gray-0 cursor-pointer" onClick={onClick} />
+      )}
     </button>
   );
 };

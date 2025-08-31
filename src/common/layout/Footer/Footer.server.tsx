@@ -1,6 +1,6 @@
 import { TermsType } from '@common/types/terms';
 
-import { TermsLabels } from '@common/constants/terms';
+import { TERMS_LABELS } from '@common/constants/terms';
 
 import FooterButton from './TermsButton.client';
 
@@ -10,7 +10,7 @@ const Footer = () => {
 
   // 임시 클릭 핸들러
   const handleClick = (type: TermsType) => {
-    console.log(`${TermsLabels[type]} 클릭`);
+    console.log(`${TERMS_LABELS[type]} 클릭`);
   };
 
   return (
