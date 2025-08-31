@@ -9,6 +9,7 @@ import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.server';
 import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
+import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
 import Sort from '@common/components/SortMenu/SortMenu.client';
 import Terms from '@common/components/Terms/Terms.client';
 import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
@@ -141,6 +142,7 @@ const JoyTestPage = () => {
       <Sort />
       <Category />
       <DropdownBar />
+      <ProfileEdit />
       <Footer />
     </div>
   );

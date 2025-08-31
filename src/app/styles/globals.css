@@ -3,6 +3,7 @@
 @import './token/colors.css';
 @import './token/fonts.css';
 @import './token/pxrs.css';
+@import './custom-calendar.css';
 
 @custom-variant dark (&:is(.dark *));
 

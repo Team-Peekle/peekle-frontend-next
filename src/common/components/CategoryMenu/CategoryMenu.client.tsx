@@ -78,7 +78,7 @@ const CategoryMenu = () => {
           }
         />
       </span>
-      <p className="text-primary-500 text-16sb px-8pxr">*2개 이상 선택 가능</p>
+      <p className="text-primary-500 text-p16sb px-8pxr">*2개 이상 선택 가능</p>
     </div>
   );
 };

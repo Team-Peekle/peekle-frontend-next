@@ -40,7 +40,7 @@ const Terms = () => {
         </div>
         {/* 체크 영역 */}
         <div className="gap-20pxr flex flex-col">
-          <div className="pb-20pxr gap-8pxr flex flex-row border-b-gray-100">
+          <div className="pb-20pxr gap-8pxr flex flex-row border-b border-b-gray-100">
             <Checkbox
               checked={allChecked}
               onChange={(e) => handleAllCheckedChange(e.target.checked)}
