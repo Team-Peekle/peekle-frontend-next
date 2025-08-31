@@ -28,32 +28,33 @@ module.exports = {
     '^(next/(.*)$)|^(next$)', // Next.js
 
     // 외부 라이브러리
+    '^@tanstack/react-query$', // React Query
     '<THIRD_PARTY_MODULES>',
 
     // 전역 스타일
     '^@styles/(.*)$',
 
     // 정적 자산
-    '^@icons/(.*)$',
     '^@assets/(.*)$',
-
-    // svg 컴포넌트
-    '^@svgs/(.*)$',
 
     // 라이브러리 관련
     '^@lib/(.*)$',
 
+    // api 관련
+    '^@api/(.*)$',
+
     // 공통 모듈
     '^@common/types/(.*)$',
     '^@common/constants/(.*)$',
+    '^@common/errors/(.*)$',
     '^@common/schemas/(.*)$',
     '^@common/utils/(.*)$',
     '^@common/hooks/(.*)$',
     '^@common/apis/(.*)$',
     '^@common/components/(.*)$',
     '^@common/stores/(.*)$',
-    '^@common/(.*)$', // 나머지 공통 루트
     '^@buttons/(.*)$', // 버튼 컴포넌트
+    '^@common/(.*)$', // 나머지 공통 루트
 
     // 도메인 모듈 (features)
     '^@features/.*/types/(.*)$',
@@ -65,6 +66,9 @@ module.exports = {
     '^@features/.*/components/(.*)$',
     '^@features/(.*)$', // 나머지 도메인 루트
 
+    // 앱 엔트리
+    '@app/(.*)$',
+    
     // 기타 src 하위 경로
     '^@/(.*)$',
 
