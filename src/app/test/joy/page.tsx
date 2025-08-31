@@ -2,6 +2,7 @@
 
 import { ScrapLineColorType, WriteType } from '@common/types/btn';
 
+import { Popup, PopupType } from '@common/components/Popup.server';
 import Cta from '@common/components/btn/Cta/Cta.client';
 import Heart from '@common/components/btn/Heart/Heart.client';
 import Post from '@common/components/btn/Post/Post.client';
@@ -71,6 +72,14 @@ const JoyTestPage = () => {
         onStateChange={(newState, liked, likeCnt) => {
           console.log('새상태:', newState, '이전상태:', liked, '좋아요 개수:', likeCnt);
         }}
+      />
+      <Popup
+        type={PopupType.var1}
+        title="content"
+        leftText="text1"
+        rightText="text2"
+        onLeft={() => console.log('왼쪽 클릭')}
+        onRight={() => console.log('오른쪽 클릭')}
       />
       <Footer />
     </div>
