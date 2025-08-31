@@ -25,14 +25,14 @@ const Toast = ({ toast }: ToastProps) => {
       clearTimeout(enterTimer);
       clearTimeout(removeTimer);
     };
-  }, [key]);
+  }, [key, duration]);
 
   useEffect(() => {
     if (isRemoving) {
       const timeout = setTimeout(() => removeToast(key), 500); // transition 시간과 맞춤
       return () => clearTimeout(timeout);
     }
-  }, [isRemoving]);
+  }, [key, isRemoving, removeToast]);
 
   return (
     <div

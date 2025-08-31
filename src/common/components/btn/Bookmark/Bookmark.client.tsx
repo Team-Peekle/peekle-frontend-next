@@ -27,6 +27,7 @@ const Bookmark = ({ isBookmarked = false, onStateChange, ...props }: BookmarkPro
       aria-pressed={bookmarked}
       onClick={handleClick}
       className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-fit flex-row items-center justify-center bg-gray-50"
+      {...props}
     >
       {bookmarked ? (
         <HeartIcon fill="weight" className="w-22pxr h-18pxr text-semantic-red" />
