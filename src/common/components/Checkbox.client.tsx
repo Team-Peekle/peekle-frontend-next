@@ -8,7 +8,7 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function Checkbox({ className = '', ...props }: CheckboxProps) {
   return (
-    <div className="w-20pxr h-20pxr relative">
+    <label className="w-20pxr h-20pxr relative cursor-pointer">
       <input
         type="checkbox"
         className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
@@ -19,6 +19,6 @@ export default function Checkbox({ className = '', ...props }: CheckboxProps) {
       >
         {props.checked && <Check className="size-20pxr text-white" />}
       </div>
-    </div>
+    </label>
   );
 }

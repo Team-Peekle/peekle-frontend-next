@@ -125,7 +125,7 @@ Navbar.Web = function NavbarWeb() {
         ) : (
           <Link
             href={'/login'}
-            className="px-16pxr pt-8pxr pb-7pxr rounded-8pxr bg-gray-0 text-primary-500 text-p14 h-fit w-fit border border-gray-200"
+            className="px-16pxr pt-8pxr pb-8pxr rounded-8pxr bg-gray-0 text-primary-500 text-p14 h-fit w-fit border border-gray-200"
           >
             회원가입/로그인
           </Link>

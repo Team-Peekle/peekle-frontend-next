@@ -2,7 +2,9 @@
 
 import { ScrapLineColorType, WriteType } from '@common/types/btn';
 
+import Chip, { ChipType } from '@common/components/Chip/Chip.server';
 import { Popup, PopupType } from '@common/components/Popup.server';
+import Terms from '@common/components/Terms/Terms.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
 import Heart from '@common/components/btn/Heart/Heart.client';
 import Post from '@common/components/btn/Post/Post.client';
@@ -74,13 +76,17 @@ const JoyTestPage = () => {
         }}
       />
       <Popup
-        type={PopupType.var1}
+        type={PopupType.VAR1}
         title="content"
         leftText="text1"
         rightText="text2"
         onLeft={() => console.log('왼쪽 클릭')}
         onRight={() => console.log('오른쪽 클릭')}
       />
+      <Terms />
+      <Chip text="text" type={ChipType.DEFAULT} />
+      <Chip text="text" type={ChipType.VAR1} />
+      <Chip text="text" type={ChipType.VAR2} />
       <Footer />
     </div>
   );

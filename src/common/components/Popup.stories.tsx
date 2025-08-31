@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    type: PopupType.var1,
+    type: PopupType.VAR1,
     title: '정말 삭제하시겠습니까?',
     leftText: '취소',
     rightText: '삭제',

@@ -37,7 +37,7 @@ const Heart = ({ isLiked = false, likeCount, onStateChange, ...props }: HeartPro
       aria-label={`좋아요 버튼, 현재 ${liked ? '눌림' : '안 눌림'} 상태`}
       aria-pressed={liked}
       className={cn(
-        'w-28pxr h-21pxr gap-6pxr transition-spring flex items-center justify-center transition-all',
+        'w-28pxr h-21pxr gap-6pxr transition-spring flex items-center justify-center',
         liked ? 'text-semantic-red' : 'text-gray-300',
       )}
       onClick={handleClick}

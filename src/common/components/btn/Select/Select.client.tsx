@@ -26,7 +26,7 @@ const Select = ({ text, isSelected = false, onStateChange, ...props }: SelectPro
     <button
       aria-label={`${text} 항목 선택 버튼`}
       aria-pressed={selected}
-      className="w-144pxr p-8pxr rounded-8pxr transition-spring text-p15m bg-gray-0 flex items-center transition-all hover:bg-gray-100"
+      className="w-144pxr p-8pxr rounded-8pxr transition-spring text-p15m bg-gray-0 flex items-center hover:bg-gray-100"
       onClick={handleClick}
       {...props}
     >

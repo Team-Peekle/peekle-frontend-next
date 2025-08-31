@@ -7,63 +7,71 @@
 @layer utilities {
   /* Responsive Headings */
   .text-h2 {
-    @apply text-[1.75rem] leading-[1.6em] font-bold tracking-[-0.03em] max-[800px]:text-[1.5rem];
+    @apply text-28pxr max-[800px]:text-24pxr leading-[1.6em] font-bold tracking-[-0.03em];
   }
 
   .text-h3 {
-    @apply text-[1.5rem] leading-[1.6em] font-bold tracking-[-0.03em] max-[800px]:text-[1.375rem];
+    @apply text-24pxr max-[800px]:text-22pxr leading-[1.6em] font-bold tracking-[-0.03em];
   }
 
   .text-p18-20 {
-    @apply text-[1.25rem] font-extrabold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[1.125rem];
+    @apply text-20pxr max-[800px]:text-18pxr leading-[1.5em] font-extrabold tracking-[-0.02em];
   }
 
-  .text-p16-17 {
-    @apply text-[1.0625rem] font-extrabold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[1rem];
+  .text-p16-18 {
+    @apply text-18pxr max-[800px]:text-16pxr leading-[1.5em] font-bold tracking-[-0.02em];
   }
 
-  .text-p15-16 {
-    @apply text-[1rem] font-medium leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[0.9375rem];
+  .text-p14-16 {
+    @apply text-16pxr max-[800px]:text-14pxr leading-[1.7em] font-semibold tracking-[-0.02em];
   }
 
-  .text-p13-14 {
-    @apply text-[0.875rem] font-bold leading-[1.5em] tracking-[-0.02em] max-[800px]:text-[0.8125rem];
+  .text-p14-15 {
+    @apply text-15pxr max-[800px]:text-14pxr leading-[1.5em] font-semibold tracking-[-0.02em];
   }
 
   /* Fixed Typography */
+  .text-p24 {
+    @apply text-24pxr leading-[1.6em] font-bold tracking-[-0.02em] text-gray-600 italic;
+  }
+
+  .text-p20 {
+    @apply text-20pxr leading-[1.6em] font-bold tracking-[-0.02em] text-gray-600 italic;
+  }
+
   .text-p18 {
-    @apply text-[1.125rem] font-normal leading-[1.5em] tracking-[-0.02em];
+    @apply text-18pxr leading-[1.6em] font-normal tracking-[-0.02em];
   }
 
   .text-p17b {
-    @apply text-[1.0625rem] font-bold leading-[1.5em] tracking-[-0.02em];
+    @apply text-17pxr leading-[1.6em] font-bold tracking-[-0.02em];
   }
 
   .text-p17m {
-    @apply text-[1.0625rem] font-medium leading-[1.5em] tracking-[-0.02em];
+    @apply text-17pxr leading-[1.7em] font-medium tracking-[-0.02em];
   }
 
   .text-p16b {
-    @apply text-[1rem] font-bold leading-[1.5em] tracking-[-0.02em];
+    @apply text-16pxr leading-[1.6em] font-bold tracking-[-0.02em];
   }
 
   .text-p16sb {
-    @apply text-[1rem] font-semibold leading-[1.5em] tracking-[-0.02em];
+    @apply text-16pxr leading-[1.6em] font-semibold tracking-[-0.02em];
   }
 
   .text-p16m {
-    @apply text-[1rem] font-medium leading-[1.5em] tracking-[-0.02em];
+    @apply text-16pxr leading-[1.7em] font-medium tracking-[-0.02em];
   }
 
   .text-p15b {
-    @apply text-[0.9375rem] font-bold leading-[1.5em] tracking-[-0.02em];
+    @apply text-15pxr leading-[1.5em] font-bold tracking-[-0.02em];
   }
 
   .text-p15m {
-    @apply text-[0.9375rem] font-medium leading-[1.5em] tracking-[-0.02em];
+    @apply text-15pxr leading-[1.5em] font-medium tracking-[-0.02em];
   }
 
   .text-p14 {
-    @apply text-[0.875rem] font-normal leading-[1.5em] tracking-[-0.02em];
+    @apply text-14pxr leading-[1.5em] font-normal tracking-[-0.02em];
   }
 }

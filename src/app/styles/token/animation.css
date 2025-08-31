@@ -2,6 +2,8 @@
 
 @layer utilities {
   .transition-spring {
-    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition-property: all;
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
