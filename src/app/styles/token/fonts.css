@@ -32,11 +32,11 @@
 
   /* Fixed Typography */
   .text-p24 {
-    @apply text-24pxr leading-[1.6em] font-bold tracking-[-0.02em] italic;
+    @apply text-24pxr leading-[1.6em] font-bold tracking-[-0.02em];
   }
 
   .text-p20 {
-    @apply text-20pxr leading-[1.6em] font-bold tracking-[-0.02em] italic;
+    @apply text-20pxr leading-[1.6em] font-bold tracking-[-0.02em];
   }
 
   .text-p18 {

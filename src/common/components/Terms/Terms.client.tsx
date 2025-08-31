@@ -40,7 +40,7 @@ const Terms = () => {
         </div>
         {/* 체크 영역 */}
         <div className="gap-20pxr flex flex-col">
-          <div className="pb-20pxr gap-8pxr flex flex-row border-b border-b-gray-100">
+          <div className="pb-20pxr gap-8pxr flex flex-row items-center border-b border-b-gray-100">
             <Checkbox
               checked={allChecked}
               onChange={(e) => handleAllCheckedChange(e.target.checked)}
@@ -48,7 +48,7 @@ const Terms = () => {
             <p className="text-p17b text-gray-900">네, 모두 동의합니다.</p>
           </div>
           <div className="flex flex-row items-center justify-between">
-            <span className="gap-8pxr flex flex-row">
+            <span className="gap-8pxr flex flex-row items-center">
               <Checkbox
                 checked={requiredChecked[TermsType.TERMS]}
                 onChange={(e) => handleRequiredChange(TermsType.TERMS, e.target.checked)}
@@ -58,7 +58,7 @@ const Terms = () => {
             <button className="text-p16m text-gray-300">보기</button>
           </div>
           <div className="flex flex-row items-center justify-between">
-            <span className="gap-8pxr flex flex-row">
+            <span className="gap-8pxr flex flex-row items-center">
               <Checkbox
                 checked={requiredChecked[TermsType.PRIVACY]}
                 onChange={(e) => handleRequiredChange(TermsType.PRIVACY, e.target.checked)}

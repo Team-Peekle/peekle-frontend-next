@@ -12,6 +12,7 @@ import Popup from '@common/components/Popup.server';
 import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
 import Sort from '@common/components/SortMenu/SortMenu.client';
 import Terms from '@common/components/Terms/Terms.client';
+import WithDraw from '@common/components/WithDraw/WithDraw.client';
 import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
 import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
@@ -143,6 +144,7 @@ const JoyTestPage = () => {
       <Category />
       <DropdownBar />
       <ProfileEdit />
+      <WithDraw />
       <Footer />
     </div>
   );

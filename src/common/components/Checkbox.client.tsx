@@ -15,7 +15,7 @@ export default function Checkbox({ className = '', ...props }: CheckboxProps) {
         {...props}
       />
       <div
-        className={`w-20pxr h-20pxr rounded-4pxr border-2pxr absolute inset-0 flex items-center justify-center border-gray-200 transition-colors duration-200 ${props.checked ? 'border-gray-800 bg-gray-800' : 'bg-gray-0'} ${className} `}
+        className={`w-20pxr h-20pxr rounded-4pxr absolute inset-0 flex items-center justify-center border-[2px] border-gray-200 transition-colors duration-200 ${props.checked ? 'border-gray-800 bg-gray-800' : 'bg-gray-0'} ${className} `}
       >
         {props.checked && <Check className="size-20pxr text-white" />}
       </div>
