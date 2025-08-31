@@ -1,20 +1,12 @@
-import { SvgWrapper } from "./SvgWrapper";
+import { ProfileVariant } from '@common/types/profile';
 
-export enum ProfileVariant {
-  SIZE_32 = "size-32",
-  SIZE_40 = "size-40",
-  SIZE_64 = "size-64",
-  EDIT = "edit",
-}
+import { SvgWrapper } from './SvgWrapper';
 
 interface ProfileProps extends React.HTMLAttributes<HTMLElement> {
   variant: ProfileVariant;
 }
 
-export function Profile({
-  variant = ProfileVariant.SIZE_32,
-  ...props
-}: ProfileProps) {
+export function Profile({ variant = ProfileVariant.SIZE_32, ...props }: ProfileProps) {
   const getSvgContent = () => {
     switch (variant) {
       case ProfileVariant.SIZE_32:
@@ -158,14 +150,7 @@ export function Profile({
                 fill="white"
               />
             </g>
-            <rect
-              x="84.5"
-              y="84.5"
-              width="33"
-              height="33"
-              rx="16.5"
-              fill="#9EA4A9"
-            />
+            <rect x="84.5" y="84.5" width="33" height="33" rx="16.5" fill="#9EA4A9" />
             <rect
               x="84.5"
               y="84.5"

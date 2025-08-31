@@ -2,9 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 
+import { ShareIcon } from '@common/components/svg/Share';
+
 import { Back } from '@/common/components/svg/Back';
 import { Scrap } from '@/common/components/svg/Scrap';
-import { Share } from '@/common/components/svg/Share';
 import { useIsScrolled } from '@/common/hooks/useIsScrolled';
 
 interface DetailNavbarProps {
@@ -44,7 +45,7 @@ export default function DetailNavbar({ onShare, onScrap, isScrap = false }: Deta
             onClick={onShare}
             className="size-44pxr flex cursor-pointer items-center justify-center"
           >
-            <Share className="size-20pxr text-gray-600" />
+            <ShareIcon className="size-20pxr text-gray-600" />
           </button>
         )}
         {onScrap && (

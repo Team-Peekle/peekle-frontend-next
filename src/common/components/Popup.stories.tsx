@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { Popup } from './Popup.server';
-import { PopupType } from './Popup.server';
+import { PopupType } from '@common/types/popup';
+
+import Popup from './Popup.server';
 
 const meta: Meta<typeof Popup> = {
   title: 'Common/Popup',

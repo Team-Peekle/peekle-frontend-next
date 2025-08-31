@@ -1,17 +1,23 @@
 'use client';
 
 import { ScrapLineColorType, WriteType } from '@common/types/btn';
+import { ChipType } from '@common/types/chip';
+import { DropdownType } from '@common/types/dropdown';
+import { PopupType } from '@common/types/popup';
 
-import Chip, { ChipType } from '@common/components/Chip/Chip.server';
-import { Popup, PopupType } from '@common/components/Popup.server';
+import Chip from '@common/components/Chip/Chip.server';
+import Popup from '@common/components/Popup.server';
 import Terms from '@common/components/Terms/Terms.client';
+import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
+import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
 import Heart from '@common/components/btn/Heart/Heart.client';
 import Post from '@common/components/btn/Post/Post.client';
 import Scrap from '@common/components/btn/Scrap/Scrap.client';
 import ScrapFilled from '@common/components/btn/ScrapFilled/ScrapFilled.client';
 import ScrapLine from '@common/components/btn/ScrapLine/ScrapLine.client';
 import Select from '@common/components/btn/Select/Select.client';
+import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 
 import Footer from '@common/layout/Footer/Footer.server';
@@ -64,7 +70,7 @@ const JoyTestPage = () => {
       <Post onClick={handleClick} />
       <Heart
         isLiked={true}
-        likeCount={2}
+        likeCount={1}
         onStateChange={(newState, liked, likeCnt) => {
           console.log('새상태:', newState, '이전상태:', liked, '좋아요 개수:', likeCnt);
         }}
@@ -87,6 +93,48 @@ const JoyTestPage = () => {
       <Chip text="text" type={ChipType.DEFAULT} />
       <Chip text="text" type={ChipType.VAR1} />
       <Chip text="text" type={ChipType.VAR2} />
+      <Dropdown
+        dropdownType={DropdownType.VAR1}
+        text="text"
+        onClick={() => {
+          console.log('드롭다운 클릭');
+        }}
+      />
+      <Dropdown
+        dropdownType={DropdownType.VAR2}
+        text="text"
+        onClick={() => {
+          console.log('드롭다운 클릭');
+        }}
+      />
+      <Dropdown
+        dropdownType={DropdownType.VAR4}
+        text="text"
+        onClick={() => {
+          console.log('드롭다운 클릭');
+        }}
+      />
+      <Dropdown
+        dropdownType={DropdownType.VAR5}
+        text="text"
+        onClick={() => {
+          console.log('드롭다운 클릭');
+        }}
+      />
+      <Dropdown
+        dropdownType={DropdownType.VAR6}
+        text="text"
+        onClick={() => {
+          console.log('드롭다운 클릭');
+        }}
+      />
+      <Share link="dummyLink" />
+      <Bookmark
+        isBookmarked={true}
+        onStateChange={(newState, bookmarked) => {
+          console.log('새상태:', newState, '이전상태:', bookmarked);
+        }}
+      />
       <Footer />
     </div>
   );

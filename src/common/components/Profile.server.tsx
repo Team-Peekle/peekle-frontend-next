@@ -1,6 +1,8 @@
+import { ProfileVariant } from '@common/types/profile';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-import { Profile as ProfileIcon, ProfileVariant } from './svg/Profile';
+import { Profile as ProfileIcon } from './svg/Profile';
 
 interface ProfileProps {
   src?: string;

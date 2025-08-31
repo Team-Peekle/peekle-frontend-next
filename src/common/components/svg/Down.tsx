@@ -4,16 +4,16 @@ export const Down = (props: React.HTMLAttributes<HTMLElement>) => {
   return (
     <SvgWrapper {...props}>
       <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        width="10.371"
+        height="5.834"
+        fill="none"
+        overflow="visible"
       >
         <path
-          d="M12.136 13.233L17.192 8.779L18.636 10.052L12.136 15.779L5.63599 10.052L7.07999 8.78L12.136 13.234V13.233Z"
+          d="M 5.185 3.713 L 9.219 0 L 10.371 1.061 L 5.185 5.834 L 0 1.061 L 1.152 0.001 L 5.185 3.713 Z"
           fill="currentColor"
-        />
+        ></path>
       </svg>
     </SvgWrapper>
   );

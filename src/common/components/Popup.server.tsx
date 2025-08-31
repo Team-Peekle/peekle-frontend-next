@@ -1,10 +1,5 @@
 import { Warning } from '@/common/components/svg/Warning';
-
-export enum PopupType {
-  VAR1 = 'VAR1',
-  VAR2 = 'VAR2',
-  VAR3 = 'VAR3',
-}
+import { PopupType } from '@/common/types/popup';
 
 interface PopupProps {
   type: PopupType;
@@ -15,7 +10,7 @@ interface PopupProps {
   onRight: () => void;
 }
 
-export function Popup({ type, title, leftText, rightText, onLeft, onRight }: PopupProps) {
+export default function Popup({ type, title, leftText, rightText, onLeft, onRight }: PopupProps) {
   return (
     <div className="rounded-20pxr w-300pxr text-p16b px-12pxr pt-32pxr pb-12pxr gap-24pxr bg-gray-0 flex h-fit flex-col items-center">
       <div className="gap-18pxr flex flex-col items-center">

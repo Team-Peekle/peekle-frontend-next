@@ -1,6 +1,6 @@
 import { SvgWrapper } from './SvgWrapper';
 
-export const Write = (props: React.HTMLAttributes<HTMLElement>) => {
+export const WriteIcon = (props: React.HTMLAttributes<HTMLElement>) => {
   return (
     <SvgWrapper {...props}>
       <svg
@@ -17,4 +17,4 @@ export const Write = (props: React.HTMLAttributes<HTMLElement>) => {
       </svg>
     </SvgWrapper>
   );
-}
+};

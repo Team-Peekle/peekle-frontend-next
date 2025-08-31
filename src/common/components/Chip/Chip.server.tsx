@@ -1,10 +1,6 @@
 import { cn } from '@lib/utils';
 
-export enum ChipType {
-  DEFAULT = 'DEFAULT',
-  VAR1 = 'VAR1',
-  VAR2 = 'VAR2',
-}
+import { ChipType } from '@common/types/chip';
 
 interface ChipProps {
   type: ChipType;
