@@ -30,6 +30,13 @@ const Terms = () => {
 
   const isSubmitDisabled = !Object.values(requiredChecked).every(Boolean);
 
+  const handleSignUp = () => {
+    if (!isSubmitDisabled) {
+      console.log('가입 완료');
+      // ✅ TODO: 여기서 실제 가입 로직 수행
+    }
+  };
+
   return (
     <div className="w-328pxr rounded-16pxr px-20pxr pt-40pxr pb-20pxr gap-40pxr flex h-fit flex-col items-center justify-center bg-white">
       <div className="gap-44pxr flex flex-shrink-0 flex-col">
@@ -70,13 +77,7 @@ const Terms = () => {
         </div>
       </div>
       {/* 완료 버튼 */}
-      <Cta
-        text="가입 완료"
-        disabled={isSubmitDisabled}
-        onClick={() => {
-          console.log('가입 완료 클릭');
-        }}
-      />
+      <Cta text="가입 완료" disabled={isSubmitDisabled} onClick={handleSignUp} />
     </div>
   );
 };

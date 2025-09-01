@@ -18,11 +18,21 @@ import DescriptionCard from './DescriptionCard.client';
 const WithDraw = () => {
   const router = useRouter();
   const [isChecked, setIsCecked] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [isWithdrawed, setIsWithdrawed] = useState(false);
+
+  const handleCancle = () => {
+    // parallel router 쓴다고 가정하고 이전 경로로 이동 (모달 닫기 역할)
+    router.back();
+  };
+
+  const handleWithdraw = () => {
+    // ✅ TODO: 여기서 실제 탈퇴 로직 수행
+    setIsWithdrawed(true);
+  };
 
   return (
     <>
-      {!isCompleted ? (
+      {!isWithdrawed ? (
         <div className="bg-gray-0 w-300pxr rounded-20pxr gap-16pxr pt-28pxr flex h-fit flex-col">
           <div className="p-14pxr gap-20pxr flex flex-col">
             <p className="text-p20 text-start text-gray-800">
@@ -43,11 +53,7 @@ const WithDraw = () => {
             </div>
           </div>
           <div className="pb-14pxr px-14pxr flex flex-row">
-            {/* parallel router 쓴다고 가정하고 이전 경로로 이동 */}
-            <button
-              className="text-p17b py-10pxr w-full text-gray-500"
-              onClick={() => router.back()}
-            >
+            <button className="text-p17b py-10pxr w-full text-gray-500" onClick={handleCancle}>
               취소
             </button>
             <button
@@ -56,7 +62,8 @@ const WithDraw = () => {
                 isChecked ? 'text-semantic-red' : 'text-gray-300',
               )}
               disabled={!isChecked}
-              onClick={() => setIsCompleted(true)}
+              onClick={handleWithdraw}
+              aria-disabled={!isChecked}
             >
               탈퇴하기
             </button>

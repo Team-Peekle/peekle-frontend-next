@@ -40,6 +40,12 @@ const ProfileEdit = () => {
     setCurrentNickname(initialNickname);
   };
 
+  const handleEdit = () => {
+    console.log(`변경 내용: ${currentNickname}, ${currentProfileSrc}`);
+    // ✅ TODO: 여기서 실제 프로필 변경 로직 수행
+    setIsChanged(false);
+  };
+
   return (
     <div className="gap-16pxr rounded-20pxr bg-gray-0 flex h-fit w-fit flex-shrink-0 flex-col">
       <header className="text-p18 p-16pxr border-b border-b-gray-100 text-center text-gray-700">
@@ -80,11 +86,7 @@ const ProfileEdit = () => {
       </div>
       <div className="gap-12pxr py-16pxr px-20pxr flex flex-row border-t border-t-gray-100">
         <Cta text="취소" disabled={!isChanged} onClick={handleCancel} />
-        <Cta
-          text="변경하기"
-          disabled={!isChanged}
-          onClick={() => console.log(`변경 내용: ${currentNickname}, ${currentProfileSrc}`)}
-        />
+        <Cta text="변경하기" disabled={!isChanged} onClick={handleEdit} />
       </div>
     </div>
   );

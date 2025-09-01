@@ -2,7 +2,7 @@ name: Vercel Production Deployment
 
 on:
   push:
-    branches: [main, develop] # main, develop 브랜치에 push될 때 실행
+    branches: [main] # main 브랜치에 push될 때 실행
   workflow_dispatch:
     inputs:
       GITHUB_ACCESS_TOKEN:
