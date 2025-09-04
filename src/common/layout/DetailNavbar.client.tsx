@@ -11,13 +11,7 @@ import { Scrap } from '@/common/components/svg/Scrap';
 import { useIsScrolled } from '@/common/hooks/useIsScrolled';
 import { useModal } from '@/common/hooks/useModal';
 
-interface DetailNavbarProps {
-  onShare?: () => void;
-  onScrap?: () => void;
-  isScrap?: boolean;
-}
-
-export default function DetailNavbar({ onShare, onScrap, isScrap = false }: DetailNavbarProps) {
+export default function DetailNavbar() {
   const router = useRouter();
   const isScrolled = useIsScrolled();
   const { openModal } = useModal();
@@ -36,7 +30,7 @@ export default function DetailNavbar({ onShare, onScrap, isScrap = false }: Deta
 
   return (
     <nav
-      className={`py-10pxr bg-gray-0 h-64pxr flex w-full flex-row items-center justify-between border-1 ${
+      className={`py-10pxr bg-gray-0 h-64pxr flex w-full flex-row items-center justify-between ${
         isScrolled ? 'border-b border-gray-100' : ''
       }`}
     >
