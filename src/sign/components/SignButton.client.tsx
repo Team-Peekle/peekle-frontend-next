@@ -14,7 +14,7 @@ const Cta = ({ children, className, ...props }: CtaProps) => {
     <button
       aria-label={`${children} 실행하기 버튼`}
       className={cn(
-        'w-336pxr p-16pxr rounded-12pxr transition-spring flex items-center justify-center overflow-hidden transition-all',
+        'w-336pxr p-16pxr rounded-12pxr transition-spring flex items-center justify-center overflow-hidden',
         className,
       )}
       {...props}

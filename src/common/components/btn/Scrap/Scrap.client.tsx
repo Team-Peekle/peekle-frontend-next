@@ -25,7 +25,7 @@ const Scrap = ({ isScrapped = false, onStateChange, ...props }: ScrapProps) => {
     <button
       aria-label="스크랩 버튼"
       aria-pressed={scpapped}
-      className="w-40pxr h-40pxr rounded-12pxr transition-spring bg-gray-0 flex items-center justify-center transition-all"
+      className="w-40pxr h-40pxr rounded-12pxr transition-spring bg-gray-0 flex items-center justify-center"
       onClick={handleClick}
       {...props}
     >

@@ -14,8 +14,8 @@ export default function DayCard({ title, date, className }: DayCardProps) {
         className,
       )}
     >
-      <p className="text-p15-16 w-full text-left text-gray-400">{title}</p>
-      <p className="text-p16-17 w-full text-left text-gray-700">{date}</p>
+      <p className="text-p14-16 w-full text-left text-gray-400">{title}</p>
+      <p className="text-p16-18 w-full text-left text-gray-700">{date}</p>
     </div>
   );
 }

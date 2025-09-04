@@ -28,7 +28,7 @@ const ScrapLine = ({ color, isScrapped = false, onStateChange, ...props }: Scrap
     <button
       aria-label="스크랩 버튼"
       aria-pressed={scrapped}
-      className="w-24pxr h-24pxr transition-spring flex items-center justify-center transition-all"
+      className="w-24pxr h-24pxr transition-spring flex items-center justify-center"
       onClick={handleClick}
       {...props}
     >

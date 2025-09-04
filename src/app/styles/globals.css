@@ -3,6 +3,7 @@
 @import './token/colors.css';
 @import './token/fonts.css';
 @import './token/pxrs.css';
+@import './custom-calendar.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -122,9 +123,27 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-pretendard), sans-serif;
+  }
+
+  button {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  p {
+    word-break: keep-all;
+    text-wrap: pretty;
   }
 }

@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
+import { ProfileVariant } from '@common/types/profile';
+
 import Profile from './Profile.server';
-import { ProfileVariant } from './svg/Profile';
 
 const meta: Meta<typeof Profile> = {
   title: 'Common/Profile',
@@ -38,5 +39,11 @@ export const Size40: Story = {
 export const Size64: Story = {
   args: {
     variant: ProfileVariant.SIZE_64,
+  },
+};
+
+export const Size96: Story = {
+  args: {
+    variant: ProfileVariant.SIZE_96,
   },
 };

@@ -5,7 +5,7 @@ import { cn } from '@lib/utils';
 import { ButtonsCommonProps } from '@common/types/btn';
 import { WriteType } from '@common/types/btn';
 
-import { WriteIcon } from '@common/components/svg/WriteIcon';
+import { WriteIcon } from '@common/components/svg/Write';
 
 interface WriteProps extends ButtonsCommonProps {
   writeType: WriteType;

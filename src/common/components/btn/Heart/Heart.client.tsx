@@ -6,7 +6,7 @@ import { cn } from '@lib/utils';
 
 import { ButtonsCommonProps } from '@common/types/btn';
 
-import { HeartIcon } from '@common/components/svg/HeartIcon';
+import { HeartIcon } from '@common/components/svg/Heart';
 
 interface HeartProps extends ButtonsCommonProps {
   isLiked: boolean; // 초기 좋아요 상태
@@ -37,14 +37,18 @@ const Heart = ({ isLiked = false, likeCount, onStateChange, ...props }: HeartPro
       aria-label={`좋아요 버튼, 현재 ${liked ? '눌림' : '안 눌림'} 상태`}
       aria-pressed={liked}
       className={cn(
-        'w-28pxr h-21pxr gap-6pxr transition-spring flex items-center justify-center transition-all',
+        'py-3pxr gap-6pxr transition-spring flex h-fit w-fit items-center justify-center',
         liked ? 'text-semantic-red' : 'text-gray-300',
       )}
       onClick={handleClick}
       {...props}
     >
       {typeof likeCnt === 'number' && <p className="text-p14">{likeCnt}</p>}
-      {liked ? <HeartIcon fill="weight" /> : <HeartIcon fill="outlined" />}
+      {liked ? (
+        <HeartIcon fill="weight" className="w-16pxr h-16pxr" />
+      ) : (
+        <HeartIcon fill="outlined" className="w-16pxr h-16pxr" />
+      )}
     </button>
   );
 };

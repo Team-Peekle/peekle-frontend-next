@@ -25,7 +25,7 @@ const ScrapFilled = ({ isScrapped = false, onStateChange, ...props }: ScrapFille
     <button
       aria-label="스크랩 버튼"
       aria-pressed={scpapped}
-      className="w-30pxr h-30pxr rounded-8pxr transition-spring bg-gray-0 hover:bg-primary-100 flex items-center justify-center transition-all"
+      className="w-30pxr h-30pxr rounded-8pxr transition-spring bg-gray-0 hover:bg-primary-100 flex items-center justify-center"
       onClick={handleClick}
       {...props}
     >

@@ -3,7 +3,7 @@
 import { ButtonsCommonProps } from '@common/types/btn';
 import { TermsType } from '@common/types/terms';
 
-import { TermsLabels } from '@common/constants/terms';
+import { TERMS_LABELS } from '@common/constants/terms';
 
 interface TermsButtonProps extends Omit<ButtonsCommonProps, 'onClick'> {
   termsType: TermsType;
@@ -19,7 +19,7 @@ const TermsButton = ({ termsType, onClick }: TermsButtonProps) => {
       className="bg-gray-0 gap-6pxr rounded-6pxr px-6pxr py-4pxr flex items-center justify-center hover:bg-gray-100"
       onClick={() => onClick(termsType)}
     >
-      <p className="text-p13-14 text-gray-500">{TermsLabels[termsType]}</p>
+      <p className="text-p14-15 text-gray-500">{TERMS_LABELS[termsType]}</p>
     </button>
   );
 };

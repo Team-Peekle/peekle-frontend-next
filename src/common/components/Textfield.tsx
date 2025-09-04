@@ -7,6 +7,7 @@ type TextfieldStatus = 'default' | 'success' | 'error';
 interface TextfieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   status?: TextfieldStatus;
+  label?: string;
   helperText?: string;
 }
 
@@ -19,11 +20,13 @@ const statusStyle: Record<TextfieldStatus, string> = {
 export default function Textfield({
   className,
   status = 'default',
+  label,
   helperText,
   ...props
 }: TextfieldProps) {
   return (
     <div className="flex flex-col gap-2">
+      <label className="text-p16sb text-gray-800">{label}</label>
       <input
         className={cn(
           'w-full rounded-[12px] border-1 px-4 py-3 outline-none',
