@@ -4,10 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { DetailNavbarModal } from '@common/components/DetailNavbarModal';
 import { ArrowLeft } from '@common/components/svg/ArrowLeft';
-import { ShareIcon } from '@common/components/svg/Share';
 
-import { Back } from '@/common/components/svg/Back';
-import { Scrap } from '@/common/components/svg/Scrap';
 import { useIsScrolled } from '@/common/hooks/useIsScrolled';
 import { useModal } from '@/common/hooks/useModal';
 
@@ -41,25 +38,6 @@ export default function DetailNavbar() {
         <ArrowLeft className="h-[16px] w-[10px]" />
         <p className="text-p17m">뒤로</p>
       </button>
-
-      <div className="gap-8pxr flex flex-row">
-        {onShare && (
-          <button
-            onClick={onShare}
-            className="size-44pxr flex cursor-pointer items-center justify-center"
-          >
-            <ShareIcon className="size-20pxr text-gray-600" />
-          </button>
-        )}
-        {onScrap && (
-          <button
-            onClick={onScrap}
-            className="size-44pxr flex cursor-pointer items-center justify-center"
-          >
-            <Scrap className="size-20pxr text-gray-600" fill={isScrap ? 'weight' : 'outlined'} />
-          </button>
-        )}
-      </div>
     </nav>
   );
 }

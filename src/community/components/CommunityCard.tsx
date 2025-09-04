@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { Comment } from '@common/components/svg/Comment';
-import { Heart } from '@common/components/svg/Heart';
+import { HeartIcon } from '@common/components/svg/Heart';
 
 type CommunityResponse = {
   id: number;
@@ -54,7 +54,7 @@ export function CommunityCard({ post, onClick, onLikeClick }: CommunityCardProps
               post.isLiked ? 'text-red-500' : 'text-gray-500'
             } transition-colors hover:text-red-500`}
           >
-            <Heart className="h-4 w-4" />
+            <HeartIcon className="h-4 w-4" />
             <span>{post.like}</span>
           </button>
           <div className="text-p15 flex items-center gap-1 text-gray-500">

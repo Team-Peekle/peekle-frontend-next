@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { cn } from '@lib/utils';
-
 import { ProfileVariant } from '@common/types/profile';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
