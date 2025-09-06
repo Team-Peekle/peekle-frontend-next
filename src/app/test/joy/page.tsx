@@ -6,7 +6,7 @@ import { DropdownType } from '@common/types/dropdown';
 import { PopupType } from '@common/types/popup';
 
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
-import Chip from '@common/components/Chip/Chip.server';
+import Chip from '@common/components/Chip/Chip.client';
 import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
 import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
@@ -24,6 +24,7 @@ import ScrapLine from '@common/components/btn/ScrapLine/ScrapLine.client';
 import Select from '@common/components/btn/Select/Select.client';
 import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
+import Tabs from '@common/components/tabs/Tabs.client';
 
 import Footer from '@common/layout/Footer/Footer.server';
 
@@ -95,9 +96,9 @@ const JoyTestPage = () => {
         onRight={() => console.log('오른쪽 클릭')}
       />
       <Terms />
-      <Chip text="text" type={ChipType.DEFAULT} />
-      <Chip text="text" type={ChipType.VAR1} />
-      <Chip text="text" type={ChipType.VAR2} />
+      <Chip text="text" chipType={ChipType.DEFAULT} />
+      <Chip text="text" chipType={ChipType.VAR1} />
+      <Chip text="text" chipType={ChipType.VAR2} />
       <Dropdown
         dropdownType={DropdownType.VAR1}
         text="text"
@@ -145,6 +146,34 @@ const JoyTestPage = () => {
       <DropdownBar />
       <ProfileEdit />
       <WithDraw />
+      <div className="w-200pxr">
+        <Tabs
+          defaultValue={'all'}
+          option="커뮤니티 탭"
+          listClassName="bg-blue-100"
+          panelClassName="bg-blue-200"
+        >
+          <Tabs.List>
+            <Tabs.Trigger value={'all'} label="전체글" />
+            <Tabs.Trigger value={'bookmarked'} label="내가 찜한 글" />
+            <Tabs.Trigger value={'written'} label="내가 작성한 글" />
+            <Tabs.Trigger value={'commented'} label="댓글" />
+          </Tabs.List>
+          <Tabs.Panel value={'all'}>
+            <div>내용1</div>
+          </Tabs.Panel>
+          <Tabs.Panel value={'bookmarked'}>
+            <div>내용2</div>
+          </Tabs.Panel>
+          <Tabs.Panel value={'written'}>
+            <div>내용3</div>
+          </Tabs.Panel>
+          <Tabs.Panel value={'commented'}>
+            <div>내용4</div>
+          </Tabs.Panel>
+        </Tabs>
+      </div>
+
       <Footer />
     </div>
   );
