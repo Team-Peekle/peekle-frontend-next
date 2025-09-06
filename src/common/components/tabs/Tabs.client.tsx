@@ -43,7 +43,7 @@ const Tabs = ({
   useEffect(() => {
     setSelectedValue(defaultValue);
     setOption(option);
-  }, [defaultValue, setSelectedValue]);
+  }, [defaultValue, setSelectedValue, option, setOption]);
 
   return (
     <section>
