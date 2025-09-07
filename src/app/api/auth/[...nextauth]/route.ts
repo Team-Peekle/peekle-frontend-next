@@ -1,9 +1,10 @@
 // app/api/auth/[...nextauth]/route.ts
 import NextAuth from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import KakaoProvider from 'next-auth/providers/kakao';
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -20,10 +21,10 @@ const handler = NextAuth({
     },
     async session({ session, token }) {
       if (token.accessToken) {
-        (session as any).accessToken = token.accessToken; // eslint-disable-line @typescript-eslint/no-explicit-any
+        session.accessToken = token.accessToken;
       }
       if (token.provider) {
-        (session as any).provider = token.provider; // eslint-disable-line @typescript-eslint/no-explicit-any
+        session.provider = token.provider;
       }
       return session;
     },
@@ -35,6 +36,8 @@ const handler = NextAuth({
       return token;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

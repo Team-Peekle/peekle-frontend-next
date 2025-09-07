@@ -37,6 +37,9 @@ module.exports = {
     // 정적 자산
     '^@assets/(.*)$',
 
+    // schemas
+    '^@schemas/(.*)$',
+
     // 라이브러리 관련
     '^@lib/(.*)$',
 
