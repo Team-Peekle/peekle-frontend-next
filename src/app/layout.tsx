@@ -5,6 +5,7 @@ import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 
 import Toaster from '@common/components/toast/Toaster/Toaster.client';
 
+import ReactQueryProvider from './providers/ReactQueryProvider';
 import './styles/globals.css';
 
 export const metadata: Metadata = {
@@ -38,7 +39,9 @@ const RootLayout = ({
         {/* 구글 태그매니저 */}
         {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
 
-        <div className="mx-auto w-full max-w-[1200px]">{children}</div>
+        <div className="mx-auto w-full max-w-[1200px]">
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </div>
         <Toaster />
       </body>
     </html>
