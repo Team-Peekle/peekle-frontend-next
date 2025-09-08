@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Toaster from '@common/components/toast/Toaster/Toaster.client';
+
+import MicrosoftClarity from '@app/metrics/MicrosoftClarity.client';
 
 import ReactQueryProvider from './providers/ReactQueryProvider';
 import './styles/globals.css';
@@ -24,20 +26,11 @@ const RootLayout = ({
   return (
     <html lang="ko">
       <body>
-        {/* 페이지가 상호작용할 수 있게 된 후 ms-clarity 로드 */}
-        <Script id="ms-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "t6eclx9d7m");
-          `}
-        </Script>
-        {/* 구글 애널리틱스 */}
+        {/* 분석 도구 */}
+        <MicrosoftClarity />
         {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
-        {/* 구글 태그매니저 */}
         {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
+        <SpeedInsights />
 
         <div className="mx-auto w-full max-w-[1200px]">
           <ReactQueryProvider>{children}</ReactQueryProvider>
