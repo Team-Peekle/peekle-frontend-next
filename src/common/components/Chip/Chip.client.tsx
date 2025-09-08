@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@lib/utils';
-
 import { ButtonsCommonProps } from '@common/types/btn';
 import { ChipType } from '@common/types/chip';
+
+import { cn } from '@common/libs/utils';
 
 interface ChipProps extends ButtonsCommonProps {
   chipType: ChipType;

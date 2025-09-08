@@ -8,14 +8,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
+
+import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
 import Textfield from '@common/components/Textfield';
 import Cta from '@common/components/btn/Cta/Cta.client';
 
-import DefaultNavbar from '@common/layout/DefaultNavbar.client';
-
-import { SignupSchema, signupSchema } from '@/sign/types/signupSchema';
+import { SignupSchema, signupSchema } from '@features/sign/types/signupSchema';
 
 export default function SignupPage() {
   return (

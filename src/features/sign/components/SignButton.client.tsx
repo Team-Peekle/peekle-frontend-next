@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@lib/utils';
-
 import { ButtonsCommonProps } from '@common/types/btn';
+
+import { cn } from '@common/libs/utils';
 
 interface CtaProps extends ButtonsCommonProps {
   children: React.ReactNode;

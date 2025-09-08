@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import { cn } from '@lib/utils';
-
 import { ButtonsCommonProps } from '@common/types/btn';
+
+import { cn } from '@common/libs/utils';
 
 import { HeartIcon } from '@common/components/svg/Heart';
 

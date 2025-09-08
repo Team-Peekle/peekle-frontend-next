@@ -31,32 +31,17 @@ module.exports = {
     '^@tanstack/react-query$', // React Query
     '<THIRD_PARTY_MODULES>',
 
-    // 전역 스타일
-    '^@styles/(.*)$',
-
-    // 정적 자산
-    '^@assets/(.*)$',
-
-    // schemas
-    '^@schemas/(.*)$',
-
-    // 라이브러리 관련
-    '^@lib/(.*)$',
-
-    // api 관련
-    '^@api/(.*)$',
-
     // 공통 모듈
     '^@common/types/(.*)$',
     '^@common/constants/(.*)$',
-    '^@common/errors/(.*)$',
     '^@common/schemas/(.*)$',
+    '^@common/libs/(.*)$',
     '^@common/utils/(.*)$',
     '^@common/hooks/(.*)$',
-    '^@common/apis/(.*)$',
-    '^@common/components/(.*)$',
     '^@common/stores/(.*)$',
-    '^@buttons/(.*)$', // 버튼 컴포넌트
+    '^@common/layout/(.*)$',
+    '^@common/components/(.*)$',
+    '^@common/assets/(.*)$',
     '^@common/(.*)$', // 나머지 공통 루트
 
     // 도메인 모듈 (features)
@@ -65,6 +50,7 @@ module.exports = {
     '^@features/.*/schemas/(.*)$',
     '^@features/.*/utils/(.*)$',
     '^@features/.*/hooks/(.*)$',
+    '^@features/stores/(.*)$',
     '^@features/.*/apis/(.*)$',
     '^@features/.*/components/(.*)$',
     '^@features/(.*)$', // 나머지 도메인 루트

@@ -2,11 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 
-import Cta from '@common/components/btn/Cta/Cta.client';
-
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
-import DayCard from '@/sign/components/DayCard.server';
+import Cta from '@common/components/btn/Cta/Cta.client';
+
+import DayCard from '@features/sign/components/DayCard.server';
 
 export default function AccountDeletedPage() {
   const router = useRouter();

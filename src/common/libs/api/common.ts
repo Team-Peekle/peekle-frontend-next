@@ -1,7 +1,7 @@
 import ky from 'ky';
 import { z } from 'zod';
 
-import { failSchema, successSchema } from '@schemas/api/common';
+import { failSchema, successSchema } from '@common/schemas/api/common';
 
 import ApiError from '@common/utils/ApiError';
 

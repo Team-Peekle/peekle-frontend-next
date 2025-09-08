@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@lib/utils';
-
 import { ButtonsCommonProps } from '@common/types/btn';
 import { DropdownType } from '@common/types/dropdown';
+
+import { cn } from '@common/libs/utils';
 
 import { Close } from '@common/components/svg/Close';
 import { Down } from '@common/components/svg/Down';
