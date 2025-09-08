@@ -7,7 +7,7 @@ const queryKeys = createQueryKeyStore({
   },
   events: {
     testToken: null,
-    list: null,
+    list: (params) => [params],
     detail: (eventId: string) => [eventId],
   },
 });

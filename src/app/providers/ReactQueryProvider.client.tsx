@@ -6,11 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { getQueryClient } from '@common/libs/react-query/getQueryClient';
 
-interface ReactQueryProviderProps {
-  children: React.ReactNode;
-}
-
-const ReactQueryProvider = ({ children }: ReactQueryProviderProps) => {
+const ReactQueryProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = getQueryClient();
 
   return (

@@ -13,7 +13,6 @@ type AuthenticatedServerFetcher = <T extends z.ZodTypeAny>(
 /** 서버 환경에서만 사용되는 fetcher */
 export const authenticatedServerFetcher = (async (): Promise<AuthenticatedServerFetcher> => {
   const authenticatedKy = baseApi.extend({
-    prefixUrl: process.env.NEXT_PUBLIC_API_URL,
     hooks: {
       beforeRequest: [
         async (request) => {

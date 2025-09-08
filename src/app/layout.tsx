@@ -9,7 +9,8 @@ import { cn } from '@common/libs/utils';
 import Toaster from '@common/components/toast/Toaster/Toaster.client';
 
 import MicrosoftClarity from '@app/metrics/MicrosoftClarity.client';
-import ReactQueryProvider from '@app/providers/ReactQueryProvider';
+import AuthProvider from '@app/providers/AuthProvider.client';
+import ReactQueryProvider from '@app/providers/ReactQueryProvider.client';
 import '@app/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -42,7 +43,9 @@ const RootLayout = ({
         <SpeedInsights />
 
         <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <AuthProvider>
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </AuthProvider>
         </div>
         <Toaster />
       </body>

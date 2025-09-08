@@ -1,9 +1,14 @@
 import { z } from 'zod';
 
-export const getTestTokenSchema = z.object({
-  userId: z.string(),
-  accessToken: z.string(),
-  refreshToken: z.string(),
+export const getEventsSchema = z.object({
+  events: z.array(
+    // ✅ TODO: 이벤트 스키마 구체화 필요
+    z.object({
+      id: z.string(),
+    }),
+  ),
+  nextCursor: z.number().optional().nullable(),
+  hasNextPage: z.boolean(),
 });
 
-export type GetTestTokenReponseDTO = z.infer<typeof getTestTokenSchema>;
+export type GetEventsReponseDTO = z.infer<typeof getEventsSchema>;

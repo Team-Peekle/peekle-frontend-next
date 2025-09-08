@@ -16,7 +16,6 @@ export const useAuthenticatedApi = () => {
 
   // 인증 포함된 instance를 훅 안에서 생성
   const authenticatedKy = baseApi.extend({
-    prefixUrl: '/api',
     hooks: {
       beforeRequest: [
         async (request) => {
