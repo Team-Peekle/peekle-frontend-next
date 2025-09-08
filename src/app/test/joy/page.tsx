@@ -5,6 +5,9 @@ import { ChipType } from '@common/types/chip';
 import { DropdownType } from '@common/types/dropdown';
 import { PopupType } from '@common/types/popup';
 
+import Footer from '@common/layout/Footer/Footer.server';
+import Navbar from '@common/layout/Navbar.client';
+
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
 import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
@@ -26,12 +29,15 @@ import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 import Tabs from '@common/components/tabs/Tabs.client';
 
-import Footer from '@common/layout/Footer/Footer.server';
+import useGetTestToken from '@features/events/hooks/queries/useGetTestToken';
 
 const JoyTestPage = () => {
   const handleClick = () => {
     alert('버튼 클릭됨');
   };
+
+  const { data } = useGetTestToken();
+  console.log(data);
 
   return (
     <div className="p-10pxr gap-10pxr flex flex-col bg-[#009A04]">
@@ -173,7 +179,7 @@ const JoyTestPage = () => {
           </Tabs.Panel>
         </Tabs>
       </div>
-
+      <Navbar />
       <Footer />
     </div>
   );

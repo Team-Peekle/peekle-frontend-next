@@ -1,25 +1,44 @@
-import { getAccessTokenServer } from '../auth';
-import { baseApi } from './common';
+import { Options } from 'ky';
+import { z } from 'zod';
 
-/** 서버 환경에서만 사용되는 API 인스턴스 */
-export const authenticatedApi = baseApi.extend({
-  prefixUrl: process.env.NEXT_PUBLIC_API_URL,
-  hooks: {
-    beforeRequest: [
-      async (request) => {
-        const accessToken = await getAccessTokenServer();
-        if (accessToken) {
-          request.headers.set('Authorization', `Bearer ${accessToken}`);
-        }
-      },
-    ],
-    afterResponse: [
-      async (_request, _options, response) => {
-        // 401 Unauthorized 응답 처리
-        if (response.status === 401) {
-          // throw new Error('Unauthorized');
-        }
-      },
-    ],
-  },
-});
+import { getAccessTokenServer } from '../auth';
+import { baseApi, fetcher } from './common';
+
+type AuthenticatedServerFetcher = <T extends z.ZodTypeAny>(
+  url: string,
+  options: Options,
+  schema: T,
+) => Promise<z.infer<T>>;
+
+/** 서버 환경에서만 사용되는 fetcher */
+export const authenticatedServerFetcher = (async (): Promise<AuthenticatedServerFetcher> => {
+  const authenticatedKy = baseApi.extend({
+    prefixUrl: process.env.NEXT_PUBLIC_API_URL,
+    hooks: {
+      beforeRequest: [
+        async (request) => {
+          const accessToken = await getAccessTokenServer();
+          if (accessToken) {
+            request.headers.set('Authorization', `Bearer ${accessToken}`);
+          }
+        },
+      ],
+      afterResponse: [
+        async (_request, _options, response) => {
+          // 401 Unauthorized 응답 처리
+          if (response.status === 401) {
+            // throw new Error('Unauthorized');
+          }
+        },
+      ],
+    },
+  });
+
+  return async <T extends z.ZodTypeAny>(
+    url: string,
+    options: Options,
+    schema: T,
+  ): Promise<z.infer<T>> => {
+    return fetcher(url, options, schema, authenticatedKy);
+  };
+})();

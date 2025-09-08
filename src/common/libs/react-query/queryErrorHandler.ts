@@ -9,5 +9,5 @@ export default function queryErrorHandler(error: unknown, meta?: Meta) {
     ...meta,
   };
 
-  console.error('Error caught by queryErrorHandler', logData);
+  console.error('❌ Error caught by queryErrorHandler', logData);
 }

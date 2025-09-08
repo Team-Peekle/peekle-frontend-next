@@ -1,17 +1,21 @@
 'use client';
 
 // import { useRouter } from 'next/navigation';
+import { Options } from 'ky';
+import { z } from 'zod';
+
 import { useAccessTokenClient } from '../auth';
-import { baseApi } from './common';
+import { baseApi, fetcher } from './common';
 
 // import { ROUTES } from '@common/constants/routes';
 
-/** 클라이언트 환경에서만 사용되는 API 인스턴스 */
+/** 클라이언트 환경에서만 사용되는 authenticatedClientFetcher를 반환하는 훅 */
 export const useAuthenticatedApi = () => {
   const accessToken = useAccessTokenClient();
   // const router = useRouter();
 
-  return baseApi.extend({
+  // 인증 포함된 instance를 훅 안에서 생성
+  const authenticatedKy = baseApi.extend({
     prefixUrl: '/api',
     hooks: {
       beforeRequest: [
@@ -31,4 +35,17 @@ export const useAuthenticatedApi = () => {
       ],
     },
   });
+
+  /**
+   * authenticated ky instance를 사용하는 fetcher 함수
+   */
+  const authenticatedClientFetcher = async <T extends z.ZodTypeAny>(
+    url: string,
+    options: Options,
+    schema: T,
+  ) => {
+    return fetcher(url, options, schema, authenticatedKy);
+  };
+
+  return authenticatedClientFetcher;
 };
