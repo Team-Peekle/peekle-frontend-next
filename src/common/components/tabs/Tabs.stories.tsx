@@ -12,7 +12,7 @@ Tabs.Trigger = Trigger;
 Tabs.Panel = Panel;
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tabs',
+  title: 'Common/Tabs',
   component: Tabs,
   parameters: {
     layout: 'centered',
