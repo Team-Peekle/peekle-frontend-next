@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { SessionProvider, useSession } from 'next-auth/react';
 
+import { ROUTES } from '@common/constants/routes';
+
 import { cn } from '@common/libs/utils';
 
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
@@ -35,7 +37,7 @@ function SignupCompleteContent() {
           className={cn('max-mb:w-full mt-[72px] w-[600px]')}
           type="submit"
           text="시작하기"
-          onClick={() => router.push('/')}
+          onClick={() => router.push(ROUTES.ROOT)}
         />
       </main>
     </div>

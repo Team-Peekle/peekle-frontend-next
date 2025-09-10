@@ -28,7 +28,7 @@ export const useAuthenticatedApi = () => {
         async (_request, _options, response) => {
           // 401 Unauthorized 응답 처리
           if (response.status === 401) {
-            // router.push(ROUTES.SIGN_IN);
+            // router.push(ROUTES.ROOT);
           }
         },
       ],

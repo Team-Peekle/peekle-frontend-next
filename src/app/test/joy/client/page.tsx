@@ -6,7 +6,6 @@ import { DropdownType } from '@common/types/dropdown';
 import { PopupType } from '@common/types/popup';
 
 import Footer from '@common/layout/Footer/Footer.server';
-import Navbar from '@common/layout/Navbar.client';
 
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
@@ -193,7 +192,6 @@ const JoyTestClientPage = () => {
           </Tabs.Panel>
         </Tabs>
       </div>
-      <Navbar />
       <Footer />
     </div>
   );

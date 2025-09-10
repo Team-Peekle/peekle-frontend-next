@@ -24,9 +24,9 @@ const useGetEvents = (params: Omit<GetEventsParams, 'cursor'>) => {
           { searchParams: { ...params, cursor: pageParam } },
           getEventsSchema,
         ),
-      initialPageParam: undefined as number | undefined,
+      initialPageParam: undefined as string | undefined,
       getNextPageParam: (lastPage) => {
-        return lastPage.nextCursor ?? undefined;
+        return lastPage.nextCursor;
       },
     });
 
