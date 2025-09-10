@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import Toast from './Toast.client';
 
 const meta: Meta<typeof Toast> = {
-  title: 'Common/Components/Toast',
+  title: 'Common/Toast',
   component: Toast,
   parameters: {
     layout: 'centered',

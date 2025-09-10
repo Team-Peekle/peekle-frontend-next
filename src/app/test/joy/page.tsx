@@ -7,6 +7,7 @@ import { PopupType } from '@common/types/popup';
 
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
+import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
 import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
@@ -173,6 +174,7 @@ const JoyTestPage = () => {
           </Tabs.Panel>
         </Tabs>
       </div>
+      <DeferredLoader />
 
       <Footer />
     </div>
