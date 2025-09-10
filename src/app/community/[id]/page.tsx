@@ -14,6 +14,9 @@ import Navbar from '@common/layout/Navbar.client';
 
 import PublishInfoCard from '@/community/components/PublishInfoCard.server';
 
+import { ShareButton } from '../../../community/components/btn/ClipButton.server';
+import { ScrapButton } from '../../../community/components/btn/ScrapButton.server';
+
 export default function CommunityDetailPage() {
   const isMobile = useIsMobile();
   const router = useRouter();
@@ -44,6 +47,10 @@ export default function CommunityDetailPage() {
             <div className="flex flex-col gap-[6px]">
               <h1 className="text-p18 text-gray-900">"다들 취미가 뭐세요?"</h1>
               <p className="text-p14">취미를 소개해보세요!</p>
+            </div>
+            <div className="flex flex-row gap-2 pt-[20px] pb-[24px]">
+              <ShareButton />
+              <ScrapButton isScraped={true} />
             </div>
           </div>
         </section>

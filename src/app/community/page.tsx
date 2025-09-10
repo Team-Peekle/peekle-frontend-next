@@ -15,6 +15,7 @@ import Navbar from '@common/layout/Navbar.client';
 import { CommunityCard } from '@/community/components/CommunityCard';
 import CommunityTabs from '@/community/components/CommunityTabs.client';
 
+import { ProfileVariant } from '../../common/types/profile';
 import { MOCKUP_DATA } from './mockup';
 
 export default function CommunityPage() {
@@ -38,7 +39,7 @@ export default function CommunityPage() {
       <main className="flex w-full flex-row items-start gap-[64px] px-[16px]">
         <section className="max-mb:hidden flex min-w-[280px] flex-row items-center justify-between">
           <div className="flex flex-row items-center gap-2.5">
-            <Profile variant="size-40" />
+            <Profile variant={ProfileVariant.SIZE_40} />
             <p className="text-p17b">피클1135</p>
           </div>
           <button className="text-p15b flex h-fit w-fit flex-row justify-items-center rounded-[8px] border-1 border-solid px-4 py-[7px]">
