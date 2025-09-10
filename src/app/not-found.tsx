@@ -24,7 +24,7 @@ const NotFound = () => {
         </p>
         <button
           className="py-8pxr rounded-8pxr px-12pxr text-p14 text-gray-0 flex items-center justify-center bg-gray-900 hover:bg-gray-600"
-          onClick={() => router.push(ROUTES.EVENTS)}
+          onClick={() => router.push(ROUTES.ROOT)}
         >
           홈으로 돌아가기
         </button>

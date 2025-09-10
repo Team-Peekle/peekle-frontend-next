@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 
 import { ProfileVariant } from '@common/types/profile';
 
+import { ROUTES } from '@common/constants/routes';
+
 import Profile from '@common/components/Profile.server';
 
 import { Close } from '@/common/components/svg/Close';
@@ -34,14 +36,14 @@ Navbar.Mobile = function NavbarMobile() {
   const { isLoggedIn } = loginStore();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const route = pathname.startsWith('/event') ? '이벤트' : '커뮤니티';
+  const route = pathname.startsWith(ROUTES.ROOT) ? '이벤트' : '커뮤니티';
 
   const menuItems = [
-    { label: '이벤트', href: '/event' },
-    { label: '커뮤니티', href: '/community' },
+    { label: '이벤트', href: ROUTES.ROOT },
+    { label: '커뮤니티', href: ROUTES.COMMUNITY },
     {
       label: isLoggedIn ? '내정보' : '회원가입/로그인',
-      href: isLoggedIn ? '/my' : '/login',
+      href: isLoggedIn ? ROUTES.MY : ROUTES.SIGN_IN,
     },
   ];
 
@@ -54,7 +56,7 @@ Navbar.Mobile = function NavbarMobile() {
         </div>
         <div className="flex flex-row">
           <Link
-            href={'/search'}
+            href={ROUTES.SEARCH}
             className="size-44pxr flex cursor-pointer items-center justify-center"
           >
             <Search className="size-20pxr text-gray-600" />
@@ -96,7 +98,7 @@ Navbar.Mobile = function NavbarMobile() {
 
 Navbar.Web = function NavbarWeb() {
   let pathname = usePathname();
-  if (!pathname) pathname = '/';
+  if (!pathname) pathname = ROUTES.ROOT;
   const { isLoggedIn } = loginStore();
 
   return (
@@ -105,28 +107,31 @@ Navbar.Web = function NavbarWeb() {
         <PeekleLogo className="w-82pxr" />
         <div className="gap-24pxr text-16b flex flex-row">
           <Link
-            href="/event"
-            className={pathname.startsWith('/event') ? 'text-black' : 'text-gray-200'}
+            href={ROUTES.ROOT}
+            className={pathname.startsWith(ROUTES.ROOT) ? 'text-black' : 'text-gray-200'}
           >
             이벤트
           </Link>
           <Link
-            href="/community"
-            className={pathname.startsWith('/community') ? 'text-black' : 'text-gray-200'}
+            href={ROUTES.COMMUNITY}
+            className={pathname.startsWith(ROUTES.COMMUNITY) ? 'text-black' : 'text-gray-200'}
           >
             커뮤니티
           </Link>
         </div>
       </div>
       <div className="gap-16pxr flex flex-row items-center">
-        <Link href="/search" className="size-40pxr flex cursor-pointer items-center justify-center">
+        <Link
+          href={ROUTES.SEARCH}
+          className="size-40pxr flex cursor-pointer items-center justify-center"
+        >
           <Search className="size-20pxr text-gray-600" />
         </Link>
         {isLoggedIn ? (
           <Profile variant={ProfileVariant.SIZE_32} />
         ) : (
           <Link
-            href={'/login'}
+            href={ROUTES.SIGN_IN}
             className="px-16pxr pt-8pxr pb-8pxr rounded-8pxr bg-gray-0 text-primary-500 text-p14 h-fit w-fit border border-gray-200"
           >
             회원가입/로그인

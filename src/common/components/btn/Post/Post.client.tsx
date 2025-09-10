@@ -12,7 +12,7 @@ const Post = ({ onClick, disabled = false, ...props }: ButtonsCommonProps) => {
   return (
     <button
       aria-label="게시 버튼"
-      className="h-33pxr w-43pxr rounded-8pxr bg-gray-0"
+      className="text-p18 h-33pxr w-43pxr rounded-8pxr bg-gray-0"
       onClick={onClick}
       disabled={disabled}
       {...props}
