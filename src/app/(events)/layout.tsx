@@ -1,14 +1,14 @@
-const EventsLayout = async ({
+const EventsLayout = ({
   children,
-  EventsModal,
+  eventsModal,
 }: Readonly<{
   children: React.ReactNode;
-  EventsModal: React.ReactNode;
+  eventsModal: React.ReactNode;
 }>) => {
   return (
     <>
       {children}
-      {EventsModal}
+      {eventsModal}
     </>
   );
 };

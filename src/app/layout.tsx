@@ -30,6 +30,7 @@ const RootLayout = ({
         {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
 
         <div className="mx-auto w-full max-w-[1200px]">{children}</div>
+        <div id="modal" />
         <Toaster />
       </body>
     </html>
