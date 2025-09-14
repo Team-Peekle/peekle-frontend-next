@@ -16,7 +16,7 @@ importers:
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
       '@lukemorales/query-key-factory':
         specifier: ^1.3.4
-        version: 1.3.4(@tanstack/query-core@5.87.1)(@tanstack/react-query@5.87.1(react@19.1.1))
+        version: 1.3.4(@tanstack/query-core@5.87.4)(@tanstack/react-query@5.87.4(react@19.1.1))
       '@next/third-parties':
         specifier: ^15.5.2
         version: 15.5.2(next@15.5.2(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
@@ -28,10 +28,10 @@ importers:
         version: 1.2.3(@types/react@19.1.10)(react@19.1.1)
       '@tanstack/react-query':
         specifier: ^5.87.1
-        version: 5.87.1(react@19.1.1)
+        version: 5.87.4(react@19.1.1)
       '@tanstack/react-query-devtools':
         specifier: ^5.87.1
-        version: 5.87.1(@tanstack/react-query@5.87.1(react@19.1.1))(react@19.1.1)
+        version: 5.87.4(@tanstack/react-query@5.87.4(react@19.1.1))(react@19.1.1)
       '@vercel/speed-insights':
         specifier: ^1.2.0
         version: 1.2.0(next@15.5.2(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
@@ -62,6 +62,12 @@ importers:
       next-auth:
         specifier: ^4.24.11
         version: 4.24.11(next@15.5.2(@babel/core@7.28.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      overlay-kit:
+        specifier: ^1.8.5
+        version: 1.8.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      pretendard:
+        specifier: ^1.3.9
+        version: 1.3.9
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -79,7 +85,7 @@ importers:
         version: 3.3.1
       zod:
         specifier: ^4.0.0
-        version: 4.1.5
+        version: 4.0.17
       zustand:
         specifier: ^5.0.6
         version: 5.0.7(@types/react@19.1.10)(immer@10.1.1)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))
@@ -1935,20 +1941,20 @@ packages:
   '@tailwindcss/postcss@4.1.11':
     resolution: {integrity: sha512-q/EAIIpF6WpLhKEuQSEVMZNMIY8KhWoAemZ9eylNAih9jxMGAYPPWBn3I9QL/2jZ+e7OEz/tZkX5HwbBR4HohA==}
 
-  '@tanstack/query-core@5.87.1':
-    resolution: {integrity: sha512-HOFHVvhOCprrWvtccSzc7+RNqpnLlZ5R6lTmngb8aq7b4rc2/jDT0w+vLdQ4lD9bNtQ+/A4GsFXy030Gk4ollA==}
+  '@tanstack/query-core@5.87.4':
+    resolution: {integrity: sha512-uNsg6zMxraEPDVO2Bn+F3/ctHi+Zsk+MMpcN8h6P7ozqD088F6mFY5TfGM7zuyIrL7HKpDyu6QHfLWiDxh3cuw==}
 
-  '@tanstack/query-devtools@5.86.0':
-    resolution: {integrity: sha512-/JDw9BP80eambEK/EsDMGAcsL2VFT+8F5KCOwierjPU7QP8Wt1GT32yJpn3qOinBM8/zS3Jy36+F0GiyJp411A==}
+  '@tanstack/query-devtools@5.87.3':
+    resolution: {integrity: sha512-LkzxzSr2HS1ALHTgDmJH5eGAVsSQiuwz//VhFW5OqNk0OQ+Fsqba0Tsf+NzWRtXYvpgUqwQr4b2zdFZwxHcGvg==}
 
-  '@tanstack/react-query-devtools@5.87.1':
-    resolution: {integrity: sha512-YPuEub8RQrrsXOxoiMJn33VcGPIeuVINWBgLu9RLSQB8ueXaKlGLZ3NJkahGpbt2AbWf749FQ6R+1jBFk3kdCA==}
+  '@tanstack/react-query-devtools@5.87.4':
+    resolution: {integrity: sha512-JYcnVJBBW1DCPyNGM0S2CyrLpe6KFiL2gpYd/k9tAp62Du7+Y27zkzd+dKFyxpFadYaTxsx4kUA7YvnkMLVUoQ==}
     peerDependencies:
-      '@tanstack/react-query': ^5.87.1
+      '@tanstack/react-query': ^5.87.4
       react: ^18 || ^19
 
-  '@tanstack/react-query@5.87.1':
-    resolution: {integrity: sha512-YKauf8jfMowgAqcxj96AHs+Ux3m3bWT1oSVKamaRPXSnW2HqSznnTCEkAVqctF1e/W9R/mPcyzzINIgpOH94qg==}
+  '@tanstack/react-query@5.87.4':
+    resolution: {integrity: sha512-T5GT/1ZaNsUXf5I3RhcYuT17I4CPlbZgyLxc/ZGv7ciS6esytlbjb3DgUFO6c8JWYMDpdjSWInyGZUErgzqhcA==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -4161,6 +4167,12 @@ packages:
   os-browserify@0.3.0:
     resolution: {integrity: sha512-gjcpUc3clBf9+210TRaDWbf+rZZZEshZ+DlXMRCeAjp0xhTrnQsKHypIy1J3d5hKdUzj69t708EHtU8P6bUn0A==}
 
+  overlay-kit@1.8.5:
+    resolution: {integrity: sha512-BNtfOsfMNzo22x+uMNtV8nix53VTbA0XMENtwdvaEUmtXCjUE6go2xK4XSlNnSGyQfmB6c04uUCuFQtS5ZAAEQ==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19
+      react-dom: ^16.8 || ^17 || ^18 || ^19
+
   own-keys@1.0.1:
     resolution: {integrity: sha512-qFOyK5PjiWZd+QQIh+1jhdb9LpxTF0qs7Pm8o5QHYZ0M3vKqSqzsZaEB6oWlxZ+q2sJBMI/Ktgd2N5ZwQoRHfg==}
     engines: {node: '>= 0.4'}
@@ -4345,6 +4357,9 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  pretendard@1.3.9:
+    resolution: {integrity: sha512-PaQAADyLY5v4kYFwkpSJHbSSYIkiriY/1xXw75TKoZ9UQQqeU+tvP05yTdZAWibiIYoo8ZKtRv8PM7w0IaywSw==}
 
   prettier-plugin-tailwindcss@0.6.14:
     resolution: {integrity: sha512-pi2e/+ZygeIqntN+vC573BcW5Cve8zUB0SSAGxqpB4f96boZF4M3phPVoOFCeypwkpRYdi7+jQ5YJJUwrkGUAg==}
@@ -5330,8 +5345,8 @@ packages:
     resolution: {integrity: sha512-AyeEbWOu/TAXdxlV9wmGcR0+yh2j3vYPGOECcIj2S7MkrLyC7ne+oye2BKTItt0ii2PHk4cDy+95+LshzbXnGg==}
     engines: {node: '>=12.20'}
 
-  zod@4.1.5:
-    resolution: {integrity: sha512-rcUUZqlLJgBC33IT3PNMgsCq6TzLQEG/Ei/KTCU0PedSWRMAXoOUN+4t/0H+Q8bdnLPdqUYnvboJT0bn/229qg==}
+  zod@4.0.17:
+    resolution: {integrity: sha512-1PHjlYRevNxxdy2JZ8JcNAw7rX8V9P1AKkP+x/xZfxB0K5FYfuV+Ug6P/6NVSR2jHQ+FzDDoDHS04nYUsOIyLQ==}
 
   zustand@5.0.7:
     resolution: {integrity: sha512-Ot6uqHDW/O2VdYsKLLU8GQu8sCOM1LcoE8RwvLv9uuRT9s6SOHCKs0ZEOhxg+I1Ld+A1Q5lwx+UlKXXUoCZITg==}
@@ -6614,10 +6629,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.4
 
-  '@lukemorales/query-key-factory@1.3.4(@tanstack/query-core@5.87.1)(@tanstack/react-query@5.87.1(react@19.1.1))':
+  '@lukemorales/query-key-factory@1.3.4(@tanstack/query-core@5.87.4)(@tanstack/react-query@5.87.4(react@19.1.1))':
     dependencies:
-      '@tanstack/query-core': 5.87.1
-      '@tanstack/react-query': 5.87.1(react@19.1.1)
+      '@tanstack/query-core': 5.87.4
+      '@tanstack/react-query': 5.87.4(react@19.1.1)
 
   '@mdx-js/react@3.1.0(@types/react@19.1.10)(react@19.1.1)':
     dependencies:
@@ -7189,19 +7204,19 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.11
 
-  '@tanstack/query-core@5.87.1': {}
+  '@tanstack/query-core@5.87.4': {}
 
-  '@tanstack/query-devtools@5.86.0': {}
+  '@tanstack/query-devtools@5.87.3': {}
 
-  '@tanstack/react-query-devtools@5.87.1(@tanstack/react-query@5.87.1(react@19.1.1))(react@19.1.1)':
+  '@tanstack/react-query-devtools@5.87.4(@tanstack/react-query@5.87.4(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@tanstack/query-devtools': 5.86.0
-      '@tanstack/react-query': 5.87.1(react@19.1.1)
+      '@tanstack/query-devtools': 5.87.3
+      '@tanstack/react-query': 5.87.4(react@19.1.1)
       react: 19.1.1
 
-  '@tanstack/react-query@5.87.1(react@19.1.1)':
+  '@tanstack/react-query@5.87.4(react@19.1.1)':
     dependencies:
-      '@tanstack/query-core': 5.87.1
+      '@tanstack/query-core': 5.87.4
       react: 19.1.1
 
   '@testing-library/dom@10.4.1':
@@ -9661,6 +9676,11 @@ snapshots:
 
   os-browserify@0.3.0: {}
 
+  overlay-kit@1.8.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+    dependencies:
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+
   own-keys@1.0.1:
     dependencies:
       get-intrinsic: 1.3.0
@@ -9834,6 +9854,8 @@ snapshots:
   preact@10.27.0: {}
 
   prelude-ls@1.2.1: {}
+
+  pretendard@1.3.9: {}
 
   prettier-plugin-tailwindcss@0.6.14(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.6.2))(prettier@3.6.2):
     dependencies:
@@ -10953,7 +10975,7 @@ snapshots:
 
   yocto-queue@1.2.1: {}
 
-  zod@4.1.5: {}
+  zod@4.0.17: {}
 
   zustand@5.0.7(@types/react@19.1.10)(immer@10.1.1)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1)):
     optionalDependencies:
