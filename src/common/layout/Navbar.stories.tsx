@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import { loginStore } from '@/common/store/loginStore';
+import { loginStore } from '@common/stores/loginStore';
 
 import Navbar from './Navbar.client';
 

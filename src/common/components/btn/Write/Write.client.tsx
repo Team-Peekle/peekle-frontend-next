@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '@lib/utils';
-
 import { ButtonsCommonProps } from '@common/types/btn';
 import { WriteType } from '@common/types/btn';
+
+import { cn } from '@common/libs/utils';
 
 import { WriteIcon } from '@common/components/svg/Write';
 

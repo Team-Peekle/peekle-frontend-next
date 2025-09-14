@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { SessionProvider } from 'next-auth/react';
 
+import DefaultNavbar from '@common/layout/DefaultNavbar.client';
+
 import Google from '@common/components/svg/Google';
 import Kakao from '@common/components/svg/Kakao';
 
-import DefaultNavbar from '@common/layout/DefaultNavbar.client';
-
-import Cta from '@/sign/components/SignButton.client';
+import Cta from '@features/sign/components/SignButton.client';
 
 export default function SigninPage() {
   const handleSocialLogin = async (provider: 'google' | 'kakao') => {

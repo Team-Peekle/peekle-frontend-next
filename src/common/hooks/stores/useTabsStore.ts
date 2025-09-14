@@ -1,6 +1,6 @@
 import { useShallow } from 'zustand/shallow';
 
-import tabsStore from '@common/store/tabsStore';
+import tabsStore from '@common/stores/tabsStore';
 
 export const useTabsInfo = () =>
   tabsStore(

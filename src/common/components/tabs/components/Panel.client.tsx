@@ -1,4 +1,4 @@
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
 
 import { useTabsInfo } from '@common/hooks/stores/useTabsStore';
 

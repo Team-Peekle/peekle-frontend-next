@@ -1,8 +1,8 @@
-import { cn } from '@lib/utils';
-
 import { ProfileVariant } from '@common/types/profile';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cn } from '@common/libs/utils';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@common/components/avatar';
 
 import { Profile as ProfileIcon } from './svg/Profile';
 

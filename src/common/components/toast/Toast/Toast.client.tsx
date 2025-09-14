@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { cn } from '@lib/utils';
-
 import { ToastItem } from '@common/types/toast';
+
+import { cn } from '@common/libs/utils';
 
 import { useRemoveToast } from '@common/hooks/stores/useToastStore';
 

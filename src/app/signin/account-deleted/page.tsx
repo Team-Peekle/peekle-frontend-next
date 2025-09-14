@@ -2,11 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 
-import Cta from '@common/components/btn/Cta/Cta.client';
+import { ROUTES } from '@common/constants/routes';
 
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
-import DayCard from '@/sign/components/DayCard.server';
+import Cta from '@common/components/btn/Cta/Cta.client';
+
+import DayCard from '@features/sign/components/DayCard.server';
 
 export default function AccountDeletedPage() {
   const router = useRouter();
@@ -23,7 +25,11 @@ export default function AccountDeletedPage() {
           <DayCard title="계정 삭제 일자" date="2025.08.17" />
           <DayCard title="재가입 가능 날짜" date="2025.08.17" />
         </section>
-        <Cta className="mt-[72px] w-full" text="홈으로 돌아가기" onClick={() => router.push('/')} />
+        <Cta
+          className="mt-[72px] w-full"
+          text="홈으로 돌아가기"
+          onClick={() => router.push(ROUTES.ROOT)}
+        />
       </main>
     </div>
   );

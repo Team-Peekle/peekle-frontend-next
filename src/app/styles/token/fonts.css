@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-pretendard: 'Pretendard';
+  --font-pretendard: var(--font-pretendard);
 }
 
 @layer utilities {
