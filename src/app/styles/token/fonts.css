@@ -14,6 +14,10 @@
     @apply text-24pxr max-[800px]:text-22pxr leading-[1.6em] font-bold tracking-[-0.03em];
   }
 
+  .text-p20 {
+    @apply text-[20px] leading-[1.6em] font-bold tracking-normal;
+  }
+
   .text-p18-20 {
     @apply text-20pxr max-[800px]:text-18pxr leading-[1.5em] font-extrabold tracking-[-0.02em];
   }

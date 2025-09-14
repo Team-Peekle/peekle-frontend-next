@@ -158,7 +158,7 @@ export function Profile({ variant = ProfileVariant.SIZE_32, ...props }: ProfileP
               height="33"
               rx="16.5"
               stroke="#FAFAFA"
-              stroke-width="5"
+              strokeWidth="5"
             />
             <path
               d="M108 101.778H101.778V108H100.222V101.778H94V100.222H100.222V94H101.778V100.222H108V101.778Z"
