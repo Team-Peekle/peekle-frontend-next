@@ -12,8 +12,8 @@ import { Comment } from '@common/components/svg/Comment';
 import Footer from '@common/layout/Footer/Footer.server';
 import Navbar from '@common/layout/Navbar.client';
 
-import { CommunityCard } from '@/community/CommunityCard.server';
-import CommunityTabs from '@/community/CommunityTabs.client';
+import { CommunityCard } from '@/community/components/CommunityCard';
+import CommunityTabs from '@/community/components/CommunityTabs.client';
 
 import { MOCKUP_DATA } from './mockup';
 
@@ -47,7 +47,7 @@ export default function CommunityPage() {
         </section>
         <section className="max-mb:px-0 flex w-full flex-col gap-[32px] px-[16px] pb-[16px]">
           <CommunityTabs />
-          {MOCKUP_DATA.length !== 0 ? (
+          {MOCKUP_DATA.length === 0 ? (
             <div className="flex w-full flex-col items-center justify-center gap-3 py-[131px]">
               <Comment className="size-12 text-gray-200" />
               <p className="text-p16m text-gray-600">게시글이 없습니다.</p>
@@ -61,7 +61,7 @@ export default function CommunityPage() {
                   onClick={() => router.push(`/community/${post.id}`)}
                   onLikeClick={(id) => console.log(`게시글 ${id} 좋아요 클릭`)}
                 />
-              ))}{' '}
+              ))}
             </div>
           )}
         </section>
