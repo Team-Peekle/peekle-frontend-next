@@ -2,8 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 
-import { cn } from '@lib/utils';
-
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
 import Profile from '@common/components/Profile.server';
@@ -11,6 +9,7 @@ import { Comment } from '@common/components/svg/Comment';
 
 import Footer from '@common/layout/Footer/Footer.server';
 import Navbar from '@common/layout/Navbar.client';
+import { cn } from '@common/libs/utils';
 
 import { CommunityCard } from '@/community/components/CommunityCard';
 import CommunityTabs from '@/community/components/CommunityTabs.client';

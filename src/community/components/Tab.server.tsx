@@ -1,4 +1,4 @@
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
 
 interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isActive: boolean;

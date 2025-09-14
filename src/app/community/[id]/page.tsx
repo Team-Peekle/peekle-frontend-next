@@ -19,7 +19,6 @@ import { ScrapButton } from '../../../community/components/btn/ScrapButton.serve
 
 export default function CommunityDetailPage() {
   const isMobile = useIsMobile();
-  const router = useRouter();
   return (
     <div className="flex w-full flex-col">
       {isMobile ? <></> : <Navbar />}
@@ -45,7 +44,7 @@ export default function CommunityDetailPage() {
               className="h-auto w-full rounded-[16px]"
             />
             <div className="flex flex-col gap-[6px]">
-              <h1 className="text-p18 text-gray-900">"다들 취미가 뭐세요?"</h1>
+              <h1 className="text-p18 text-gray-900">다들 취미가 뭐세요?</h1>
               <p className="text-p14">취미를 소개해보세요!</p>
             </div>
             <div className="flex flex-row gap-2 pt-[20px] pb-[24px]">
