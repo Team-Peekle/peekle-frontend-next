@@ -8,6 +8,8 @@ import Calendar from 'react-calendar';
 
 import { formatDate, isInRange, isSameDay } from '@common/utils/dates';
 
+import { useIsMobile } from '@common/hooks/useIsMobile';
+
 import { Arrow } from '@common/components/svg/Arrow';
 
 import useEventsFilter from '@features/events/hooks/useEventsFilter';
@@ -18,6 +20,7 @@ import { DateRange, FilterType } from '../../../types/filter';
 import DateList from './DataList/DataList.client';
 
 const Custom = () => {
+  const isMobile = useIsMobile();
   const { handleSelect } = useEventsFilter(FilterType.DURATION);
   const searchParams = useSearchParams();
   const today = new Date(); // 오늘 날짜 객체
@@ -61,6 +64,8 @@ const Custom = () => {
   return (
     <>
       <DateList date1={startDate} date2={endDate} />
+      {/* 모바일 환경에선 간격 줌 */}
+      {isMobile && <div className="h-20pxr" />}
       <Calendar
         onChange={(value) => handleCalendarChange(value as Date)}
         value={dateRange}

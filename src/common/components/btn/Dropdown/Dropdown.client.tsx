@@ -27,7 +27,7 @@ export const Dropdown = ({ dropdownType, text, onClick }: DropdownProps) => {
   return (
     <button
       className={cn(
-        'px-10pxr py-6pxr gap-6pxr rounded-8pxr transition-spring flex h-fit w-fit items-center justify-center shadow-[0_0_10pxr_0_rgba(0,0,0,0.05)]',
+        'px-10pxr py-6pxr gap-6pxr rounded-8pxr transition-spring flex h-fit w-fit shrink-0 items-center justify-center shadow-[0_0_10pxr_0_rgba(0,0,0,0.05)]',
         {
           'bg-gray-0 hover:bg-gray-100':
             dropdownType === DropdownType.VAR1 ||
@@ -44,7 +44,7 @@ export const Dropdown = ({ dropdownType, text, onClick }: DropdownProps) => {
       )}
       {dropdownType === DropdownType.VAR6 && <Filter className="h-12pxr w-12pxr text-gray-400" />}
       <p
-        className={cn('text-p15m', {
+        className={cn('text-p15m whitespace-nowrap', {
           'text-gray-700':
             dropdownType === DropdownType.VAR1 ||
             dropdownType === DropdownType.VAR5 ||

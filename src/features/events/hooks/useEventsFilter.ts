@@ -87,7 +87,6 @@ export default function useEventsFilter(filterType?: FilterType) {
 
     if (value === LocationType.ALL) {
       // 중복 선택이고, 전체 값이면
-      console.log(filterValue === LocationType.ALL);
       return filterValue === LocationType.ALL;
     }
 

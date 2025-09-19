@@ -15,7 +15,7 @@ const Cta = ({ text, onClick, disabled = false, className, ...props }: CtaProps)
       aria-label={`${text} 실행하기 버튼`}
       aria-disabled={disabled}
       className={cn(
-        'p-16pxr rounded-12pxr transition-spring flex w-full items-center justify-center overflow-hidden',
+        'p-16pxr rounded-12pxr transition-spring flex w-full shrink-0 items-center justify-center overflow-hidden',
         disabled ? 'bg-gray-100 text-gray-400' : 'bg-gray-900 hover:bg-gray-700',
         className,
       )}
