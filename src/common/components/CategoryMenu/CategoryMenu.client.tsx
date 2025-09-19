@@ -4,9 +4,9 @@ import { useState } from 'react';
 
 import { CategoryOptions } from '@common/types/category';
 
-import { CATEGORY_LABELS } from '@common/constants/category';
-
 import Select from '@common/components/btn/Select/Select.client';
+
+import { CATEGORY_LABELS } from '@features/events/constansts/category';
 
 const CategoryMenu = () => {
   // ✅ TODO: 훅으로 추출 필요
@@ -54,7 +54,7 @@ const CategoryMenu = () => {
   };
 
   return (
-    <div className="bg-gray-0 gap-16pxr px-8pxr pt-8pxr pb-16pxr rounded-12pxr flex h-fit w-fit flex-col items-center justify-center shadow-[0_0_40px_0_rgba(126,131,145,0.5)]">
+    <div className="bg-gray-0 gap-16pxr px-8pxr pt-8pxr pb-16pxr rounded-12pxr w-155pxr flex h-fit flex-col items-center justify-center shadow-[0_0_40px_0_rgba(126,131,145,0.5)]">
       <span className="gap-8pxr flex flex-col">
         <Select
           text={CATEGORY_LABELS.ALL}

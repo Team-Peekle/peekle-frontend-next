@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react';
 
-import { useRouter } from 'next/navigation';
-
 import { cn } from '@lib/utils';
 
 import ModalPortal from './ModalPortal.client';
@@ -12,6 +10,8 @@ interface ModalLayoutProps {
   children: React.ReactNode;
   /** 모달 배경 클릭 가능 여부 */
   canClickDimmed?: boolean;
+  /** 모닿 배경 클릭시 실행될 함수 */
+  onClickDimmed?: () => void;
 }
 
 /**
@@ -24,13 +24,10 @@ interface ModalLayoutProps {
  * @param {boolean} [props.canClickDimmed=true] - 모달 배경(dimmed) 클릭 시 모달이 닫히도록 할지 여부를 결정합니다. 기본값은 `true`입니다.
  * @returns {JSX.Element} 모달 배경과 자식 컴포넌트를 포함하는 JSX 엘리먼트입니다.
  */
-const ModalLayout = ({ children, canClickDimmed = true }: ModalLayoutProps) => {
-  const router = useRouter();
-
+const ModalLayout = ({ children, canClickDimmed = true, onClickDimmed }: ModalLayoutProps) => {
   const handleDimmedClick = () => {
     if (!canClickDimmed) return;
-    // 기본 동작은 모달 닫기
-    router.back();
+    onClickDimmed?.();
   };
 
   // body 스크롤 잠금
@@ -46,7 +43,7 @@ const ModalLayout = ({ children, canClickDimmed = true }: ModalLayoutProps) => {
     <ModalPortal>
       <div
         className={cn(
-          'fixed inset-0 flex h-full w-full items-center justify-center bg-black/40',
+          'fixed inset-0 z-10 flex h-full w-full items-center justify-center bg-black/40',
           canClickDimmed ? 'cursor-pointer' : 'cursor-default',
         )}
         onClick={handleDimmedClick}

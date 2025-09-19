@@ -11,7 +11,6 @@ import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.cli
 import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
 import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
-import Sort from '@common/components/SortMenu/SortMenu.client';
 import Terms from '@common/components/Terms/Terms.client';
 import WithDraw from '@common/components/WithDraw/WithDraw.client';
 import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
@@ -142,7 +141,6 @@ const JoyTestPage = () => {
           console.log('새상태:', newState, '이전상태:', bookmarked);
         }}
       />
-      <Sort />
       <Category />
       <DropdownBar />
       <ProfileEdit />
