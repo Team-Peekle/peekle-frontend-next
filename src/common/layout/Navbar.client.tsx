@@ -75,7 +75,7 @@ Navbar.Mobile = function NavbarMobile() {
       </nav>
 
       <div
-        className={`bg-gray-0 absolute top-full left-0 w-full transition-all duration-300 ease-in-out ${
+        className={`bg-gray-0 absolute top-full left-0 z-10 w-full transition-all duration-300 ease-in-out ${
           isMenuOpen
             ? 'translate-y-0 transform opacity-100'
             : 'pointer-events-none -translate-y-2 transform opacity-0'

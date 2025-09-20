@@ -27,4 +27,14 @@
 
   /* Semantic */
   --color-semantic-red: #e63a3a;
+
+  /* custom */
+  --color-banner: linear-gradient(90deg, #f7fff9 0%, rgb(206, 222, 210) 100%);
+}
+
+/* 그라디언트 배경 */
+@layer utilities {
+  .bg-banner {
+    background-image: var(--color-banner);
+  }
 }

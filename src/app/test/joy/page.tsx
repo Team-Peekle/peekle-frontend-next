@@ -26,7 +26,7 @@ import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 import Tabs from '@common/components/tabs/Tabs.client';
 
-import Footer from '@common/layout/Footer/Footer.server';
+import Footer from '@common/layout/Footer/Footer.client';
 
 const JoyTestPage = () => {
   const handleClick = () => {

@@ -1,3 +1,5 @@
+'use client';
+
 import { TermsType } from '@common/types/terms';
 
 import { TERMS_LABELS } from '@common/constants/terms';

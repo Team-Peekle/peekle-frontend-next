@@ -66,11 +66,6 @@ export default function useEventsFilter(filterType?: FilterType) {
       updatedParams.set(filterType, newValue);
     }
 
-    // 기존 event-search 값 유지
-    if (searchParams.has('event-search')) {
-      updatedParams.set('event-search', searchParams.get('event-search')!);
-    }
-
     // URL 업데이트
     router.push(`?${updatedParams.toString()}`);
   };
@@ -110,20 +105,11 @@ export default function useEventsFilter(filterType?: FilterType) {
       updatedParams.set(filterKey, DEFAULT_FILTERS[filterKey]);
     }
 
-    if (searchParams.has('event-search')) {
-      updatedParams.set('event-search', searchParams.get('event-search')!);
-    }
-
     router.push(`?${updatedParams.toString()}`);
   };
 
   const clearFilter = () => {
     const updatedParams = new URLSearchParams();
-
-    // 기존 event-search 값 유지
-    if (searchParams.has('event-search')) {
-      updatedParams.set('event-search', searchParams.get('event-search')!);
-    }
     router.push(`?${updatedParams.toString()}`);
   };
 

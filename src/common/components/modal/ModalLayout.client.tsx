@@ -43,7 +43,7 @@ const ModalLayout = ({ children, canClickDimmed = true, onClickDimmed }: ModalLa
     <ModalPortal>
       <div
         className={cn(
-          'fixed inset-0 z-10 flex h-full w-full items-center justify-center bg-black/40',
+          'fixed inset-0 z-20 flex h-full w-full items-center justify-center bg-black/40',
           canClickDimmed ? 'cursor-pointer' : 'cursor-default',
         )}
         onClick={handleDimmedClick}

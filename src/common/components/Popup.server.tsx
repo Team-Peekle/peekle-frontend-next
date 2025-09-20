@@ -1,3 +1,5 @@
+import { cn } from '@lib/utils';
+
 import { Warning } from '@/common/components/svg/Warning';
 import { PopupType } from '@/common/types/popup';
 
@@ -18,7 +20,13 @@ export default function Popup({ type, title, leftText, rightText, onLeft, onRigh
         <p className="text-center whitespace-pre-wrap">{title}</p>
       </div>
       <div className="gap-10pxr flex flex-row items-center">
-        <button className="px-45pxr py-12pxr text-gray-400" onClick={onLeft}>
+        <button
+          className={cn(
+            'px-45pxr py-12pxr',
+            type === PopupType.VAR1 ? 'text-gray-400' : 'text-primary-500',
+          )}
+          onClick={onLeft}
+        >
           {leftText}
         </button>
         {type === PopupType.VAR1 && (

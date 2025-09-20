@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { PopupType } from '@common/types/popup';
 
 import Popup from '@common/components/Popup.server';
@@ -17,13 +19,14 @@ const ConfirmLocationPopup = () => {
   const { isOpenConfirmLocation } = useEventsModalInfo();
   const closeConfirmLocation = useCloseConfirmLocation();
   const { handleSelectSort } = useSort();
+  const [isOpenDefaultSort, setIsOpenDefaultSort] = useState(false);
 
   const handleRefusalLocation = () => {
     localStorage.setItem('curr-location-agree', 'false');
     setIsMyLocationLoading(false);
-    alert('위치 동의 거부로 기본 정렬을 사용합니다.'); // alert 띄우기
+    setIsOpenDefaultSort(true); // 기본 정렬 안내 띄우기
     // 모달 닫으면서 가까운 날짜순 정렬 적용
-    closeConfirmLocation();
+    // closeConfirmLocation();
     handleSelectSort(SortType.NEAREST_DATE);
   };
 
@@ -45,6 +48,12 @@ const ConfirmLocationPopup = () => {
       });
   };
 
+  const handleCloseDefaultSort = () => {
+    setIsOpenDefaultSort(false);
+    // Now that the second popup is closed, you can close the main modal
+    closeConfirmLocation();
+  };
+
   return (
     <>
       {isOpenConfirmLocation && (
@@ -56,6 +65,17 @@ const ConfirmLocationPopup = () => {
             rightText="예"
             onLeft={handleRefusalLocation}
             onRight={handleConfirmLocation}
+          />
+        </ModalLayout>
+      )}
+
+      {isOpenDefaultSort && (
+        <ModalLayout canClickDimmed={false}>
+          <Popup
+            type={PopupType.VAR2}
+            title="위치 동의 거부로 기본 정렬을 사용합니다."
+            leftText="확인"
+            onLeft={handleCloseDefaultSort}
           />
         </ModalLayout>
       )}
