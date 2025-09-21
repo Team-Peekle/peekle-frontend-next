@@ -7,6 +7,7 @@ const ctwMerge = extendTailwindMerge({
       text: [
         'h2',
         'h3',
+        'p20',
         'p18-20',
         'p16-17',
         'p15-16',

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
 
 import { FilterType } from '@features/events/types/filter';
 

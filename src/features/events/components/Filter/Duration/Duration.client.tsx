@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 

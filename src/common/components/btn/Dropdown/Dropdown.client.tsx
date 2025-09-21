@@ -1,9 +1,11 @@
 'use client';
 
-import { cn } from '@lib/utils';
+import { Ref, forwardRef } from 'react';
 
 import { ButtonsCommonProps } from '@common/types/btn';
 import { DropdownType } from '@common/types/dropdown';
+
+import { cn } from '@common/libs/utils';
 
 import { Close } from '@common/components/svg/Close';
 import { Down } from '@common/components/svg/Down';
@@ -16,57 +18,63 @@ interface DropdownProps extends ButtonsCommonProps {
   onClick: () => void;
 }
 
-export const Dropdown = ({ dropdownType, text, onClick }: DropdownProps) => {
-  const handleClick = () => {
-    // VAR4는 버튼이 아닌 태그 내의 X 아이콘이 클릭되도록 하기 위해 onClick 무시
-    if (dropdownType === DropdownType.VAR4) {
-      return;
-    }
-    onClick();
-  };
-  return (
-    <button
-      className={cn(
-        'px-10pxr py-6pxr gap-6pxr rounded-8pxr transition-spring flex h-fit w-fit shrink-0 items-center justify-center shadow-[0_0_10pxr_0_rgba(0,0,0,0.05)]',
-        {
-          'bg-gray-0 hover:bg-gray-100':
-            dropdownType === DropdownType.VAR1 ||
-            dropdownType === DropdownType.VAR5 ||
-            dropdownType === DropdownType.VAR6,
-          'cursor-default': dropdownType === DropdownType.VAR4,
-          'bg-gray-800': dropdownType === DropdownType.VAR2 || dropdownType === DropdownType.VAR4,
-        },
-      )}
-      onClick={handleClick}
-    >
-      {dropdownType === DropdownType.VAR5 && (
-        <HeartIcon fill="outlined" className="h-13pxr w-15pxr text-gray-400" />
-      )}
-      {dropdownType === DropdownType.VAR6 && <Filter className="h-12pxr w-12pxr text-gray-400" />}
-      <p
-        className={cn('text-p15m whitespace-nowrap', {
-          'text-gray-700':
-            dropdownType === DropdownType.VAR1 ||
-            dropdownType === DropdownType.VAR5 ||
-            dropdownType === DropdownType.VAR6,
-          'text-gray-0': dropdownType === DropdownType.VAR2 || dropdownType === DropdownType.VAR4,
-        })}
+const Dropdown = forwardRef<HTMLButtonElement | null, DropdownProps>(
+  ({ dropdownType, text, onClick }: DropdownProps, ref: Ref<HTMLButtonElement | null>) => {
+    const handleClick = () => {
+      // VAR4는 버튼이 아닌 태그 내의 X 아이콘이 클릭되도록 하기 위해 onClick 무시
+      if (dropdownType === DropdownType.VAR4) {
+        return;
+      }
+      onClick();
+    };
+
+    return (
+      <button
+        ref={ref}
+        className={cn(
+          'px-10pxr py-6pxr gap-6pxr rounded-8pxr transition-spring flex h-fit w-fit shrink-0 items-center justify-center shadow-[0_0_10pxr_0_rgba(0,0,0,0.05)]',
+          {
+            'bg-gray-0 hover:bg-gray-100':
+              dropdownType === DropdownType.VAR1 ||
+              dropdownType === DropdownType.VAR5 ||
+              dropdownType === DropdownType.VAR6,
+            'cursor-default': dropdownType === DropdownType.VAR4,
+            'bg-gray-800': dropdownType === DropdownType.VAR2 || dropdownType === DropdownType.VAR4,
+          },
+        )}
+        onClick={handleClick}
       >
-        {text}
-      </p>
-      {(dropdownType === DropdownType.VAR1 || dropdownType === DropdownType.VAR2) && (
-        <Down
-          className={cn('h-5pxr w-10pxr', {
-            'text-gray-400': dropdownType === DropdownType.VAR1,
-            'text-gray-0': dropdownType === DropdownType.VAR2,
+        {dropdownType === DropdownType.VAR5 && (
+          <HeartIcon fill="outlined" className="h-13pxr w-15pxr text-gray-400" />
+        )}
+        {dropdownType === DropdownType.VAR6 && <Filter className="h-12pxr w-12pxr text-gray-400" />}
+        <p
+          className={cn('text-p15m whitespace-nowrap', {
+            'text-gray-700':
+              dropdownType === DropdownType.VAR1 ||
+              dropdownType === DropdownType.VAR5 ||
+              dropdownType === DropdownType.VAR6,
+            'text-gray-0': dropdownType === DropdownType.VAR2 || dropdownType === DropdownType.VAR4,
           })}
-        />
-      )}
-      {dropdownType === DropdownType.VAR4 && (
-        <Close className="w-19pxr h-19pxr text-gray-0 cursor-pointer" onClick={onClick} />
-      )}
-    </button>
-  );
-};
+        >
+          {text}
+        </p>
+        {(dropdownType === DropdownType.VAR1 || dropdownType === DropdownType.VAR2) && (
+          <Down
+            className={cn('h-5pxr w-10pxr', {
+              'text-gray-400': dropdownType === DropdownType.VAR1,
+              'text-gray-0': dropdownType === DropdownType.VAR2,
+            })}
+          />
+        )}
+        {dropdownType === DropdownType.VAR4 && (
+          <Close className="w-19pxr h-19pxr text-gray-0 cursor-pointer" onClick={onClick} />
+        )}
+      </button>
+    );
+  },
+);
+
+Dropdown.displayName = 'Dropdown';
 
 export default Dropdown;

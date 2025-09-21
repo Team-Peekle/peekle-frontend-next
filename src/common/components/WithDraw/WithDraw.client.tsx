@@ -4,11 +4,11 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { cn } from '@lib/utils';
-
 import { PopupType } from '@common/types/popup';
 
 import { ROUTES } from '@common/constants/routes';
+
+import { cn } from '@common/libs/utils';
 
 import Checkbox from '@common/components/Checkbox.client';
 import Popup from '@common/components/Popup.server';

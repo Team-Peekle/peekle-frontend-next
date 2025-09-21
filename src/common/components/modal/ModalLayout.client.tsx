@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
 
 import ModalPortal from './ModalPortal.client';
 

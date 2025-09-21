@@ -5,17 +5,18 @@ import { SearchParamsType } from '@common/types/routes';
 import { isValidDate } from '@common/utils/dates';
 import isValidEnumValue from '@common/utils/isValidEnumValue';
 
-import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
-
 import Footer from '@common/layout/Footer/Footer.client';
 import Navbar from '@common/layout/Navbar.client';
 import NavBarLayout from '@common/layout/NavbarLayout/NavbarLayout.client';
+
+import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 
 import { CategoryType } from '@features/events/types/category';
 import { DurationType, FilterType, LocationType, PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 
 import ConfirmLocationPopup from '@features/events/components/ConfirmLocationPopup.client';
+import EventsList from '@features/events/components/EventsList/EventsList.client';
 import Filter from '@features/events/components/Filter/Filter.client';
 
 const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParamsType> }) => {
@@ -83,6 +84,7 @@ const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParam
           <DropdownBar />
         </div>
         {/* 이벤트 리스트 */}
+        <EventsList />
         <Footer />
       </NavBarLayout>
       <ConfirmLocationPopup />

@@ -40,6 +40,8 @@ const Filter = () => {
 
   const { clearFilter } = useEventsFilter();
 
+  console.log(isOpenFilter);
+
   return (
     <>
       {isOpenFilter &&

@@ -1,4 +1,4 @@
-import { cn } from '@lib/utils';
+import { cn } from '@common/libs/utils';
 
 import { Warning } from '@/common/components/svg/Warning';
 import { PopupType } from '@/common/types/popup';

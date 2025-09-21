@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation';
 
 import { SessionProvider, useSession } from 'next-auth/react';
 
-import { cn } from '@lib/utils';
+import { ROUTES } from '@common/constants/routes';
 
-import Cta from '@common/components/btn/Cta/Cta.client';
+import { cn } from '@common/libs/utils';
 
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
+
+import Cta from '@common/components/btn/Cta/Cta.client';
 
 export default function SignupCompletePage() {
   return (
@@ -35,7 +37,7 @@ function SignupCompleteContent() {
           className={cn('max-mb:w-full mt-[72px] w-[600px]')}
           type="submit"
           text="시작하기"
-          onClick={() => router.push('/')}
+          onClick={() => router.push(ROUTES.ROOT)}
         />
       </main>
     </div>

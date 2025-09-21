@@ -5,9 +5,10 @@ import { ChipType } from '@common/types/chip';
 import { DropdownType } from '@common/types/dropdown';
 import { PopupType } from '@common/types/popup';
 
+import Footer from '@common/layout/Footer/Footer.client';
+
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
-import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
 import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
@@ -26,12 +27,29 @@ import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 import Tabs from '@common/components/tabs/Tabs.client';
 
-import Footer from '@common/layout/Footer/Footer.client';
+import useGetEvents from '@features/events/hooks/queries/useGetEvents';
+import useGetTestToken from '@features/events/hooks/queries/useGetTestToken';
 
-const JoyTestPage = () => {
+const JoyTestClientPage = () => {
   const handleClick = () => {
     alert('버튼 클릭됨');
   };
+
+  const {
+    data: eventsData,
+    // fetchNextPage,
+    // hasNextPage,
+    // isFetchingNextPage,
+  } = useGetEvents({
+    limit: 20,
+    order: 'desc',
+    sort: 'date',
+  });
+
+  console.log(eventsData);
+
+  const { data: tokenData } = useGetTestToken();
+  console.log(tokenData);
 
   return (
     <div className="p-10pxr gap-10pxr flex flex-col bg-[#009A04]">
@@ -172,11 +190,9 @@ const JoyTestPage = () => {
           </Tabs.Panel>
         </Tabs>
       </div>
-      <DeferredLoader />
-
       <Footer />
     </div>
   );
 };
 
-export default JoyTestPage;
+export default JoyTestClientPage;

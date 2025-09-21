@@ -21,6 +21,10 @@ export enum PriceType {
   PAID = 'PAID',
 }
 
+export enum PriceCurrency {
+  KRW = 'KRW',
+}
+
 export enum LocationType {
   ALL = '0',
   강남_서초_양재 = '1',

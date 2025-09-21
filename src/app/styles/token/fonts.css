@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-pretendard: 'Pretendard';
+  --font-pretendard: var(--font-pretendard);
 }
 
 @layer utilities {
@@ -12,6 +12,10 @@
 
   .text-h3 {
     @apply text-24pxr max-[800px]:text-22pxr leading-[1.6em] font-bold tracking-[-0.03em];
+  }
+
+  .text-p20 {
+    @apply text-[20px] leading-[1.6em] font-bold tracking-normal;
   }
 
   .text-p18-20 {

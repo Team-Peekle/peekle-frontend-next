@@ -9,6 +9,8 @@ import { ProfileVariant } from '@common/types/profile';
 
 import { ROUTES } from '@common/constants/routes';
 
+import { loginStore } from '@common/stores/loginStore';
+
 import Profile from '@common/components/Profile.server';
 
 import { Close } from '@/common/components/svg/Close';
@@ -17,7 +19,6 @@ import PeekleLogo from '@/common/components/svg/PeekleLogo';
 import { Search } from '@/common/components/svg/Search';
 import { useIsMobile } from '@/common/hooks/useIsMobile';
 import { useIsScrolled } from '@/common/hooks/useIsScrolled';
-import { loginStore } from '@/common/store/loginStore';
 
 export default function Navbar() {
   const isMobile = useIsMobile();

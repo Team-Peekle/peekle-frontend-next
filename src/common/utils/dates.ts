@@ -37,17 +37,34 @@ export const formatDate = (date: Date | null) => {
 };
 
 /**
- * @description Date 객체를 YYYY.MM.DD (요일) 형식으로 변환
+ * @description dateString을 MM/DD (요일) 형식으로 변환
  *
- * @param date
- * @returns 'YYYY.MM.DD (요일)' string
+ * @param dateString
+ * @returns 'MM/DD (요일)' string
  */
-export const formatDateWithDayOfWeek = (date: Date | null) => {
+export const formatDateWithDayOfWeek = (dateString: string) => {
+  const date = new Date(dateString);
   if (!date) return null;
-  const dateStr = format(date, 'yyyy.MM.dd');
+
+  const formattedDate = format(date, 'MM/dd');
   const dayOfWeek = date.toLocaleString('ko-KR', { weekday: 'short' });
 
-  return `${dateStr} (${dayOfWeek})`;
+  return `${formattedDate} (${dayOfWeek})`;
+};
+
+/**
+ * @description dateString을 MM/DD (요일) 형식으로 변환
+ *
+ * @param dateString
+ * @returns 'MM/DD (요일)' string
+ */
+export const formatPeriod = (dateStr1: string, dateStr2: string) => {
+  if (!dateStr1 || !dateStr2) return null;
+
+  const date1 = formatDateWithDayOfWeek(dateStr1);
+  const date2 = formatDateWithDayOfWeek(dateStr2);
+
+  return `${date1} - ${date2}`;
 };
 
 /**
@@ -56,7 +73,7 @@ export const formatDateWithDayOfWeek = (date: Date | null) => {
  * @param dateString
  * @returns boolean
  */
-export const isValidDate = (dateString: string): boolean => {
+export const isValidDate = (dateString: string) => {
   const regex = /^\d{4}\.\d{2}\.\d{2}$/;
   if (!regex.test(dateString)) {
     return false;
