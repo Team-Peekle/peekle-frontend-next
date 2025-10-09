@@ -1,8 +1,15 @@
-import { queryOptions } from '@tanstack/react-query';
+import { UseMutationOptions, queryOptions } from '@tanstack/react-query';
 
 import { useAuthenticatedApi } from '@common/libs/api/client';
+import { baseApi, fetcher } from '@common/libs/api/common';
 
-import { type AuthProtectedResponseDTO, authProtectedResponseSchema } from '../types/auth';
+import {
+  type AuthOauthRegisterRequestDTO,
+  type AuthOauthRegisterResponseDTO,
+  type AuthProtectedResponseDTO,
+  authOauthRegisterResponseSchema,
+  authProtectedResponseSchema,
+} from '../types/auth';
 
 const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/v1` || '';
 
@@ -25,6 +32,54 @@ export const getAuthProtectedOptions = (
 };
 
 /**
+ * POST /v1/auth/oauth/register
+ * OAuth 사용자 회원가입
+ * 기존 인증 방식과 다른 registerToken을 사용하므로 ky instance를 따로 생성
+ */
+export const postAuthOauthRegisterOptions = (): UseMutationOptions<
+  AuthOauthRegisterResponseDTO,
+  Error,
+  AuthOauthRegisterRequestDTO
+> => {
+  return {
+    mutationFn: async (data: AuthOauthRegisterRequestDTO) => {
+      const registerToken =
+        typeof window !== 'undefined' ? localStorage.getItem('registerToken') : null;
+
+      if (!registerToken) {
+        throw new Error('RegisterToken이 없습니다.');
+      }
+      const registerKy = baseApi.extend({
+        credentials: 'include',
+        hooks: {
+          beforeRequest: [
+            async (request) => {
+              request.headers.set('RegisterToken', registerToken);
+            },
+          ],
+        },
+      });
+      const response = await fetcher<typeof authOauthRegisterResponseSchema>(
+        '/v1/auth/oauth/register',
+        {
+          method: 'POST',
+          json: data,
+        },
+        authOauthRegisterResponseSchema,
+        registerKy,
+      );
+
+      return response;
+    },
+    onSuccess: () => {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('registerToken');
+      }
+    },
+  };
+};
+
+/**
  * GET /v1/auth/google/login
  * Google 인증 페이지로 이동 (로그인 시작)
  */
@@ -38,28 +93,4 @@ export const getGoogleLoginUrl = () => {
  */
 export const getKakaoLoginUrl = () => {
   return `${API_BASE_URL}/auth/kakao/login`;
-};
-
-/**
- * GET /v1/auth/google/callback
- * Google 콜백: 사용자 인증 후 토큰 발급
- */
-export const getGoogleCallbackUrl = (code?: string) => {
-  const baseUrl = `${API_BASE_URL}/auth/google/callback`;
-  if (code) {
-    return `${baseUrl}?code=${encodeURIComponent(code)}`;
-  }
-  return baseUrl;
-};
-
-/**
- * GET /v1/auth/kakao/callback
- * Kakao 콜백: 사용자 인증 후 토큰 발급
- */
-export const getKakaoCallbackUrl = (code?: string) => {
-  const baseUrl = `${API_BASE_URL}/auth/kakao/callback`;
-  if (code) {
-    return `${baseUrl}?code=${encodeURIComponent(code)}`;
-  }
-  return baseUrl;
 };

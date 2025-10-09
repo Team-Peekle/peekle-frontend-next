@@ -2,10 +2,6 @@
 
 import Image from 'next/image';
 
-import { useQuery } from '@tanstack/react-query';
-
-import { useAuthenticatedApi } from '@common/libs/api/client';
-
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
 import Google from '@common/components/svg/Google';
@@ -14,46 +10,13 @@ import Kakao from '@common/components/svg/Kakao';
 import Cta from '@features/sign/components/SignButton.client';
 
 import { getGoogleLoginUrl, getKakaoLoginUrl } from '@features/sign/api/auth';
-import { getUsersMeOptions } from '@features/sign/api/user';
 
 export default function SigninPage() {
-  const authenticatedClientFetcher = useAuthenticatedApi();
-
-  // 내 정보 조회 (인증된 상태에서만 성공)
-  const {
-    data: userInfo,
-    error,
-    refetch,
-  } = useQuery({
-    ...getUsersMeOptions(authenticatedClientFetcher),
-    retry: false,
-    enabled: false, // 수동으로 호출하도록 설정
-  });
-
-  // 내 정보 조회 결과를 콘솔에 출력
-  if (userInfo) {
-    console.log('내 정보:', userInfo);
-  }
-  if (error) {
-    console.log('내 정보 조회 실패:', error);
-  }
-
   const handleSocialLogin = (provider: 'google' | 'kakao') => {
-    // 소셜 로그인 URL로 리다이렉트
     if (provider === 'google') {
       window.location.href = getGoogleLoginUrl();
     } else if (provider === 'kakao') {
       window.location.href = getKakaoLoginUrl();
-    }
-  };
-
-  const handleGetMyInfo = async () => {
-    // 내 정보 조회 실행
-    const result = await refetch();
-    if (result.data) {
-      console.log('내 정보:', result.data);
-    } else if (result.error) {
-      console.log('내 정보 조회 실패:', result.error);
     }
   };
 
@@ -81,12 +44,6 @@ export default function SigninPage() {
           onClick={() => handleSocialLogin('google')}
         >
           <Google className="size-5" /> 구글계정으로 계속하기
-        </Cta>
-        <Cta
-          className="text-p16sb px-116pxr max-mb:px-80pxr w-fit cursor-pointer gap-[8px] bg-blue-500 text-white"
-          onClick={handleGetMyInfo}
-        >
-          내 정보 조회 (콘솔)
         </Cta>
       </footer>
     </div>

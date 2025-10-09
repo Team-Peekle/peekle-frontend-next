@@ -9,3 +9,29 @@ export const authProtectedResponseSchema = z.object({
 });
 
 export type AuthProtectedResponseDTO = z.infer<typeof authProtectedResponseSchema>;
+
+/**
+ * POST /v1/auth/oauth/register 요청 스키마
+ * OAuth 사용자 회원가입
+ */
+export const authOauthRegisterRequestSchema = z.object({
+  nickname: z.string(),
+  terms: z.array(
+    z.object({
+      termId: z.number(),
+      isAccepted: z.boolean(),
+    }),
+  ),
+});
+
+export type AuthOauthRegisterRequestDTO = z.infer<typeof authOauthRegisterRequestSchema>;
+
+/**
+ * POST /v1/auth/oauth/register 응답 스키마
+ * 토큰은 쿠키로 전달되므로 응답 body는 메시지만 포함
+ */
+export const authOauthRegisterResponseSchema = z.object({
+  message: z.string().optional(),
+});
+
+export type AuthOauthRegisterResponseDTO = z.infer<typeof authOauthRegisterResponseSchema>;
