@@ -1,8 +1,14 @@
 import { queryOptions } from '@tanstack/react-query';
 
 import { useAuthenticatedApi } from '@common/libs/api/client';
+import { baseApi, fetcher } from '@common/libs/api/common';
 
-import { type GetUsersMeResponseDTO, getUsersMeResponseSchema } from '../types/user';
+import {
+  type GetUsersMeResponseDTO,
+  type GetUsersNicknameCheckResponseDTO,
+  getUsersMeResponseSchema,
+  getUsersNicknameCheckResponseSchema,
+} from '../types/user';
 
 /**
  * GET /users/me
@@ -17,5 +23,28 @@ export const getUsersMeOptions = (
     queryKey: ['users', 'me'],
     queryFn: () =>
       authenticatedClientFetcher('users/me', { method: 'GET' }, getUsersMeResponseSchema),
+  });
+};
+
+/**
+ * GET /users/nickname/check
+ * 닉네임 중복 확인
+ *
+ * 닉네임 사용 가능 여부를 확인합니다.
+ */
+export const getUsersNicknameCheckOptions = (nickname: string) => {
+  return queryOptions<GetUsersNicknameCheckResponseDTO>({
+    queryKey: ['users', 'nickname', 'check', nickname],
+    queryFn: () =>
+      fetcher(
+        'users/nickname/check',
+        {
+          method: 'GET',
+          searchParams: { nickname: nickname.trim() },
+        },
+        getUsersNicknameCheckResponseSchema,
+        baseApi,
+      ),
+    enabled: !!nickname && nickname.trim().length > 0,
   });
 };

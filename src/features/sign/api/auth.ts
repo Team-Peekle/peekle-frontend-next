@@ -60,7 +60,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
         },
       });
       const response = await fetcher<typeof authOauthRegisterResponseSchema>(
-        '/v1/auth/oauth/register',
+        'v1/auth/oauth/register',
         {
           method: 'POST',
           json: data,

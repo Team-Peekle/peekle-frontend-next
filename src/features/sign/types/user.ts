@@ -18,3 +18,13 @@ export const getUsersMeResponseSchema = z.object({
 });
 
 export type GetUsersMeResponseDTO = z.infer<typeof getUsersMeResponseSchema>;
+
+/**
+ * GET /users/nickname/check 응답 스키마
+ * 닉네임 중복 확인 API 응답
+ */
+export const getUsersNicknameCheckResponseSchema = z.object({
+  available: z.boolean(),
+});
+
+export type GetUsersNicknameCheckResponseDTO = z.infer<typeof getUsersNicknameCheckResponseSchema>;
