@@ -4,7 +4,7 @@ import { useAuthenticatedApi } from '@common/libs/api/client';
 
 import { type AuthProtectedResponseDTO, authProtectedResponseSchema } from '../types/auth';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/v1` || '';
 
 /**
  * GET /auth/protected
@@ -16,12 +16,16 @@ export const getAuthProtectedOptions = (
   return queryOptions<AuthProtectedResponseDTO>({
     queryKey: ['auth', 'protected'],
     queryFn: () =>
-      authenticatedClientFetcher('auth/protected', { method: 'GET' }, authProtectedResponseSchema),
+      authenticatedClientFetcher(
+        '/v1/auth/protected',
+        { method: 'GET' },
+        authProtectedResponseSchema,
+      ),
   });
 };
 
 /**
- * GET /auth/google/login
+ * GET /v1/auth/google/login
  * Google 인증 페이지로 이동 (로그인 시작)
  */
 export const getGoogleLoginUrl = () => {
@@ -29,7 +33,7 @@ export const getGoogleLoginUrl = () => {
 };
 
 /**
- * GET /auth/kakao/login
+ * GET /v1/auth/kakao/login
  * Kakao 인증 페이지로 이동 (로그인 시작)
  */
 export const getKakaoLoginUrl = () => {
@@ -37,7 +41,7 @@ export const getKakaoLoginUrl = () => {
 };
 
 /**
- * GET /auth/google/callback
+ * GET /v1/auth/google/callback
  * Google 콜백: 사용자 인증 후 토큰 발급
  */
 export const getGoogleCallbackUrl = (code?: string) => {
@@ -49,7 +53,7 @@ export const getGoogleCallbackUrl = (code?: string) => {
 };
 
 /**
- * GET /auth/kakao/callback
+ * GET /v1/auth/kakao/callback
  * Kakao 콜백: 사용자 인증 후 토큰 발급
  */
 export const getKakaoCallbackUrl = (code?: string) => {
