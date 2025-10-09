@@ -1,11 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SessionProvider, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
 import { cn } from '@common/libs/utils';
@@ -18,20 +15,10 @@ import Cta from '@common/components/btn/Cta/Cta.client';
 import { SignupSchema, signupSchema } from '@features/sign/types/signupSchema';
 
 export default function SignupPage() {
-  return (
-    <SessionProvider>
-      <SignupContent />
-    </SessionProvider>
-  );
-}
-
-function SignupContent() {
-  const { data: session } = useSession();
   const router = useRouter();
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, isValid },
     watch,
   } = useForm<SignupSchema>({
@@ -43,14 +30,8 @@ function SignupContent() {
     },
   });
 
-  useEffect(() => {
-    if (session?.user) {
-      setValue('name', session.user.name ?? '');
-      setValue('nickname', session.user.nickname ?? '');
-    }
-  }, [session, setValue]);
-
   const onSubmit = (data: SignupSchema) => {
+    console.log('회원가입 데이터:', data);
     router.push('/signup/complete');
   };
 
@@ -63,7 +44,7 @@ function SignupContent() {
             <h2 className="text-p16sb text-gray-800">이름</h2>
             <Textfield
               {...register('name')}
-              readOnly
+              placeholder="이름을 입력해주세요."
               status={errors.name ? 'error' : 'default'}
               helperText={errors.name?.message || ''}
             />

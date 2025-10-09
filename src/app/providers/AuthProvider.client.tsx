@@ -1,9 +1,8 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
-
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  return <SessionProvider>{children}</SessionProvider>;
+  // TODO: 커스텀 인증 로직 구현
+  return <>{children}</>;
 };
 
 export default AuthProvider;
