@@ -1,22 +1,21 @@
 'use client';
 
+import { deleteCookie, getCookie } from 'cookies-next';
 import { Options } from 'ky';
 import { z } from 'zod';
 
 import { ROUTES } from '@common/constants/routes';
 
-import { useAccessTokenClient } from '../auth';
 import { baseApi, fetcher } from './common';
 
 /** 클라이언트 환경에서만 사용되는 authenticatedClientFetcher를 반환하는 훅 */
 export const useAuthenticatedApi = () => {
-  const accessToken = useAccessTokenClient();
-
   // 인증 포함된 instance를 훅 안에서 생성
   const authenticatedKy = baseApi.extend({
     hooks: {
       beforeRequest: [
         async (request) => {
+          const accessToken = getCookie('accessToken');
           if (accessToken) {
             request.headers.set('Authorization', `Bearer ${accessToken}`);
           }
@@ -26,6 +25,8 @@ export const useAuthenticatedApi = () => {
         async (_request, _options, response) => {
           // 401 Unauthorized 응답 처리
           if (response.status === 401) {
+            deleteCookie('accessToken');
+            deleteCookie('refreshToken');
             window.location.href = ROUTES.SIGN_IN;
           }
         },

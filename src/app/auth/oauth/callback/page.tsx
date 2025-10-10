@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { setCookie } from 'cookies-next';
+
 export default function OAuthCallbackPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -16,15 +18,24 @@ export default function OAuthCallbackPage() {
 
     if (type === 'login') {
       if (accessToken) {
-        localStorage.setItem('accessToken', accessToken);
+        setCookie('accessToken', accessToken, {
+          maxAge: 60 * 60 * 24 * 3,
+          path: '/',
+        });
       }
       if (refreshToken) {
-        localStorage.setItem('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken, {
+          maxAge: 60 * 60 * 24 * 15,
+          path: '/',
+        });
       }
       router.push('/');
     } else if (type === 'register') {
       if (registerToken) {
-        localStorage.setItem('registerToken', registerToken);
+        setCookie('registerToken', registerToken, {
+          maxAge: 60 * 60 * 24,
+          path: '/',
+        });
       }
       router.push('/signup');
     } else {
