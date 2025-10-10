@@ -16,6 +16,8 @@ export default function OAuthCallbackPage() {
     const accessToken = searchParams.get('accessToken');
     const refreshToken = searchParams.get('refreshToken');
 
+    console.log(accessToken);
+
     if (type === 'login') {
       if (accessToken) {
         setCookie('accessToken', accessToken, {

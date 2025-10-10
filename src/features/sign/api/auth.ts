@@ -13,7 +13,7 @@ import {
   authProtectedResponseSchema,
 } from '../types/auth';
 
-const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/v1` || '';
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}` || '';
 
 /**
  * GET /v1/auth/protected
@@ -23,11 +23,7 @@ export const getAuthProtectedOptions = () => {
   return queryOptions<AuthProtectedResponseDTO>({
     queryKey: ['auth', 'protected'],
     queryFn: () =>
-      authenticatedClientFetcher(
-        'v1/auth/protected',
-        { method: 'GET' },
-        authProtectedResponseSchema,
-      ),
+      authenticatedClientFetcher('auth/protected', { method: 'GET' }, authProtectedResponseSchema),
   });
 };
 
@@ -58,7 +54,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
         },
       });
       const response = await fetcher<typeof authOauthRegisterResponseSchema>(
-        'v1/auth/oauth/register',
+        'auth/oauth/register',
         {
           method: 'POST',
           json: data,
@@ -80,7 +76,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
  * Google 인증 페이지로 이동 (로그인 시작)
  */
 export const getGoogleLoginUrl = () => {
-  return `${API_BASE_URL}/auth/google/login`;
+  return `${API_URL}/auth/google/login`;
 };
 
 /**
@@ -88,5 +84,5 @@ export const getGoogleLoginUrl = () => {
  * Kakao 인증 페이지로 이동 (로그인 시작)
  */
 export const getKakaoLoginUrl = () => {
-  return `${API_BASE_URL}/auth/kakao/login`;
+  return `${API_URL}/auth/kakao/login`;
 };

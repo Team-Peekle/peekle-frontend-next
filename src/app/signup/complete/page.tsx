@@ -1,9 +1,13 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
+
+import { getCookie } from 'cookies-next';
 
 import { ROUTES } from '@common/constants/routes';
 

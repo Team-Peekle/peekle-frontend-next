@@ -5,7 +5,7 @@ import { z } from 'zod';
  * 내 정보 조회 API 응답
  */
 export const getUsersMeResponseSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   name: z.string().optional(),
   nickname: z.string(),
   birthdate: z.string(),
