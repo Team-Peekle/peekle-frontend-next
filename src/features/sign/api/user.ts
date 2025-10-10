@@ -8,7 +8,7 @@ import {
   type GetUsersNicknameCheckResponseDTO,
   getUsersMeResponseSchema,
   getUsersNicknameCheckResponseSchema,
-} from '../types/user';
+} from '../schemas/api/user';
 
 /**
  * GET /users/me

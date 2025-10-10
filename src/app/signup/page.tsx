@@ -22,6 +22,8 @@ import Cta from '@common/components/btn/Cta/Cta.client';
 
 import { SignupSchema, signupSchema } from '@features/sign/types/signupSchema';
 
+import { useOauthInfo } from '@features/sign/hooks/useOauthInfo';
+
 import { TermsAgreementModal } from '@features/sign/components/TermsAgreementModal';
 
 import { postAuthOauthRegisterOptions } from '@features/sign/api/auth';
@@ -62,6 +64,8 @@ export default function SignupPage() {
     enabled: debouncedNickname.trim().length > 0 && !errors.nickname,
   });
 
+  const oauthInfo = useOauthInfo();
+
   const registerMutation = useMutation({
     ...postAuthOauthRegisterOptions(),
     onSuccess: () => {
@@ -88,7 +92,11 @@ export default function SignupPage() {
     <div className="flex flex-col items-center">
       <DefaultNavbar />
       <main className="mt-32pxr p-16pxr max-mb:w-full flex w-[568px] flex-col items-center">
-        <div className="w-full">
+        <div className="flex w-full flex-col gap-10">
+          <section className="flex w-full flex-col gap-2">
+            <h2 className="text-p16sb text-gray-800">이름</h2>
+            <Textfield value={oauthInfo?.name || ''} disabled status="default" />
+          </section>
           <section className="flex w-full flex-col gap-2">
             <h2 className="text-p16sb text-gray-800">닉네임</h2>
             <Textfield

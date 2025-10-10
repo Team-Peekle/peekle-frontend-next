@@ -34,7 +34,7 @@ export default function Textfield({
           statusStyle[status],
           className,
           props.disabled
-            ? 'bg-gray-100m border-none text-gray-400'
+            ? 'border-none bg-gray-100 text-gray-400'
             : props.readOnly
               ? 'border-none bg-gray-100 text-gray-400'
               : '',

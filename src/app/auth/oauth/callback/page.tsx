@@ -16,8 +16,6 @@ export default function OAuthCallbackPage() {
     const accessToken = searchParams.get('accessToken');
     const refreshToken = searchParams.get('refreshToken');
 
-    console.log(accessToken);
-
     if (type === 'login') {
       if (accessToken) {
         setCookie('accessToken', accessToken, {
@@ -34,6 +32,7 @@ export default function OAuthCallbackPage() {
       router.push('/');
     } else if (type === 'register') {
       if (registerToken) {
+        localStorage.setItem('type', type);
         setCookie('registerToken', registerToken, {
           maxAge: 60 * 60 * 24,
           path: '/',

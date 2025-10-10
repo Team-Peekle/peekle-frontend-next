@@ -11,7 +11,7 @@ import {
   type AuthProtectedResponseDTO,
   authOauthRegisterResponseSchema,
   authProtectedResponseSchema,
-} from '../types/auth';
+} from '../schemas/api/auth';
 
 const API_URL = `${process.env.NEXT_PUBLIC_API_URL}` || '';
 
@@ -67,6 +67,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
     },
     onSuccess: () => {
       deleteCookie('registerToken');
+      localStorage.removeItem('type');
     },
   };
 };
