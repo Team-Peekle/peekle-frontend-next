@@ -8,42 +8,38 @@ import { ROUTES } from '@common/constants/routes';
 
 import { baseApi, fetcher } from './common';
 
-/** 클라이언트 환경에서만 사용되는 authenticatedClientFetcher를 반환하는 훅 */
-export const useAuthenticatedApi = () => {
-  // 인증 포함된 instance를 훅 안에서 생성
-  const authenticatedKy = baseApi.extend({
-    hooks: {
-      beforeRequest: [
-        async (request) => {
-          const accessToken = getCookie('accessToken');
-          if (accessToken) {
-            request.headers.set('Authorization', `Bearer ${accessToken}`);
-          }
-        },
-      ],
-      afterResponse: [
-        async (_request, _options, response) => {
-          // 401 Unauthorized 응답 처리
-          if (response.status === 401) {
-            deleteCookie('accessToken');
-            deleteCookie('refreshToken');
-            window.location.href = ROUTES.SIGN_IN;
-          }
-        },
-      ],
-    },
-  });
+// 인증이 포함된 ky instance (싱글톤)
+const authenticatedKy = baseApi.extend({
+  hooks: {
+    beforeRequest: [
+      async (request) => {
+        const accessToken = getCookie('accessToken');
+        if (accessToken) {
+          request.headers.set('Authorization', `Bearer ${accessToken}`);
+        }
+      },
+    ],
+    afterResponse: [
+      async (_request, _options, response) => {
+        // 401 Unauthorized 응답 처리
+        if (response.status === 401) {
+          deleteCookie('accessToken');
+          deleteCookie('refreshToken');
+          window.location.href = ROUTES.SIGN_IN;
+        }
+      },
+    ],
+  },
+});
 
-  /**
-   * authenticated ky instance를 사용하는 fetcher 함수
-   */
-  const authenticatedClientFetcher = async <T extends z.ZodTypeAny>(
-    url: string,
-    options: Options,
-    schema: T,
-  ) => {
-    return fetcher(url, options, schema, authenticatedKy);
-  };
-
-  return authenticatedClientFetcher;
+/**
+ * 클라이언트 환경에서 사용하는 인증된 API fetcher
+ * 쿠키에서 accessToken을 가져와서 Authorization 헤더에 추가
+ */
+export const authenticatedClientFetcher = async <T extends z.ZodTypeAny>(
+  url: string,
+  options: Options,
+  schema: T,
+) => {
+  return fetcher(url, options, schema, authenticatedKy);
 };

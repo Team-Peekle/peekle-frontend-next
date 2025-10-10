@@ -2,7 +2,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import queryKeys from '@common/constants/queryKeys';
 
-import { useAuthenticatedApi } from '@common/libs/api/client';
+import { authenticatedClientFetcher } from '@common/libs/api/client';
 
 import { GetEventsParams } from '@features/events/types/api';
 
@@ -13,8 +13,6 @@ import { getEventsSchema } from '../../schemas/getEventsSchema';
  * getTestToken을 호출해 이벤트 목록을 가져오는 훅
  */
 const useGetEvents = (params: Omit<GetEventsParams, 'cursor'>) => {
-  const authenticatedClientFetcher = useAuthenticatedApi();
-
   const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
     useSuspenseInfiniteQuery({
       queryKey: queryKeys.events.list(params).queryKey,

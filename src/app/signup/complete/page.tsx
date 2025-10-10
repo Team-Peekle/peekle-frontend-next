@@ -7,7 +7,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { ROUTES } from '@common/constants/routes';
 
-import { useAuthenticatedApi } from '@common/libs/api/client';
 import { cn } from '@common/libs/utils';
 
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
@@ -18,9 +17,8 @@ import { getUsersMeOptions } from '@features/sign/api/user';
 
 export default function SignupCompletePage() {
   const router = useRouter();
-  const authenticatedClientFetcher = useAuthenticatedApi();
 
-  const { data: userData } = useSuspenseQuery(getUsersMeOptions(authenticatedClientFetcher));
+  const { data: userData } = useSuspenseQuery(getUsersMeOptions());
 
   return (
     <div>

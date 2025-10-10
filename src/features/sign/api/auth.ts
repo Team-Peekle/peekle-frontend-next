@@ -1,6 +1,8 @@
 import { UseMutationOptions, queryOptions } from '@tanstack/react-query';
 
-import { useAuthenticatedApi } from '@common/libs/api/client';
+import { deleteCookie, getCookie } from 'cookies-next';
+
+import { authenticatedClientFetcher } from '@common/libs/api/client';
 import { baseApi, fetcher } from '@common/libs/api/common';
 
 import {
@@ -14,17 +16,15 @@ import {
 const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/v1` || '';
 
 /**
- * GET /auth/protected
+ * GET /v1/auth/protected
  * 토큰 검증 API - JwtGuard를 통과했는지 확인
  */
-export const getAuthProtectedOptions = (
-  authenticatedClientFetcher: ReturnType<typeof useAuthenticatedApi>,
-) => {
+export const getAuthProtectedOptions = () => {
   return queryOptions<AuthProtectedResponseDTO>({
     queryKey: ['auth', 'protected'],
     queryFn: () =>
       authenticatedClientFetcher(
-        '/v1/auth/protected',
+        'v1/auth/protected',
         { method: 'GET' },
         authProtectedResponseSchema,
       ),
@@ -43,14 +43,12 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
 > => {
   return {
     mutationFn: async (data: AuthOauthRegisterRequestDTO) => {
-      const registerToken =
-        typeof window !== 'undefined' ? localStorage.getItem('registerToken') : null;
+      const registerToken = getCookie('registerToken') as string;
 
       if (!registerToken) {
         throw new Error('RegisterToken이 없습니다.');
       }
       const registerKy = baseApi.extend({
-        credentials: 'include',
         hooks: {
           beforeRequest: [
             async (request) => {
@@ -72,9 +70,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
       return response;
     },
     onSuccess: () => {
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('registerToken');
-      }
+      deleteCookie('registerToken');
     },
   };
 };

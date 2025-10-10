@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { useAuthenticatedApi } from '@common/libs/api/client';
+import { authenticatedClientFetcher } from '@common/libs/api/client';
 import { baseApi, fetcher } from '@common/libs/api/common';
 
 import {
@@ -16,9 +16,7 @@ import {
  *
  * 인증된 사용자의 정보를 조회합니다.
  */
-export const getUsersMeOptions = (
-  authenticatedClientFetcher: ReturnType<typeof useAuthenticatedApi>,
-) => {
+export const getUsersMeOptions = () => {
   return queryOptions<GetUsersMeResponseDTO>({
     queryKey: ['users', 'me'],
     queryFn: () =>
