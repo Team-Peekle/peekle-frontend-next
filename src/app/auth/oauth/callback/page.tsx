@@ -11,8 +11,16 @@ export default function OAuthCallbackPage() {
   useEffect(() => {
     const type = searchParams.get('type');
     const registerToken = searchParams.get('registerToken');
+    const accessToken = searchParams.get('accessToken');
+    const refreshToken = searchParams.get('refreshToken');
 
     if (type === 'login') {
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
+      }
+      if (refreshToken) {
+        localStorage.setItem('refreshToken', refreshToken);
+      }
       router.push('/');
     } else if (type === 'register') {
       if (registerToken) {
