@@ -2,15 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import { useSearchParams } from 'next/navigation';
+
 import { DropdownType } from '@common/types/dropdown';
 
 import CategoryMenu from '@common/components/CategoryMenu/CategoryMenu.client';
 import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
 import ModalPortal from '@common/components/modal/ModalPortal.client';
 
+import { CategoryType } from '@features/events/types/category';
 import { SortType } from '@features/events/types/sort';
 
 import { useOpenFilter } from '@features/events/hooks/stores/useEventsModalStore';
+import useEventsFilter from '@features/events/hooks/useEventsFilter';
 import useSort from '@features/events/hooks/useSort';
 
 import SortMenu from '@features/events/components/SortMenu/SortMenu.client';
@@ -24,6 +28,9 @@ interface DropdownState {
 }
 
 const DropdownBar = () => {
+  const { clearFilter } = useEventsFilter();
+  const searchParams = useSearchParams();
+
   const openFilter = useOpenFilter();
   const { currentSort } = useSort();
   // 필터, 정렬, 카테고리 드롭다운 열림 상태
@@ -102,10 +109,23 @@ const DropdownBar = () => {
     }
   };
 
+  // categories 문자열
+  const categoriesValue = searchParams.get('categories');
+
+  let categoriesStr: string;
+
+  if (categoriesValue) {
+    const categoriesArray = categoriesValue.split(',');
+
+    // ", "를 사용하여 문자열로 합침
+    categoriesStr = categoriesArray.join(', ');
+  } else {
+    categoriesStr = CategoryType.ALL;
+  }
+
   return (
     <div className="scrollbar-hide gap-12pxr px-12pxr flex flex-shrink-0 flex-row items-center overflow-x-auto">
       {/* Filter Dropdown & Menu */}
-      {/* ✅ TODO: 애니메이션 적용 필요 */}
       <Dropdown
         dropdownType={DropdownType.VAR6}
         text="필터"
@@ -113,7 +133,6 @@ const DropdownBar = () => {
       />
       <span className="gap-8pxr flex flex-row items-center">
         {/* Sort Dropdown & Menu */}
-        {/* ✅ TODO: 애니메이션 적용 필요 */}
         <Dropdown
           ref={sortRef}
           dropdownType={DropdownType.VAR1}
@@ -121,15 +140,12 @@ const DropdownBar = () => {
           onClick={() => handleDropdownClick('sort', sortRef)}
         />
         {/* Category Dropdown & Menu */}
-        {/* ✅ TODO: 애니메이션 적용 필요 */}
         <Dropdown
           ref={categoryRef}
           dropdownType={DropdownType.VAR1}
-          // ✅ TODO: 실제 값으로 변경 필요
-          text="카테고리"
+          text={categoriesStr}
           onClick={() => handleDropdownClick('category', categoryRef)}
         />
-        {/* ✅ TODO: 애니메이션 적용 필요 */}
         {isActiveBookmarkDropdown ? (
           <Dropdown
             dropdownType={DropdownType.VAR4}
@@ -149,7 +165,9 @@ const DropdownBar = () => {
           />
         )}
       </span>
-      <button className="text-p14 py-7pxr shrink-0 text-gray-500">초기화</button>
+      <button onClick={clearFilter} className="text-p14 py-7pxr shrink-0 text-gray-500">
+        초기화
+      </button>
 
       {openedDropdowns.sort && (
         <ModalPortal>

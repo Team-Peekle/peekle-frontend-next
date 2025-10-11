@@ -3,6 +3,8 @@ import { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { motion } from 'framer-motion';
+
 import { ROUTES } from '@common/constants/routes';
 
 import { formatPeriod } from '@common/utils/dates';
@@ -17,11 +19,25 @@ interface EventCardProps {
   eventData: Event;
 }
 
+const EventCardAnimation = {
+  initial: { opacity: 0, y: -5 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring' as const,
+      duration: 0.8,
+      bounce: 0.2,
+      delay: 0.1,
+    },
+  },
+};
+
 const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref) => {
   const isMobile = useIsMobile();
 
   return (
-    <div ref={ref}>
+    <motion.div ref={ref} initial={EventCardAnimation.initial} animate={EventCardAnimation.animate}>
       {isMobile ? (
         <Link
           href={ROUTES.EVENTS.DETAIL(eventData.id)}
@@ -36,7 +52,12 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
                 style={{ objectFit: 'cover' }}
                 className="rounded-10pxr"
               />
-              <div className="absolute inset-0 bg-black/50" />
+              <motion.div
+                // initial={{ opacity: 0 }}
+                // animate={{ opacity: 1 }}
+                // whileHover={{ scale: 0.5 }}
+                className="absolute inset-0 bg-black/50"
+              />
               <div className="text-p14-15 text-gray-0 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center">
                 {eventData.title}
               </div>
@@ -83,7 +104,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
           </div>
         </Link>
       )}
-    </div>
+    </motion.div>
   );
 });
 

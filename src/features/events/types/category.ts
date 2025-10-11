@@ -1,5 +1,5 @@
 export enum CategoryType {
-  ALL = 'ALL',
+  ALL = '카테고리',
   LICENSE = '자격증',
   JOB_STARTUP = '취·창업',
   DIGITAL_SKILLS = '디지털 역량',
