@@ -8,15 +8,47 @@ import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
+import { CategoryType } from '@features/events/types/category';
+import { DurationType, LocationType } from '@features/events/types/filter';
+import { PriceType } from '@features/events/types/filter';
+import { SortType } from '@features/events/types/sort';
+import { OrderType } from '@features/events/types/sort';
+
 import useGetEvents from '@features/events/hooks/queries/useGetEvents';
+import { useMyLocationInfo } from '@features/events/hooks/stores/useMyLocationStore';
 
 import EventCard from './EventCard.client';
 
 const EventsList = () => {
   const isMobile = useIsMobile();
 
+  // 필터, 정렬, 카테고리 값 가져오기
   const searchParams = useSearchParams();
-  const sort = searchParams.get('sort');
+  const sort = (searchParams.get('sort') as SortType) ?? SortType.DATE;
+  // duration
+  let startDate: string | undefined;
+  let endDate: string | undefined;
+  const duration = searchParams.get('duration') ?? '';
+  // duration이 빈 문자열(''), 또는 'CUSTOM'일 경우, 날짜는 undefined로
+  if (!duration || duration === DurationType.CUSTOM) {
+    startDate = undefined;
+    endDate = undefined;
+  }
+  // duration이 날짜 범위 문자열 ('YYYY-MM-DD,YYYY-MM-DD' 등)일 경우
+  else {
+    // 쉼표(,)를 기준으로 분리
+    const parts = duration.split(',');
+
+    const rawStartDate = parts[0];
+    const rawEndDate = parts[1];
+
+    startDate = rawStartDate || undefined;
+    endDate = rawEndDate || undefined;
+  }
+  const price = searchParams.get('price') ?? undefined;
+  const locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
+  const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
+  const { myLocation } = useMyLocationInfo();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -42,10 +74,17 @@ const EventsList = () => {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetEvents({
     limit: 20,
-    order: 'desc',
-    sort: 'date',
+    sort,
+    order: OrderType.ASC,
+    startDate,
+    endDate,
+    isFree: price === PriceType.FREE ? true : false,
+    locations,
+    categories,
+    latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
+    longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
   });
-  console.log(data);
+
   const events = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
 
   return (

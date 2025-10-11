@@ -61,7 +61,7 @@ export default function useEventsFilter(filterType?: FilterType) {
           updatedParams.set(filterType, newValues.join(','));
         }
       }
-    } else if (filterType === FilterType.DURATION || filterType === FilterType.PRICE) {
+    } else if (filterType === FilterType.PRICE || filterType === FilterType.DURATION) {
       // 단일 선택만 가능한 필터 타입일 때
       updatedParams.set(filterType, newValue);
     }

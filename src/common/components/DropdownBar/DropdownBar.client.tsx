@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { DropdownType } from '@common/types/dropdown';
 
@@ -37,6 +37,42 @@ const DropdownBar = () => {
   // 각 드롭다운 버튼의 위치를 참조할 ref
   const sortRef = useRef<HTMLButtonElement | null>(null);
   const categoryRef = useRef<HTMLButtonElement | null>(null);
+  // 드롭다운 메뉴 바깥 클릭시 닫기 위해
+  // 드롭다운 메뉴를 참조할 ref
+  const sortMenuRef = useRef<HTMLDivElement | null>(null);
+  const categoryMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      // 열려 있는 경우, 해당 메뉴 컴포넌트 ref
+      const isInsideSortMenu =
+        openedDropdowns.sort && sortMenuRef.current && sortMenuRef.current.contains(target);
+      const isInsideCategoryMenu =
+        openedDropdowns.category &&
+        categoryMenuRef.current &&
+        categoryMenuRef.current.contains(target);
+
+      // 클릭된 요소가
+      // 열린 SortMenu 내부도 아니고 (isInsideSortMenu === false)
+      // 열린 CategoryMenu 내부도 아닐 때 (isInsideCategoryMenu === false)
+      if (!isInsideSortMenu && !isInsideCategoryMenu) {
+        // 닫기
+        setOpenedDropdowns({
+          filter: false,
+          sort: false,
+          category: false,
+        });
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openedDropdowns]);
 
   // 내가 찜한 이벤트 드롭다운 활성화 상태
   const [isActiveBookmarkDropdown, setIsActiveBookmarkDropdown] = useState(false);
@@ -115,19 +151,10 @@ const DropdownBar = () => {
       </span>
       <button className="text-p14 py-7pxr shrink-0 text-gray-500">초기화</button>
 
-      {/* {openedDropdowns.sort && (
-        <div className="mt-8pxr absolute top-full">
-          <SortMenu />
-        </div>
-      )}
-      {openedDropdowns.category && (
-        <div className="mt-8pxr absolute top-full">
-          <CategoryMenu />
-        </div>
-      )} */}
       {openedDropdowns.sort && (
         <ModalPortal>
           <div
+            ref={sortMenuRef}
             className="absolute"
             style={{
               top: `${MenuPosition.y}px`,
@@ -141,6 +168,7 @@ const DropdownBar = () => {
       {openedDropdowns.category && (
         <ModalPortal>
           <div
+            ref={categoryMenuRef}
             className="absolute"
             style={{
               top: `${MenuPosition.y}px`,

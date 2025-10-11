@@ -16,11 +16,9 @@ const useGetEvents = (params: Omit<GetEventsParams, 'cursor'>) => {
   const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
     queryKey: queryKeys.events.list(params).queryKey,
     queryFn: ({ pageParam }) =>
-      fetcher(
-        EVENTS_API_ENDPOINTS.EVENTS,
-        { searchParams: { ...params, cursor: pageParam } },
-        getEventsSchema,
-      ),
+      fetcher(EVENTS_API_ENDPOINTS.EVENTS, getEventsSchema, {
+        searchParams: { ...params, cursor: pageParam },
+      }),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => {
       return lastPage.nextCursor;

@@ -6,8 +6,8 @@ import { baseApi, fetcher } from './common';
 
 type AuthenticatedServerFetcher = <T extends z.ZodTypeAny>(
   url: string,
-  options: Options,
   schema: T,
+  options?: Options,
 ) => Promise<z.infer<T>>;
 
 /** 서버 환경에서만 사용되는 fetcher */
@@ -35,9 +35,9 @@ export const authenticatedServerFetcher = (async (): Promise<AuthenticatedServer
 
   return async <T extends z.ZodTypeAny>(
     url: string,
-    options: Options,
     schema: T,
+    options?: Options,
   ): Promise<z.infer<T>> => {
-    return fetcher(url, options, schema, authenticatedKy);
+    return fetcher(url, schema, options, authenticatedKy);
   };
 })();

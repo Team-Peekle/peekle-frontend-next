@@ -40,8 +40,6 @@ const Filter = () => {
 
   const { clearFilter } = useEventsFilter();
 
-  console.log(isOpenFilter);
-
   return (
     <>
       {isOpenFilter &&
@@ -73,7 +71,7 @@ const Filter = () => {
                   <Reload className="w-14pxr h-14pxr" />
                   초기화
                 </button>
-                <Cta text="필터 적용하기" className="flex-1" />
+                <Cta text="필터 적용하기" onClick={closeFilter} className="flex-1" />
               </div>
             </footer>
           </div>
@@ -113,7 +111,10 @@ const Filter = () => {
                     <Reload className="w-14pxr h-14pxr" />
                     초기화
                   </button>
-                  <button className="text-gray-0 rounded-8pxr py-8pxr px-16pxr bg-gray-800">
+                  <button
+                    onClick={closeFilter}
+                    className="text-gray-0 rounded-8pxr py-8pxr px-16pxr bg-gray-800"
+                  >
                     필터 적용하기
                   </button>
                 </div>

@@ -27,29 +27,10 @@ import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 import Tabs from '@common/components/tabs/Tabs.client';
 
-import useGetEvents from '@features/events/hooks/queries/useGetEvents';
-import useGetTestToken from '@features/events/hooks/queries/useGetTestToken';
-
 const JoyTestClientPage = () => {
   const handleClick = () => {
     alert('버튼 클릭됨');
   };
-
-  const {
-    data: eventsData,
-    // fetchNextPage,
-    // hasNextPage,
-    // isFetchingNextPage,
-  } = useGetEvents({
-    limit: 20,
-    order: 'desc',
-    sort: 'date',
-  });
-
-  console.log(eventsData);
-
-  const { data: tokenData } = useGetTestToken();
-  console.log(tokenData);
 
   return (
     <div className="p-10pxr gap-10pxr flex flex-col bg-[#009A04]">

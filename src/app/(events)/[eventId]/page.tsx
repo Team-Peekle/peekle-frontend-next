@@ -1,18 +1,35 @@
-// const EventDetailPage = () => {
+// import { notFound } from 'next/navigation';
+
+// import { HydrationBoundary } from '@tanstack/react-query';
+
+// import { SearchParamsType } from '@common/types/routes';
+
+// import queryKeys from '@common/constants/queryKeys';
+
+// import { getDehydratedState } from '@common/libs/react-query/dehydrate';
+
+// import { getEventDetail } from '@features/events/hooks/queries/useGetEventDetail';
+
+// import ImageSlider from '@features/events/components/ImageSlider/ImageSlider.client';
+
+// const EventDetailPage = async ({ searchParams }: { searchParams: Promise<SearchParamsType> }) => {
+//   const { eventId } = await searchParams;
+
+//   // eventId 타입이 string이 아니면 notFound 로 이동
+//   if (typeof eventId !== 'string') notFound();
+
+//   const { dehydratedState } = await getDehydratedState({
+//     prefetch: async (qc) =>
+//       qc.prefetchQuery({
+//         queryKey: queryKeys.events.detail(eventId).queryKey,
+//         queryFn: () => getEventDetail,
+//       }),
+//   });
+
 //   return (
-//     <>
-//       <NavBarLayout navComponent={<Navbar />}>
-//         <div className="py-32pxr bg-banner gap-24pxr flex w-full flex-col">
-//           <p className="p-16pxr text-p20 whitespace-pre-line text-gray-800">{`재취업·부업 시작을 위한 공공 강좌,\n 한곳에서 찾고 신청해 보세요.`}</p>
-//           <DropdownBar />
-//         </div>
-//         {/* 이벤트 리스트 */}
-//         <EventsList />
-//         <Footer />
-//       </NavBarLayout>
-//       <ConfirmLocationPopup />
-//       <Filter />
-//     </>
+//     <HydrationBoundary state={dehydratedState}>
+//       <ImageSlider eventId={eventId} />
+//     </HydrationBoundary>
 //   );
 // };
 

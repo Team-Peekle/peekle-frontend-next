@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 interface LocationPosition {
@@ -17,24 +17,32 @@ interface MyLocationStoreState {
 }
 
 const myLocationStore = create<MyLocationStoreState>()(
-  devtools(
-    immer((set) => ({
-      isMyLocationLoading: false,
-      myLocation: null,
-      actions: {
-        setIsMyLocationLoading: (isLoading) => {
-          set((s) => {
-            s.isMyLocationLoading = isLoading;
-          });
+  persist(
+    devtools(
+      immer((set) => ({
+        isMyLocationLoading: false,
+        myLocation: null,
+        actions: {
+          setIsMyLocationLoading: (isLoading) => {
+            set((s) => {
+              s.isMyLocationLoading = isLoading;
+            });
+          },
+          setMyLocation: (location) => {
+            set((s) => {
+              s.myLocation = location;
+            });
+          },
         },
-        setMyLocation: (location) => {
-          set((s) => {
-            s.myLocation = location;
-          });
-        },
-      },
-    })),
-    { name: 'MyLocationStore' },
+      })),
+      { name: 'MyLocationStore' },
+    ),
+    {
+      name: 'my-location-storage',
+      partialize: (state) => ({
+        myLocation: state.myLocation,
+      }),
+    },
   ),
 );
 

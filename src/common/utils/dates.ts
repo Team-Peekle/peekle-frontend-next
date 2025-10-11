@@ -26,14 +26,14 @@ export const isSameDay = (date1: Date | null, date2: Date | null): boolean => {
 };
 
 /**
- * @description Date 객체를 YYYY.MM.DD 형식으로 변환
+ * @description Date 객체를 YYYY-MM-DD 형식으로 변환
  *
  * @param date
- * @returns 'YYYY.MM.DD' string
+ * @returns 'YYYY-MM=DD' string
  */
 export const formatDate = (date: Date | null) => {
   if (!date) return null;
-  return format(date, 'yyyy.MM.dd');
+  return format(date, 'yyyy-MM-dd');
 };
 
 /**
@@ -68,18 +68,18 @@ export const formatPeriod = (dateStr1: string, dateStr2: string) => {
 };
 
 /**
- * @description dateString이 YYYY.MM.DD 형식인지 반환
+ * @description dateString이 YYYY-MM-DD 형식인지 반환
  *
  * @param dateString
  * @returns boolean
  */
 export const isValidDate = (dateString: string) => {
-  const regex = /^\d{4}\.\d{2}\.\d{2}$/;
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
   if (!regex.test(dateString)) {
     return false;
   }
 
   // 유효한 날짜인지도 확인
-  const parsedDate = parse(dateString, 'yyyy.MM.dd', new Date());
+  const parsedDate = parse(dateString, 'yyyy-MM-dd', new Date());
   return isValid(parsedDate);
 };

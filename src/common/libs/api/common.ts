@@ -22,15 +22,15 @@ export const baseApi = ky.create({
  *
  * @template T - 성공시 data를 검증할 Zod 스키마 타입
  * @param {string} url - api endpoint URL
- * @param {ky.Options} options - Ky request options
  * @param {T} schema - 성공시 data를 검증할 Zod 스키마
+ * @param {ky.Options} [options] - Ky request options
  * @param {ky} [apiInstance] - 요청에 사용할 ky instance
  * @returns {Promise<z.infer<T>>} - 검증된 응답 데이터
  */
 export const fetcher = async <T extends z.ZodTypeAny>(
   url: string,
-  options: Options,
   schema: T,
+  options?: Options,
   apiInstance?: typeof ky,
 ): Promise<z.infer<T>> => {
   // apiInstance가 없으면 기본 인스턴스 사용

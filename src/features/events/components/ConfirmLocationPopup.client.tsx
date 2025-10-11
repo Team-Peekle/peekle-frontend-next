@@ -27,11 +27,12 @@ const ConfirmLocationPopup = () => {
     setIsOpenDefaultSort(true); // 기본 정렬 안내 띄우기
     // 모달 닫으면서 가까운 날짜순 정렬 적용
     // closeConfirmLocation();
-    handleSelectSort(SortType.NEAREST_DATE);
+    handleSelectSort(SortType.DATE);
   };
 
   const handleLocationSuccess = (position: GeolocationPosition) => {
     const { latitude, longitude } = position.coords;
+    console.log(latitude, longitude);
     setMyLocation({ latitude, longitude });
   };
 
@@ -40,11 +41,16 @@ const ConfirmLocationPopup = () => {
     setIsMyLocationLoading(true);
     getCurrentLocation()
       .then(handleLocationSuccess)
+      .catch((error) => {
+        console.error('위치 가져오기 실패:', error);
+        // 실패 시 위치 거부와 동일하게 처리
+        handleRefusalLocation();
+      })
       .finally(() => {
         setIsMyLocationLoading(false);
         // 모달 닫으면서 가까운 거리순 정렬
         closeConfirmLocation();
-        handleSelectSort(SortType.NEAREST_DISTANCE);
+        handleSelectSort(SortType.DISTANCE);
       });
   };
 

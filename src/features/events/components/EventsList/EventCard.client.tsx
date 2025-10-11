@@ -28,13 +28,11 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
           className="p-12pxr gap-12pxr flex shrink-0 flex-row items-center"
         >
           {eventData.thumbnailUrl && (
-            <div className="h-80pxr w-80pxr rounded-10pxr relative overflow-hidden">
+            <div className="h-80pxr w-80pxr rounded-10pxr relative shrink-0 overflow-hidden">
               <Image
-                // src={eventData.thumbnailUrl}
-                src={'/images/signin/signin.png'}
+                src={eventData.thumbnailUrl}
                 alt={eventData.title}
-                width={80}
-                height={80}
+                fill
                 style={{ objectFit: 'cover' }}
                 className="rounded-10pxr"
               />
@@ -60,10 +58,9 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
           className="p-12pxr gap-12pxr flex shrink-0 flex-col"
         >
           {eventData.thumbnailUrl && (
-            <div className="h-180pxr rounded-10pxr relative w-full overflow-hidden">
+            <div className="h-180pxr rounded-10pxr relative w-full shrink-0 overflow-hidden">
               <Image
-                // src={eventData.thumbnailUrl}
-                src={'/images/signin/signin.png'}
+                src={eventData.thumbnailUrl}
                 alt={eventData.title}
                 fill
                 style={{ objectFit: 'cover' }}

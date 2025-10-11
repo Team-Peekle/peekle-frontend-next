@@ -2,6 +2,8 @@
 
 import { cn } from '@common/libs/utils';
 
+import { formatDate } from '@common/utils/dates';
+
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
 import Tabs from '@common/components/tabs/Tabs.client';
@@ -21,6 +23,27 @@ const Duration = () => {
 
   const { handleSelect } = useEventsFilter(FilterType.DURATION);
 
+  /**
+   * 탭 클릭 시 최종 날짜를 계산하고 searchParams에 반영하는 함수
+   * @param type 선택된 기간 타입 (ALL, TODAY, ONE_WEEK 등)
+   */
+  const handleDurationClick = (type: DurationType) => {
+    if (type === DurationType.CUSTOM) {
+      // CUSTOM일 경우, handleSelect에 'CUSTOM' 값만 전달 (날짜는 Custom.client에서 처리)
+      handleSelect(type);
+      return;
+    }
+
+    const range = PREDEFINED_RANGES[type as Exclude<DurationType, DurationType.CUSTOM>];
+
+    // date1과 date2를 yyyy-MM-dd 형식의 문자열로 변환
+    const startDate = formatDate(range[0]);
+    const endDate = formatDate(range[1]);
+
+    // searchParams 업데이트
+    handleSelect(`${startDate},${endDate}`);
+  };
+
   return (
     <Tabs
       listClassName={cn(isMobile ? 'pb-16pxr' : 'py-16pxr')}
@@ -37,7 +60,7 @@ const Duration = () => {
               key={type}
               value={type}
               label={DURATION_TYPE_LABELS[type]}
-              onClick={() => handleSelect(type)}
+              onClick={() => handleDurationClick(type)}
             />
           );
         })}

@@ -40,10 +40,10 @@ export const useAuthenticatedApi = () => {
    */
   const authenticatedClientFetcher = async <T extends z.ZodTypeAny>(
     url: string,
-    options: Options,
     schema: T,
+    options?: Options,
   ) => {
-    return fetcher(url, options, schema, authenticatedKy);
+    return fetcher(url, schema, options, authenticatedKy);
   };
 
   return authenticatedClientFetcher;

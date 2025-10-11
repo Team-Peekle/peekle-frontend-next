@@ -1,10 +1,10 @@
 export enum CategoryType {
   ALL = 'ALL',
-  LICENSE = 'LICENSE',
-  JOB_STARTUP = 'JOB_STARTUP',
-  DIGITAL_SKILLS = 'DIGITAL_SKILLS',
-  ECONOMY = 'ECONOMY',
-  ETC = 'ETC',
+  LICENSE = '자격증',
+  JOB_STARTUP = '취·창업',
+  DIGITAL_SKILLS = '디지털 역량',
+  ECONOMY = '경제',
+  ETC = '기타',
 }
 
 const exceptAllCategoryKeys = Object.keys(CategoryType).filter((key) => key !== 'ALL');

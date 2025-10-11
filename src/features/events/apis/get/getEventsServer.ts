@@ -14,5 +14,5 @@ import { getEventsSchema } from '../../schemas/getEventsSchema';
 export async function getEventsServer(options: Options) {
   const fetcher = await authenticatedServerFetcher;
 
-  return fetcher(EVENTS_API_ENDPOINTS.EVENTS, options, getEventsSchema);
+  return fetcher(EVENTS_API_ENDPOINTS.EVENTS, getEventsSchema, options);
 }
