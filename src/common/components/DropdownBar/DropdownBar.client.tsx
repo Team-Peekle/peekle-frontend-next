@@ -116,11 +116,14 @@ const DropdownBar = () => {
 
   if (categoriesValue) {
     const categoriesArray = categoriesValue.split(',');
-
-    // ", "를 사용하여 문자열로 합침
-    categoriesStr = categoriesArray.join(', ');
+    if (categoriesArray.includes(CategoryType.ALL)) {
+      // ALL이 있으면 무조건 '카테고리'를 표시하고 바로 종료
+      categoriesStr = '카테고리';
+    } else {
+      categoriesStr = categoriesArray.filter(Boolean).join(', ');
+    }
   } else {
-    categoriesStr = CategoryType.ALL;
+    categoriesStr = '카테고리';
   }
 
   return (
