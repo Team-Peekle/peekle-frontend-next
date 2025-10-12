@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { SessionProvider, useSession } from 'next-auth/react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { ROUTES } from '@common/constants/routes';
 
@@ -13,24 +13,21 @@ import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
 import Cta from '@common/components/btn/Cta/Cta.client';
 
-export default function SignupCompletePage() {
-  return (
-    <SessionProvider>
-      <SignupCompleteContent />
-    </SessionProvider>
-  );
-}
+import { getUsersMeOptions } from '@features/sign/api/user';
 
-function SignupCompleteContent() {
+export default function SignupCompletePage() {
   const router = useRouter();
-  const { data: session } = useSession();
+
+  const { data: userData } = useSuspenseQuery(getUsersMeOptions());
+
   return (
     <div>
       <DefaultNavbar />
       <main className="mt-32pxr p-16pxr flex flex-col items-center">
         <Image src="/images/signup/signup-complete.png" alt="complete" width={400} height={279} />
         <h1 className="text-h3 text-center text-gray-900">
-          <span className="text-primary-500">{session?.user?.name ?? ''}</span>님<br />
+          <span className="text-primary-500">{userData.nickname}님 환영합니다</span>
+          <br />
           가입을 환영합니다!
         </h1>
         <Cta
