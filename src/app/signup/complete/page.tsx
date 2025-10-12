@@ -15,6 +15,8 @@ import Cta from '@common/components/btn/Cta/Cta.client';
 
 import { getUsersMeOptions } from '@features/sign/api/user';
 
+export const dynamic = 'force-dynamic';
+
 export default function SignupCompletePage() {
   const router = useRouter();
 
