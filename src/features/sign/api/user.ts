@@ -20,7 +20,7 @@ export const getUsersMeOptions = () => {
   return queryOptions<GetUsersMeResponseDTO>({
     queryKey: ['users', 'me'],
     queryFn: () =>
-      authenticatedClientFetcher('users/me', getUsersMeResponseSchema, { method: 'GET' }),
+      authenticatedClientFetcher('v1/users/me', getUsersMeResponseSchema, { method: 'GET' }),
   });
 };
 
@@ -34,7 +34,7 @@ export const getUsersNicknameCheckOptions = (nickname: string) => {
   return queryOptions<GetUsersNicknameCheckResponseDTO>({
     queryKey: ['users', 'nickname', 'check', nickname],
     queryFn: () =>
-      fetcher('users/nickname/check', getUsersNicknameCheckResponseSchema, {
+      fetcher('v1/users/nickname/check', getUsersNicknameCheckResponseSchema, {
         method: 'GET',
         searchParams: { nickname: nickname.trim() },
       }),
