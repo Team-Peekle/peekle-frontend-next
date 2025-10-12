@@ -1,5 +1,7 @@
 'use client';
 
+import { redirect } from 'next/navigation';
+
 import { deleteCookie, getCookie } from 'cookies-next';
 import { Options } from 'ky';
 import { z } from 'zod';
@@ -25,7 +27,11 @@ const authenticatedKy = baseApi.extend({
         if (response.status === 401) {
           deleteCookie('accessToken');
           deleteCookie('refreshToken');
-          window.location.href = ROUTES.SIGN_IN;
+          if (typeof window !== 'undefined') {
+            window.location.href = ROUTES.SIGN_IN;
+          } else {
+            redirect(ROUTES.SIGN_IN);
+          }
         }
       },
     ],

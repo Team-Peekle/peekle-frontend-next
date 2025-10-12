@@ -1,15 +1,18 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { useRouter } from 'next/navigation';
+
+import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
-import Profile from '@common/components/Profile.server';
-import { Comment } from '@common/components/svg/Comment';
-
 import Footer from '@common/layout/Footer/Footer.server';
 import Navbar from '@common/layout/Navbar.client';
-import { cn } from '@common/libs/utils';
+
+import Profile from '@common/components/Profile.server';
+import { Comment } from '@common/components/svg/Comment';
 
 import { CommunityCard } from '@/community/components/CommunityCard';
 import CommunityTabs from '@/community/components/CommunityTabs.client';
@@ -46,7 +49,9 @@ export default function CommunityPage() {
           </button>
         </section>
         <section className="max-mb:px-0 flex w-full flex-col gap-[32px] px-[16px] pb-[16px]">
-          <CommunityTabs />
+          <Suspense fallback={<div className="h-10 w-full" />}>
+            <CommunityTabs />
+          </Suspense>
           {MOCKUP_DATA.length === 0 ? (
             <div className="flex w-full flex-col items-center justify-center gap-3 py-[131px]">
               <Comment className="size-12 text-gray-200" />
