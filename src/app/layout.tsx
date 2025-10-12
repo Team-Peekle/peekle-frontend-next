@@ -3,13 +3,13 @@ import localFont from 'next/font/local';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { OverlayProvider } from 'overlay-kit';
 
 import { cn } from '@common/libs/utils';
 
 import Toaster from '@common/components/toast/Toaster/Toaster.client';
 
 import MicrosoftClarity from '@app/metrics/MicrosoftClarity.client';
-import AuthProvider from '@app/providers/AuthProvider.client';
 import ReactQueryProvider from '@app/providers/ReactQueryProvider.client';
 import '@app/styles/globals.css';
 
@@ -42,13 +42,13 @@ const RootLayout = ({
         {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
         <SpeedInsights />
 
-        <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
-          <AuthProvider>
+        <OverlayProvider>
+          <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
             <ReactQueryProvider>{children}</ReactQueryProvider>
-          </AuthProvider>
-        </div>
-        <div id="modal" />
-        <Toaster />
+          </div>
+          <div id="modal" />
+          <Toaster />
+        </OverlayProvider>
       </body>
     </html>
   );

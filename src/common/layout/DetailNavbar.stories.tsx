@@ -31,52 +31,24 @@ export const Default: Story = {
 
 // 공유 버튼만
 export const ShareOnly: Story = {
-  render: () => (
-    <DetailNavbar
-      onShare={() => {
-        alert('공유 기능 실행');
-      }}
-    />
-  ),
+  render: () => <DetailNavbar />,
 };
 
 // 스크랩 버튼만
 export const ScrapOnly: Story = {
-  render: () => (
-    <DetailNavbar
-      onScrap={() => {
-        alert('스크랩 기능 실행');
-      }}
-    />
-  ),
+  render: () => <DetailNavbar />,
 };
 
 // 공유와 스크랩 모두
 export const ShareAndScrap: Story = {
-  render: () => (
-    <DetailNavbar
-      onShare={() => {
-        alert('공유 기능 실행');
-      }}
-      onScrap={() => {
-        alert('스크랩 기능 실행');
-      }}
-    />
-  ),
+  render: () => <DetailNavbar />,
 };
 
 // 스크롤 상태 확인용 (긴 콘텐츠 추가)
 export const WithScroll: Story = {
   render: () => (
     <div>
-      <DetailNavbar
-        onShare={() => {
-          alert('공유 기능 실행');
-        }}
-        onScrap={() => {
-          alert('스크랩 기능 실행');
-        }}
-      />
+      <DetailNavbar />
       <div className="h-screen bg-gray-100 p-4">
         <p className="text-sm text-gray-600">스크롤 영역 (스크롤하면 하단에 선이 나타남)</p>
         <div className="mt-4 space-y-2">

@@ -15,4 +15,5 @@ export const ROUTES = {
       CONFIRM_LOCATION: '/confirm-location',
     },
   },
+  SIGNUP_COMPLETE: '/signup/complete',
 } as const;
