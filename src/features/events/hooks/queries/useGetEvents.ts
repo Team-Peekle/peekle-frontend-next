@@ -20,9 +20,6 @@ const useGetEvents = (params: Omit<GetEventsParams, 'cursor'>) => {
         searchParams: {
           ...params,
           cursor: pageParam,
-          // enum 대신 string 배열임을 명시
-          categories: params.categories as string[] | undefined,
-          locations: params.locations as string[] | undefined,
         },
       }),
     initialPageParam: undefined as string | undefined,
