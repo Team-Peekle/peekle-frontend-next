@@ -23,7 +23,7 @@ export const getAuthProtectedOptions = () => {
   return queryOptions<AuthProtectedResponseDTO>({
     queryKey: ['auth', 'protected'],
     queryFn: () =>
-      authenticatedClientFetcher('auth/protected', { method: 'GET' }, authProtectedResponseSchema),
+      authenticatedClientFetcher('auth/protected', authProtectedResponseSchema, { method: 'GET' }),
   });
 };
 
@@ -55,11 +55,11 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
       });
       const response = await fetcher<typeof authOauthRegisterResponseSchema>(
         'auth/oauth/register',
+        authOauthRegisterResponseSchema,
         {
           method: 'POST',
           json: data,
         },
-        authOauthRegisterResponseSchema,
         registerKy,
       );
 

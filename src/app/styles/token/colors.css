@@ -27,4 +27,22 @@
 
   /* Semantic */
   --color-semantic-red: #e63a3a;
+
+  /* custom */
+  --color-banner: linear-gradient(90deg, #f7fff9 0%, rgb(206, 222, 210) 100%);
+  --color-image-overlay: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 13.063063063063062%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* 그라디언트 배경 */
+@layer utilities {
+  .bg-banner {
+    background-image: var(--color-banner);
+  }
+  .bg-image-overlay {
+    background-image: var(--color-image-overlay);
+  }
 }

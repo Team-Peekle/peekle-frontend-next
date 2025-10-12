@@ -28,7 +28,7 @@ const Panel = ({ value, children, className }: PanelProps) => {
       id={`${option}-panel-${value}`}
       role="tabpanel"
       aria-labelledby={`${option}-trigger-${value}`}
-      className={cn('p-16pxr', className)}
+      className={cn('px-16pxr', className)}
     >
       {children}
     </div>

@@ -15,7 +15,7 @@ interface ShareProps extends ButtonsCommonProps {
 
 const Share = ({ link, onCopyComplete }: ShareProps) => {
   // 훅을 사용하여 복사 기능과 상태를 가져옴
-  const { copyToClipboard, isCopied } = useCopyToClipboard();
+  const { copyToClipboard } = useCopyToClipboard();
 
   const handleCopyClick = async () => {
     const success = await copyToClipboard(link);
@@ -28,10 +28,10 @@ const Share = ({ link, onCopyComplete }: ShareProps) => {
   return (
     <button
       onClick={handleCopyClick}
-      className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-fit flex-row items-center justify-center bg-gray-50"
+      className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-full flex-row items-center justify-center bg-gray-50"
     >
       <Export className="w-14pxr h-14pxr text-gray-400" />
-      <p className="text-p16sb text-gray-800">{isCopied ? '링크 복사됨' : '공유하기'}</p>
+      <p className="text-p16sb text-gray-800">공유하기</p>
     </button>
   );
 };

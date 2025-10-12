@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { DotLottiePlayer, PlayMode } from '@dotlottie/react-player';
+import { DotLottiePlayer } from '@dotlottie/react-player';
 import '@dotlottie/react-player/dist/index.css';
 
 const Loader = () => {

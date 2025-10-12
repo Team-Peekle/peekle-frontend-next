@@ -1,111 +1,205 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { useSearchParams } from 'next/navigation';
 
 import { DropdownType } from '@common/types/dropdown';
 
 import CategoryMenu from '@common/components/CategoryMenu/CategoryMenu.client';
-import SortMenu from '@common/components/SortMenu/SortMenu.client';
 import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
+import ModalPortal from '@common/components/modal/ModalPortal.client';
+
+import { CategoryType } from '@features/events/types/category';
+import { SortType } from '@features/events/types/sort';
+
+import { useOpenFilter } from '@features/events/hooks/stores/useEventsModalStore';
+import useEventsFilter from '@features/events/hooks/useEventsFilter';
+import useSort from '@features/events/hooks/useSort';
+
+import SortMenu from '@features/events/components/SortMenu/SortMenu.client';
+
+import { SORT_LABELS } from '@features/events/constansts/sort';
+
+interface DropdownState {
+  filter: boolean;
+  sort: boolean;
+  category: boolean;
+}
 
 const DropdownBar = () => {
+  const { clearFilter } = useEventsFilter();
+  const searchParams = useSearchParams();
+
+  const openFilter = useOpenFilter();
+  const { currentSort } = useSort();
   // 필터, 정렬, 카테고리 드롭다운 열림 상태
-  const [openedDropdowns, setOpenedDropdowns] = useState({
+  const [openedDropdowns, setOpenedDropdowns] = useState<DropdownState>({
     filter: false,
     sort: false,
     category: false,
   });
+  // 메뉴 위치
+  const [MenuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  // 각 드롭다운 버튼의 위치를 참조할 ref
+  const sortRef = useRef<HTMLButtonElement | null>(null);
+  const categoryRef = useRef<HTMLButtonElement | null>(null);
+  // 드롭다운 메뉴 바깥 클릭시 닫기 위해
+  // 드롭다운 메뉴를 참조할 ref
+  const sortMenuRef = useRef<HTMLDivElement | null>(null);
+  const categoryMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      // 열려 있는 경우, 해당 메뉴 컴포넌트 ref
+      const isInsideSortMenu =
+        openedDropdowns.sort && sortMenuRef.current && sortMenuRef.current.contains(target);
+      const isInsideCategoryMenu =
+        openedDropdowns.category &&
+        categoryMenuRef.current &&
+        categoryMenuRef.current.contains(target);
+
+      // 클릭된 요소가
+      // 열린 SortMenu 내부도 아니고 (isInsideSortMenu === false)
+      // 열린 CategoryMenu 내부도 아닐 때 (isInsideCategoryMenu === false)
+      if (!isInsideSortMenu && !isInsideCategoryMenu) {
+        // 닫기
+        setOpenedDropdowns({
+          filter: false,
+          sort: false,
+          category: false,
+        });
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openedDropdowns]);
 
   // 내가 찜한 이벤트 드롭다운 활성화 상태
   const [isActiveBookmarkDropdown, setIsActiveBookmarkDropdown] = useState(false);
 
-  const handleFilterDropdownClick = () => {
-    setOpenedDropdowns((prev) => ({
-      filter: !prev.filter,
-      sort: false,
-      category: false,
-    }));
-  };
+  const handleDropdownClick = (
+    menuName: keyof DropdownState,
+    ref?: React.RefObject<HTMLButtonElement | null>,
+  ) => {
+    if (ref?.current && menuName !== 'filter') {
+      const rect = ref.current.getBoundingClientRect();
+      setMenuPosition({
+        x: Math.round(rect.left + window.scrollX),
+        y: Math.round(rect.bottom + window.scrollY + 8), // 간격 조금 줌
+      });
+    }
 
-  const handleSortDropdownClick = () => {
-    setOpenedDropdowns((prev) => ({
-      filter: false,
-      sort: !prev.sort,
-      category: false,
-    }));
-  };
-
-  const handleCategoryDropdownClick = () => {
     setOpenedDropdowns((prev) => ({
       filter: false,
       sort: false,
-      category: !prev.category,
+      category: false,
+      [menuName]: !prev[menuName],
     }));
+
+    if (menuName === 'filter') {
+      // 필터 모달 열기
+      openFilter();
+    }
   };
+
+  // categories 문자열
+  const categoriesValue = searchParams.get('categories');
+
+  let categoriesStr: string;
+
+  if (categoriesValue) {
+    const categoriesArray = categoriesValue.split(',');
+    if (categoriesArray.includes(CategoryType.ALL)) {
+      // ALL이 있으면 무조건 '카테고리'를 표시하고 바로 종료
+      categoriesStr = '카테고리';
+    } else {
+      categoriesStr = categoriesArray.filter(Boolean).join(', ');
+    }
+  } else {
+    categoriesStr = '카테고리';
+  }
 
   return (
-    <div className="gap-12pxr pl-12pxr flex flex-shrink-0 flex-row items-center">
+    <div className="scrollbar-hide gap-12pxr px-12pxr flex flex-shrink-0 flex-row items-center overflow-x-auto">
       {/* Filter Dropdown & Menu */}
-      {/* ✅ TODO: 애니메이션 적용 필요 */}
-      <div className="relative">
-        <Dropdown
-          dropdownType={DropdownType.VAR1}
-          text="필터"
-          onClick={handleFilterDropdownClick}
-        />
-        {openedDropdowns.filter && (
-          <div className="mt-8pxr absolute top-full z-1">{/* <FilterMenu /> */}</div>
-        )}
-      </div>
+      <Dropdown
+        dropdownType={DropdownType.VAR6}
+        text="필터"
+        onClick={() => handleDropdownClick('filter')}
+      />
       <span className="gap-8pxr flex flex-row items-center">
         {/* Sort Dropdown & Menu */}
-        {/* ✅ TODO: 애니메이션 적용 필요 */}
-        <div className="relative">
-          <Dropdown
-            dropdownType={DropdownType.VAR6}
-            // ✅ TODO: 실제 값으로 변경 필요
-            text="가까운 날짜순"
-            onClick={handleSortDropdownClick}
-          />
-          {openedDropdowns.sort && (
-            <div className="mt-8pxr absolute top-full z-1">
-              {' '}
-              {/* Position the menu absolutely */}
-              <SortMenu />
-            </div>
-          )}
-        </div>
+        <Dropdown
+          ref={sortRef}
+          dropdownType={DropdownType.VAR1}
+          text={SORT_LABELS[currentSort as SortType]}
+          onClick={() => handleDropdownClick('sort', sortRef)}
+        />
         {/* Category Dropdown & Menu */}
-        {/* ✅ TODO: 애니메이션 적용 필요 */}
-        <div className="relative">
-          <Dropdown
-            dropdownType={DropdownType.VAR6}
-            // ✅ TODO: 실제 값으로 변경 필요
-            text="카테고리"
-            onClick={handleCategoryDropdownClick}
-          />
-          {openedDropdowns.category && (
-            <div className="mt-8pxr absolute top-full z-1">
-              <CategoryMenu />
-            </div>
-          )}
-        </div>
-        {/* ✅ TODO: 애니메이션 적용 필요 */}
+        <Dropdown
+          ref={categoryRef}
+          dropdownType={DropdownType.VAR1}
+          text={categoriesStr}
+          onClick={() => handleDropdownClick('category', categoryRef)}
+        />
         {isActiveBookmarkDropdown ? (
           <Dropdown
             dropdownType={DropdownType.VAR4}
             text="내가 찜한 이벤트"
-            onClick={() => setIsActiveBookmarkDropdown(false)}
+            onClick={() => {
+              setIsActiveBookmarkDropdown(false);
+            }}
           />
         ) : (
           <Dropdown
             dropdownType={DropdownType.VAR5}
             text="내가 찜한 이벤트"
-            onClick={() => setIsActiveBookmarkDropdown(true)}
+            onClick={() => {
+              setIsActiveBookmarkDropdown(true);
+              setOpenedDropdowns({ filter: false, sort: false, category: false });
+            }}
           />
         )}
       </span>
-      <button className="text-p14 py-7pxr text-gray-500">초기화</button>
+      <button onClick={clearFilter} className="text-p14 py-7pxr shrink-0 text-gray-500">
+        초기화
+      </button>
+
+      {openedDropdowns.sort && (
+        <ModalPortal>
+          <div
+            ref={sortMenuRef}
+            className="absolute"
+            style={{
+              top: `${MenuPosition.y}px`,
+              left: `${MenuPosition.x}px`,
+            }}
+          >
+            <SortMenu />
+          </div>
+        </ModalPortal>
+      )}
+      {openedDropdowns.category && (
+        <ModalPortal>
+          <div
+            ref={categoryMenuRef}
+            className="absolute"
+            style={{
+              top: `${MenuPosition.y}px`,
+              left: `${MenuPosition.x}px`,
+            }}
+          >
+            <CategoryMenu />
+          </div>
+        </ModalPortal>
+      )}
     </div>
   );
 };

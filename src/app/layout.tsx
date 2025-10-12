@@ -46,6 +46,7 @@ const RootLayout = ({
           <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
             <ReactQueryProvider>{children}</ReactQueryProvider>
           </div>
+          <div id="modal" />
           <Toaster />
         </OverlayProvider>
       </body>

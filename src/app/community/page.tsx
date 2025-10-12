@@ -8,7 +8,7 @@ import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
-import Footer from '@common/layout/Footer/Footer.server';
+import Footer from '@common/layout/Footer/Footer.client';
 import Navbar from '@common/layout/Navbar.client';
 
 import Profile from '@common/components/Profile.server';

@@ -1,16 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 import { ProfileVariant } from '@common/types/profile';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
-import Profile from '@common/components/Profile.server';
-
 import DetailNavbar from '@common/layout/DetailNavbar.client';
 import Navbar from '@common/layout/Navbar.client';
+
+import Profile from '@common/components/Profile.server';
 
 import PublishInfoCard from '@/community/components/PublishInfoCard.server';
 

@@ -5,6 +5,18 @@ import { apiResponseSchema, failSchema } from '@common/schemas/api';
 
 import ApiError from '@common/utils/ApiError';
 
+type SearchParamsValue = string | number | boolean | undefined;
+type CustomSearchParamsValue = SearchParamsValue | SearchParamsValue[];
+type CustomSearchParamsOption =
+  | string
+  | string[][]
+  | URLSearchParams
+  | undefined
+  | Record<string, CustomSearchParamsValue>;
+export type FetcherOptions = Omit<Options, 'searchParams'> & {
+  searchParams?: CustomSearchParamsOption;
+};
+
 /**
  * 인증이 필요 없는 기본 api instance
  */
@@ -22,22 +34,22 @@ export const baseApi = ky.create({
  *
  * @template T - 성공시 data를 검증할 Zod 스키마 타입
  * @param {string} url - api endpoint URL
- * @param {ky.Options} options - Ky request options
  * @param {T} schema - 성공시 data를 검증할 Zod 스키마
+ * @param {FetcherOptions} [options] - Ky request options
  * @param {ky} [apiInstance] - 요청에 사용할 ky instance
  * @returns {Promise<z.infer<T>>} - 검증된 응답 데이터
  */
 export const fetcher = async <T extends z.ZodTypeAny>(
   url: string,
-  options: Options,
   schema: T,
+  options?: FetcherOptions,
   apiInstance?: typeof ky,
 ): Promise<z.infer<T>> => {
   // apiInstance가 없으면 기본 인스턴스 사용
   if (!apiInstance) {
     apiInstance = baseApi;
   }
-  const response = await apiInstance(url, options).json();
+  const response = await apiInstance(url, options as Options).json();
 
   // api 응답 스키마로 먼저 검증
   const result = apiResponseSchema(schema).safeParse(response);

@@ -8,7 +8,12 @@ import { ArrowLeft } from '@common/components/svg/ArrowLeft';
 import { useIsScrolled } from '@/common/hooks/useIsScrolled';
 import { useModal } from '@/common/hooks/useModal';
 
-export default function DetailNavbar() {
+interface DetailNavbarProps {
+  onShare?: () => void;
+  onScrap?: () => void;
+}
+
+export default function DetailNavbar({ onShare, onScrap }: DetailNavbarProps) {
   const router = useRouter();
   const isScrolled = useIsScrolled();
   const { openModal } = useModal();
