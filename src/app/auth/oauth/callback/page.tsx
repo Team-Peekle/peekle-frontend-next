@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -45,8 +45,10 @@ export default function OAuthCallbackPage() {
   }, [router, searchParams]);
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <p className="text-gray-500">로그인 처리 중...</p>
-    </div>
+    <Suspense>
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-gray-500">로그인 처리 중...</p>
+      </div>
+    </Suspense>
   );
 }
