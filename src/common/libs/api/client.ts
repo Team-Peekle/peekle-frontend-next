@@ -1,11 +1,11 @@
 'use client';
 
 import { deleteCookie, getCookie } from 'cookies-next';
-import { Options } from 'ky';
 import { z } from 'zod';
 
 import { ROUTES } from '@common/constants/routes';
 
+import { FetcherOptions } from './common';
 import { baseApi, fetcher } from './common';
 
 // 인증이 포함된 ky instance (싱글톤)
@@ -42,7 +42,7 @@ const authenticatedKy = baseApi.extend({
 export const authenticatedClientFetcher = async <T extends z.ZodTypeAny>(
   url: string,
   schema: T,
-  options?: Options,
+  options?: FetcherOptions,
 ) => {
   return fetcher(url, schema, options, authenticatedKy);
 };

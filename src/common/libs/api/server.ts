@@ -1,17 +1,17 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { Options } from 'ky';
 import { z } from 'zod';
 
 import { ROUTES } from '@common/constants/routes';
 
+import { FetcherOptions } from './common';
 import { baseApi, fetcher } from './common';
 
 type AuthenticatedServerFetcher = <T extends z.ZodTypeAny>(
   url: string,
   schema: T,
-  options?: Options,
+  options?: FetcherOptions,
 ) => Promise<z.infer<T>>;
 
 /** 서버 환경에서만 사용되는 fetcher - 쿠키에서 accessToken 가져오기 */
@@ -41,7 +41,7 @@ export const authenticatedServerFetcher = (async (): Promise<AuthenticatedServer
   return async <T extends z.ZodTypeAny>(
     url: string,
     schema: T,
-    options?: Options,
+    options?: FetcherOptions,
   ): Promise<z.infer<T>> => {
     return fetcher(url, schema, options, authenticatedKy);
   };
