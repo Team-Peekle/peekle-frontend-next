@@ -1,7 +1,5 @@
 'use client';
 
-import { redirect } from 'next/navigation';
-
 import { deleteCookie, getCookie } from 'cookies-next';
 import { Options } from 'ky';
 import { z } from 'zod';
@@ -27,10 +25,9 @@ const authenticatedKy = baseApi.extend({
         if (response.status === 401) {
           deleteCookie('accessToken');
           deleteCookie('refreshToken');
+          // 클라이언트 환경에서만 리다이렉트
           if (typeof window !== 'undefined') {
             window.location.href = ROUTES.SIGN_IN;
-          } else {
-            redirect(ROUTES.SIGN_IN);
           }
         }
       },

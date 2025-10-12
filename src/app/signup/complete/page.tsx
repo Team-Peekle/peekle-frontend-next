@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -16,8 +18,28 @@ import Cta from '@common/components/btn/Cta/Cta.client';
 import { getUsersMeOptions } from '@features/sign/api/user';
 
 export default function SignupCompletePage() {
-  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div>
+        <DefaultNavbar />
+        <main className="mt-32pxr p-16pxr flex flex-col items-center">
+          <div className="h-[279px]" />
+        </main>
+      </div>
+    );
+  }
+
+  return <SignupCompleteContent />;
+}
+
+function SignupCompleteContent() {
+  const router = useRouter();
   const { data: userData } = useSuspenseQuery(getUsersMeOptions());
 
   return (
