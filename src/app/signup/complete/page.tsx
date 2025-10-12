@@ -3,7 +3,10 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+// import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+
+import { getCookie } from 'cookies-next';
 
 import { ROUTES } from '@common/constants/routes';
 
@@ -13,23 +16,16 @@ import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
 import Cta from '@common/components/btn/Cta/Cta.client';
 
-import { useOauthInfo } from '@features/sign/hooks/useOauthInfo';
-
 import { getUsersMeOptions } from '@features/sign/api/user';
 
 export default function SignupCompletePage() {
   const router = useRouter();
 
-  // const { data: userData } = useSuspenseQuery(getUsersMeOptions());
-
-  // 인증된 쿼리 대신 임시 토큰 정보를 사용
-  const oauthInfo = useOauthInfo();
-  const nickname = oauthInfo?.name;
-
-  // 새로고침 등으로 토큰이 누락되거나 유효하지 않은 경우를 처리
-  if (!nickname) {
-    // ...
-  }
+  // 컴포넌트가 렌더링될 때마다 클라이언트 환경에서 쿠키 상태를 확인해 쿼리 실행 여부 결정
+  const { data: userData } = useQuery({
+    ...getUsersMeOptions(),
+    enabled: !!getCookie('accessToken'),
+  });
 
   return (
     <div>
@@ -38,7 +34,7 @@ export default function SignupCompletePage() {
         <Image src="/images/signup/signup-complete.png" alt="complete" width={400} height={279} />
         <h1 className="text-h3 text-center text-gray-900">
           {/* <span className="text-primary-500">{userData.nickname}님 환영합니다</span> */}
-          <span className="text-primary-500">{nickname}님 환영합니다</span>
+          <span className="text-primary-500">{userData?.nickname}님 환영합니다</span>
           <br />
           가입을 환영합니다!
         </h1>
