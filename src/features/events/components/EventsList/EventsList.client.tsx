@@ -73,16 +73,16 @@ const EventsList = () => {
   };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetEvents({
-    limit: 20,
-    sort,
-    order: OrderType.ASC,
-    startDate,
-    endDate,
-    isFree: price === PriceType.FREE ? true : false,
-    locations,
-    categories,
-    latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
-    longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
+    // limit: 20,
+    // sort,
+    // order: OrderType.ASC,
+    // startDate,
+    // endDate,
+    // isFree: price === PriceType.FREE ? true : false,
+    // locations,
+    // categories,
+    // latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
+    // longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
   });
 
   const events = data?.pages.flatMap((page) => page?.events ?? []) ?? [];

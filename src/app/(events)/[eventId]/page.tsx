@@ -1,36 +1,37 @@
-// import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
-// import { HydrationBoundary } from '@tanstack/react-query';
+import { HydrationBoundary } from '@tanstack/react-query';
 
-// import { SearchParamsType } from '@common/types/routes';
+import queryKeys from '@common/constants/queryKeys';
 
-// import queryKeys from '@common/constants/queryKeys';
+import getDehydratedState from '@common/libs/react-query/dehydrate';
 
-// import { getDehydratedState } from '@common/libs/react-query/dehydrate';
+import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 
-// import { getEventDetail } from '@features/events/hooks/queries/useGetEventDetail';
+import getEventDetail from '@features/events/apis/get/getEventDetail';
 
-// import ImageSlider from '@features/events/components/ImageSlider/ImageSlider.client';
+import EventDetailContent from '@features/events/components/EventDetailContent/EventDetailContent.client';
+import ImageSlider from '@features/events/components/ImageSlider/ImageSlider.client';
 
-// const EventDetailPage = async ({ searchParams }: { searchParams: Promise<SearchParamsType> }) => {
-//   const { eventId } = await searchParams;
+const EventDetailPage = async ({ params }: { params: Promise<{ [key: string]: string }> }) => {
+  const { eventId } = await params;
 
-//   // eventId 타입이 string이 아니면 notFound 로 이동
-//   if (typeof eventId !== 'string') notFound();
+  const { dehydratedState } = await getDehydratedState({
+    prefetch: async (qc) =>
+      qc.prefetchQuery({
+        queryKey: queryKeys.events.detail(eventId).queryKey,
+        queryFn: () => getEventDetail(eventId),
+      }),
+  });
 
-//   const { dehydratedState } = await getDehydratedState({
-//     prefetch: async (qc) =>
-//       qc.prefetchQuery({
-//         queryKey: queryKeys.events.detail(eventId).queryKey,
-//         queryFn: () => getEventDetail,
-//       }),
-//   });
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <ImageSlider eventId={eventId} />
+      <Suspense fallback={<DeferredLoader />}>
+        <EventDetailContent eventId={eventId} />
+      </Suspense>
+    </HydrationBoundary>
+  );
+};
 
-//   return (
-//     <HydrationBoundary state={dehydratedState}>
-//       <ImageSlider eventId={eventId} />
-//     </HydrationBoundary>
-//   );
-// };
-
-// export default EventDetailPage;
+export default EventDetailPage;

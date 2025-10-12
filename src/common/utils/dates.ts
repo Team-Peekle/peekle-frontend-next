@@ -1,4 +1,6 @@
 import { format, isSameDay as isSameDayFn, isValid, isWithinInterval, parse } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
+import { ko } from 'date-fns/locale';
 
 /**
  * @description 날짜가 특정 범위에 속하는지 확인
@@ -82,4 +84,27 @@ export const isValidDate = (dateString: string) => {
   // 유효한 날짜인지도 확인
   const parsedDate = parse(dateString, 'yyyy-MM-dd', new Date());
   return isValid(parsedDate);
+};
+
+/**
+ * @description UTC ISO 8601 문자열을 한국 시간(KST)으로 변환하고 . MM. DD. 오전/오후 HH:MM' 형식으로 포맷팅
+ *
+ * @param utcDateStr '2020-12-31T00:00:00.000Z'와 같은 UTC 문자열
+ * @returns 'YYYY. MM. DD. 오전/오후 HH:MM' 형식의 한국 시간 문자열
+ */
+export const formatToKST = (utcDateStr: string): string => {
+  if (!utcDateStr) {
+    return '';
+  }
+
+  // UTC 문자열을 Date 객체로 파싱
+  const date = new Date(utcDateStr);
+
+  // KST (UTC+9) 시간대로 변환
+  // 'a'는 오전/오후, 'h'는 12시간 형식 시, 'mm'은 분
+  const zonedDate = toZonedTime(date, 'Asia/Seoul');
+  const formatString = 'yyyy. MM. dd. a h:mm';
+
+  // date-fns의 format 함수와 한국어 locale을 사용해 '오전'/'오후'로 포맷
+  return format(zonedDate, formatString, { locale: ko });
 };

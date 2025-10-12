@@ -44,12 +44,11 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
           className="p-12pxr gap-12pxr flex shrink-0 flex-row items-center"
         >
           {eventData.thumbnailUrl && (
-            <div className="h-80pxr w-80pxr rounded-10pxr relative shrink-0 overflow-hidden">
+            <div className="h-80pxr w-80pxr rounded-10pxr relative shrink-0 overflow-hidden object-cover">
               <Image
                 src={eventData.thumbnailUrl}
                 alt={eventData.title}
                 fill
-                style={{ objectFit: 'cover' }}
                 className="rounded-10pxr"
               />
               <motion.div
@@ -84,8 +83,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
                 src={eventData.thumbnailUrl}
                 alt={eventData.title}
                 fill
-                style={{ objectFit: 'cover' }}
-                className="rounded-10pxr"
+                className="rounded-10pxr object-cover"
               />
               <div className="bg-image-overlay absolute inset-0" />
               <div className="text-p14-15 text-gray-0 py-14pxr px-16pxr absolute top-0 left-0 text-center">
