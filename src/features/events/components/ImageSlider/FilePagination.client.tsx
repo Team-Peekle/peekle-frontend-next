@@ -21,7 +21,7 @@ const FilePagination = ({
   if (fileLength === 1) return null;
 
   return (
-    <div className="gap-4pxr px-8pxr py-4pxr text-p14 rounded-8pxr flex flex-row items-center justify-center bg-black/30">
+    <div className="gap-4pxr px-8pxr py-4pxr text-p14 rounded-10pxr flex flex-row items-center justify-center bg-black/30">
       {currentPage > 1 && (
         <Arrow
           direction="left"

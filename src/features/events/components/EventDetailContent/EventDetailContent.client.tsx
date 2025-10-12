@@ -18,6 +18,7 @@ import { ColorMoney } from '@common/components/svg/ColorMoney';
 
 import { DEFAULT_TEXT } from '@features/events/constants/eventDetail';
 
+import addressFormatter from '@features/events/utils/addressFormatter';
 import priceFormatter from '@features/events/utils/priceFormatter';
 
 import useGetEventDetail from '@features/events/hooks/queries/useGetEventDetail';
@@ -85,10 +86,14 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
               />
-              <span className="gap-10pxr flex flex-row items-center">
-                <Share link={currentUrl} />
-                {/* ✅ TODO: api 연결 필요 */}
-                <Bookmark isBookmarked={true} onStateChange={() => console.log('북마크 클릭')} />
+              <span className="gap-10pxr flex w-full flex-row items-center">
+                <div className="flex-1">
+                  <Share link={currentUrl} />
+                </div>
+                <div className="flex-1">
+                  {/* ✅ TODO: api 연결 필요 */}
+                  <Bookmark isBookmarked={true} onStateChange={() => console.log('북마크 클릭')} />
+                </div>
               </span>
             </div>
           )}
@@ -103,7 +108,11 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
             <DetailRow label="장소" value={eventDetail.venueName} />
             <DetailRow
               label="주소"
-              value={`${eventDetail.venueRoadAddress} ${eventDetail.venueDetailAddress} (${eventDetail.venueJibunAddress})`}
+              value={addressFormatter({
+                venueRoadAddress: eventDetail.venueRoadAddress,
+                venueDetailAddress: eventDetail.venueDetailAddress,
+                venueJibunAddress: eventDetail.venueJibunAddress,
+              })}
             />
           </div>
         </div>
@@ -116,10 +125,14 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
               target="_blank"
               rel="noopener noreferrer"
             />
-            <span className="gap-10pxr flex flex-row items-center">
-              <Share link={currentUrl} />
-              {/* ✅ TODO: api 연결 필요 */}
-              <Bookmark isBookmarked={true} onStateChange={() => console.log('북마크 클릭')} />
+            <span className="gap-10pxr flex w-full flex-row items-center">
+              <div className="flex-1">
+                <Share link={currentUrl} />
+              </div>
+              <div className="flex-1">
+                {/* ✅ TODO: api 연결 필요 */}
+                <Bookmark isBookmarked={true} onStateChange={() => console.log('북마크 클릭')} />
+              </div>
             </span>
           </div>
         )}

@@ -26,7 +26,7 @@ const Bookmark = ({ isBookmarked = false, onStateChange, ...props }: BookmarkPro
       aria-label="찜하기 버튼"
       aria-pressed={bookmarked}
       onClick={handleClick}
-      className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-fit flex-row items-center justify-center bg-gray-50"
+      className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-full flex-row items-center justify-center bg-gray-50"
       {...props}
     >
       {bookmarked ? (

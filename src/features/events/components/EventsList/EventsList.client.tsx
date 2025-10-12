@@ -73,11 +73,11 @@ const EventsList = () => {
   };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetEvents({
-    // limit: 20,
-    // sort,
-    // order: OrderType.ASC,
-    // startDate,
-    // endDate,
+    limit: 20,
+    sort,
+    order: OrderType.ASC,
+    startDate,
+    endDate,
     // isFree: price === PriceType.FREE ? true : false,
     // locations,
     // categories,

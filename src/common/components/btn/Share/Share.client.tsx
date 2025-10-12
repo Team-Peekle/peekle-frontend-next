@@ -28,7 +28,7 @@ const Share = ({ link, onCopyComplete }: ShareProps) => {
   return (
     <button
       onClick={handleCopyClick}
-      className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-fit flex-row items-center justify-center bg-gray-50"
+      className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-full flex-row items-center justify-center bg-gray-50"
     >
       <Export className="w-14pxr h-14pxr text-gray-400" />
       <p className="text-p16sb text-gray-800">공유하기</p>

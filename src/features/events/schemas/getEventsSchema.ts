@@ -17,6 +17,11 @@ export const eventSchema = z.object({
   }),
   category: z.string(),
   thumbnailUrl: z.string().nullable(),
+  latitude: z.number(),
+  longitude: z.number(),
+  region: z.string(),
+  distance: z.number().nullable(),
+  isScrapped: z.boolean(),
 });
 
 export type Event = z.infer<typeof eventSchema>;

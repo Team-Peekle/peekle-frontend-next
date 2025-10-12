@@ -57,8 +57,8 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
                 // whileHover={{ scale: 0.5 }}
                 className="absolute inset-0 bg-black/50"
               />
-              <div className="text-p14-15 text-gray-0 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center">
-                {eventData.title}
+              <div className="text-p14-15 text-gray-0 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center whitespace-nowrap">
+                {eventData.region}
               </div>
             </div>
           )}
@@ -85,9 +85,9 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
                 fill
                 className="rounded-10pxr object-cover"
               />
-              <div className="bg-image-overlay absolute inset-0" />
-              <div className="text-p14-15 text-gray-0 py-14pxr px-16pxr absolute top-0 left-0 text-center">
-                {eventData.title}
+              <div className="bg-image-overlay absolute inset-0 filter" />
+              <div className="text-p14-15 text-gray-0 py-14pxr px-16pxr absolute top-0 left-0 text-center whitespace-nowrap">
+                {eventData.region}
               </div>
             </div>
           )}

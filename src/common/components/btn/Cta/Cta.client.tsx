@@ -24,7 +24,7 @@ const Cta = ({
   ...props
 }: CtaProps) => {
   const baseClassName = cn(
-    'p-16pxr rounded-12pxr transition-spring flex w-full max-w-336pxr shrink-0 items-center justify-center overflow-hidden',
+    'p-16pxr rounded-12pxr transition-spring flex w-full shrink-0 items-center justify-center overflow-hidden',
     disabled ? 'bg-gray-100 text-gray-400' : 'bg-gray-900 hover:bg-gray-700',
     className,
   );
