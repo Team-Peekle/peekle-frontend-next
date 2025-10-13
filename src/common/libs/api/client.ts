@@ -5,6 +5,8 @@ import { z } from 'zod';
 
 import { ROUTES } from '@common/constants/routes';
 
+import { loginStore } from '@common/stores/loginStore';
+
 import { FetcherOptions } from './common';
 import { baseApi, fetcher } from './common';
 
@@ -25,6 +27,7 @@ const authenticatedKy = baseApi.extend({
         if (response.status === 401) {
           deleteCookie('accessToken');
           deleteCookie('refreshToken');
+          loginStore.getState().logout();
           // 클라이언트 환경에서만 리다이렉트
           if (typeof window !== 'undefined') {
             window.location.href = ROUTES.SIGN_IN;

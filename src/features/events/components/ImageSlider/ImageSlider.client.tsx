@@ -24,7 +24,7 @@ interface ImageSliderProps {
 
 const DRAG_BUFFER = 50;
 
-const ImageSlider = ({ eventId }: ImageSliderProps) => {
+const ImageSlider = ({ eventId: _eventId }: ImageSliderProps) => {
   const router = useRouter();
   const isMobile = useIsMobile();
   // 디테일 가져오기

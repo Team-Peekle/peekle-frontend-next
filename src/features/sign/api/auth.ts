@@ -23,7 +23,9 @@ export const getAuthProtectedOptions = () => {
   return queryOptions<AuthProtectedResponseDTO>({
     queryKey: ['auth', 'protected'],
     queryFn: () =>
-      authenticatedClientFetcher('auth/protected', authProtectedResponseSchema, { method: 'GET' }),
+      authenticatedClientFetcher('auth/protected', authProtectedResponseSchema, {
+        method: 'GET',
+      }),
   });
 };
 
@@ -53,7 +55,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
           ],
         },
       });
-      const response = await fetcher<typeof authOauthRegisterResponseSchema>(
+      const response = await fetcher(
         'auth/oauth/register',
         authOauthRegisterResponseSchema,
         {
@@ -67,7 +69,10 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
     },
     onSuccess: () => {
       deleteCookie('registerToken');
-      localStorage.removeItem('type');
+      // 클라이언트 환경에서만 localStorage 접근
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('type');
+      }
     },
   };
 };
