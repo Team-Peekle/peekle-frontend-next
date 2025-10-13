@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,7 +11,7 @@ import { ROUTES } from '@common/constants/routes';
 
 import { loginStore } from '@common/stores/loginStore';
 
-import Profile from '@common/components/Profile.server';
+import UserProfile from '@common/components/UserProfile.client';
 
 import { Close } from '@/common/components/svg/Close';
 import { MenuIcon } from '@/common/components/svg/Menu';
@@ -34,8 +34,13 @@ export default function Navbar() {
 Navbar.Mobile = function NavbarMobile() {
   let pathname = usePathname();
   if (!pathname) pathname = '/';
-  const { isLoggedIn } = loginStore();
+  const { isLoggedIn, checkLoginStatus } = loginStore();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  // 컴포넌트 마운트 시 로그인 상태 확인
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
 
   const route = pathname.startsWith(ROUTES.ROOT) ? '이벤트' : '커뮤니티';
 
@@ -100,7 +105,12 @@ Navbar.Mobile = function NavbarMobile() {
 Navbar.Web = function NavbarWeb() {
   let pathname = usePathname();
   if (!pathname) pathname = ROUTES.ROOT;
-  const { isLoggedIn } = loginStore();
+  const { isLoggedIn, checkLoginStatus } = loginStore();
+
+  // 컴포넌트 마운트 시 로그인 상태 확인
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
 
   return (
     <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between">
@@ -129,7 +139,7 @@ Navbar.Web = function NavbarWeb() {
           <Search className="size-20pxr text-gray-600" />
         </Link>
         {isLoggedIn ? (
-          <Profile variant={ProfileVariant.SIZE_32} />
+          <UserProfile variant={ProfileVariant.SIZE_32} />
         ) : (
           <Link
             href={ROUTES.SIGN_IN}

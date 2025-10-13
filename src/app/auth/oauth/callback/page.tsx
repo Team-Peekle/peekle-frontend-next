@@ -6,23 +6,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { setCookie } from 'cookies-next';
 
-export default function OAuthCallbackPage() {
-  return (
-    <Suspense fallback={<OAuthCallbackLoading />}>
-      <OAuthCallbackHandler />
-    </Suspense>
-  );
-}
+import { loginStore } from '@common/stores/loginStore';
 
-function OAuthCallbackLoading() {
-  return (
-    <div className="flex h-screen items-center justify-center">
-      <p className="text-gray-500">로그인 처리 중...</p>
-    </div>
-  );
-}
-
-function OAuthCallbackHandler() {
+function OAuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -34,16 +20,26 @@ function OAuthCallbackHandler() {
 
     if (type === 'login') {
       if (accessToken) {
-        setCookie('accessToken', accessToken, { maxAge: 60 * 60 * 24 * 3, path: '/' });
+        setCookie('accessToken', accessToken, {
+          maxAge: 60 * 60 * 24 * 3,
+          path: '/',
+        });
       }
       if (refreshToken) {
-        setCookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 15, path: '/' });
+        setCookie('refreshToken', refreshToken, {
+          maxAge: 60 * 60 * 24 * 15,
+          path: '/',
+        });
       }
+      loginStore.getState().login();
       router.push('/');
     } else if (type === 'register') {
       if (registerToken) {
         localStorage.setItem('type', type);
-        setCookie('registerToken', registerToken, { maxAge: 60 * 60 * 24, path: '/' });
+        setCookie('registerToken', registerToken, {
+          maxAge: 60 * 60 * 24,
+          path: '/',
+        });
       }
       router.push('/signup');
     } else {
@@ -51,5 +47,23 @@ function OAuthCallbackHandler() {
     }
   }, [router, searchParams]);
 
-  return null;
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <p className="text-gray-500">로그인 처리 중...</p>
+    </div>
+  );
+}
+
+export default function OAuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen items-center justify-center">
+          <p className="text-gray-500">로그인 처리 중...</p>
+        </div>
+      }
+    >
+      <OAuthCallbackContent />
+    </Suspense>
+  );
 }

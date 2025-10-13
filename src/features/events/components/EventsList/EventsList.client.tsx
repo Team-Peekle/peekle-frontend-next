@@ -10,7 +10,7 @@ import { useIsMobile } from '@common/hooks/useIsMobile';
 
 import { CategoryType } from '@features/events/types/category';
 import { DurationType, LocationType } from '@features/events/types/filter';
-import { PriceType } from '@features/events/types/filter';
+// import { PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 import { OrderType } from '@features/events/types/sort';
 
@@ -45,10 +45,10 @@ const EventsList = () => {
     startDate = rawStartDate || undefined;
     endDate = rawEndDate || undefined;
   }
-  const price = searchParams.get('price') ?? undefined;
-  const locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
-  const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
-  const { myLocation } = useMyLocationInfo();
+  const _price = searchParams.get('price') ?? undefined;
+  const _locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
+  const _categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
+  const { myLocation: _myLocation } = useMyLocationInfo();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 

@@ -25,7 +25,7 @@ const ProfileEdit = () => {
     const profileChanged = currentProfileSrc !== initialProfiles[0];
     const nicknameChanged = currentNickname !== initialNickname;
     setIsChanged(profileChanged || nicknameChanged);
-  }, [currentProfileSrc, currentNickname]);
+  }, [currentProfileSrc, currentNickname, initialProfiles, initialNickname]);
 
   const handleProfileClick = (src: string) => {
     setCurrentProfileSrc(src);
