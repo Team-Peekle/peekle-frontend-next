@@ -11,8 +11,7 @@ import { useIsMobile } from '@common/hooks/useIsMobile';
 import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 
 import { CategoryType } from '@features/events/types/category';
-import { DurationType, LocationType } from '@features/events/types/filter';
-import { PriceType } from '@features/events/types/filter';
+import { DurationType, LocationType, PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 import { OrderType } from '@features/events/types/sort';
 

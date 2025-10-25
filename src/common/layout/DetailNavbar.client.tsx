@@ -13,7 +13,7 @@ interface DetailNavbarProps {
   onScrap?: () => void;
 }
 
-export default function DetailNavbar({ onShare, onScrap }: DetailNavbarProps) {
+export default function DetailNavbar({ onShare: _onShare, onScrap: _onScrap }: DetailNavbarProps) {
   const router = useRouter();
   const isScrolled = useIsScrolled();
   const { openModal } = useModal();
@@ -26,7 +26,7 @@ export default function DetailNavbar({ onShare, onScrap }: DetailNavbarProps) {
     router.back();
   };
 
-  const handleMoreClick = () => {
+  const _handleMoreClick = () => {
     openModal(({ isOpen, onClose }) => <DetailNavbarModal isOpen={isOpen} onClose={onClose} />);
   };
 
