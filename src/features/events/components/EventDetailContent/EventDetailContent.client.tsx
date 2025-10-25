@@ -58,7 +58,9 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
       animate={EventDetailContetnanimation.animate}
     >
       <section className={cn(isMobile ? 'pt-24pxr px-16pxr' : 'gap-40pxr p-24pxr flex flex-row')}>
-        <div className={cn(isMobile ? 'gap-32pxr flex flex-col' : 'gap-40pxr flex flex-col')}>
+        <div
+          className={cn(isMobile ? 'gap-32pxr flex flex-col' : 'gap-40pxr flex flex-1 flex-col')}
+        >
           <div className="gap-20pxr flex shrink-0 flex-col">
             <span className="gap-4pxr flex flex-col">
               <p className="text-gray-500">{eventDetail.category}</p>

@@ -2,9 +2,15 @@ import React from 'react';
 
 import { SvgWrapper } from '@/common/components/svg/SvgWrapper';
 
-export default function PeekleLogo({ className }: { className?: string }) {
+export default function PeekleLogo({
+  className,
+  onClick,
+}: {
+  className?: string;
+  onClick?: () => void;
+}) {
   return (
-    <SvgWrapper className={className}>
+    <SvgWrapper className={className} onClick={onClick}>
       <svg
         width="56"
         height="15"

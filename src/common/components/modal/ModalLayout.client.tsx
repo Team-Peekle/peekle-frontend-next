@@ -10,8 +10,10 @@ interface ModalLayoutProps {
   children: React.ReactNode;
   /** 모달 배경 클릭 가능 여부 */
   canClickDimmed?: boolean;
-  /** 모닿 배경 클릭시 실행될 함수 */
+  /** 모달 배경 클릭시 실행될 함수 */
   onClickDimmed?: () => void;
+  /** 요소를 가운데 배치할 것인지 여부 */
+  isCenter?: boolean;
 }
 
 /**
@@ -22,9 +24,16 @@ interface ModalLayoutProps {
  * @param {ModalLayoutProps} props
  * @param {React.ReactNode} props.children - 모달 내부에 렌더링될 메인 콘텐츠입니다.
  * @param {boolean} [props.canClickDimmed=true] - 모달 배경(dimmed) 클릭 시 모달이 닫히도록 할지 여부를 결정합니다. 기본값은 `true`입니다.
+ * @param {() => void} [props.onClickDimmed] - 모달 배경(dimmed) 클릭 시 실행할 함수입니다.
+ * @param {boolean} [props.isCenter=true] - 요소를 가운데 배치할 것인지 여부를 결정합니다. 기본값은 `true`입니다.
  * @returns {JSX.Element} 모달 배경과 자식 컴포넌트를 포함하는 JSX 엘리먼트입니다.
  */
-const ModalLayout = ({ children, canClickDimmed = true, onClickDimmed }: ModalLayoutProps) => {
+const ModalLayout = ({
+  children,
+  canClickDimmed = true,
+  onClickDimmed,
+  isCenter = true,
+}: ModalLayoutProps) => {
   const handleDimmedClick = () => {
     if (!canClickDimmed) return;
     onClickDimmed?.();
@@ -43,7 +52,8 @@ const ModalLayout = ({ children, canClickDimmed = true, onClickDimmed }: ModalLa
     <ModalPortal>
       <div
         className={cn(
-          'fixed inset-0 z-20 flex h-full w-full items-center justify-center bg-black/40',
+          'fixed inset-0 z-20 h-full w-full bg-black/40',
+          isCenter ? 'flex items-center justify-center' : '',
           canClickDimmed ? 'cursor-pointer' : 'cursor-default',
         )}
         onClick={handleDimmedClick}

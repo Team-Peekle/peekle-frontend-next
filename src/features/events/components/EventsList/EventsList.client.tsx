@@ -108,7 +108,11 @@ const EventsList = () => {
           )}
         </>
       ) : (
-        <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>
+        <>
+          {!isFetchingNextPage && (
+            <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>
+          )}
+        </>
       )}
     </section>
   );
