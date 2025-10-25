@@ -57,7 +57,9 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
       initial={EventDetailContetnanimation.initial}
       animate={EventDetailContetnanimation.animate}
     >
-      <section className={cn(isMobile ? 'pt-24pxr px-16pxr' : 'gap-40pxr p-24pxr flex flex-row')}>
+      <section
+        className={cn(isMobile ? 'pt-24pxr px-16pxr w-full' : 'gap-40pxr p-24pxr flex flex-row')}
+      >
         <div
           className={cn(isMobile ? 'gap-32pxr flex flex-col' : 'gap-40pxr flex flex-1 flex-col')}
         >

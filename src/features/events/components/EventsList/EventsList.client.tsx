@@ -8,6 +8,8 @@ import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
+import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
+
 import { CategoryType } from '@features/events/types/category';
 import { DurationType, LocationType } from '@features/events/types/filter';
 import { PriceType } from '@features/events/types/filter';
@@ -73,7 +75,7 @@ const EventsList = () => {
     if (node) observerRef.current.observe(node);
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetEvents({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetEvents({
     limit: 20,
     sort,
     order: OrderType.ASC,
@@ -108,12 +110,9 @@ const EventsList = () => {
           )}
         </>
       ) : (
-        <>
-          {!isFetchingNextPage && (
-            <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>
-          )}
-        </>
+        <>{!isFetching && <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>}</>
       )}
+      {isFetching && allEvents.length === 0 && <DeferredLoader />}
     </section>
   );
 };

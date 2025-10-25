@@ -49,7 +49,7 @@ Navbar.Mobile = function NavbarMobile() {
   const { isLoggedIn } = loginStore();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const route = pathname === ROUTES.ROOT ? '이벤트' : '커뮤니티';
+  const route = pathname.startsWith(ROUTES.COMMUNITY) ? '커뮤니티' : '이벤트';
 
   const menuItems = [
     { label: '이벤트', href: ROUTES.ROOT },
@@ -122,20 +122,19 @@ Navbar.Web = function NavbarWeb() {
   if (!pathname) pathname = ROUTES.ROOT;
   const { isLoggedIn } = loginStore();
 
+  const route = pathname.startsWith(ROUTES.COMMUNITY) ? '커뮤니티' : '이벤트';
+
   return (
     <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between">
       <div className="gap-32pxr flex flex-row items-center">
         <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />{' '}
         <div className="gap-24pxr text-16b flex flex-row">
-          <Link
-            href={ROUTES.ROOT}
-            className={pathname === ROUTES.ROOT ? 'text-black' : 'text-gray-200'}
-          >
+          <Link href={ROUTES.ROOT} className={route === '이벤트' ? 'text-black' : 'text-gray-200'}>
             이벤트
           </Link>
           <Link
             href={ROUTES.COMMUNITY}
-            className={pathname.startsWith(ROUTES.COMMUNITY) ? 'text-black' : 'text-gray-200'}
+            className={route === '커뮤니티' ? 'text-black' : 'text-gray-200'}
           >
             커뮤니티
           </Link>

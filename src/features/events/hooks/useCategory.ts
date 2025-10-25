@@ -10,13 +10,18 @@ export default function useCategory() {
 
   const currentCategories = useMemo(() => {
     const categoryParam = searchParams.get('categories');
-    return categoryParam?.split(',') ?? CategoryType.ALL;
+    // 쿼리 파라미터가 없어도 배열로 반환
+    if (!categoryParam) {
+      return [CategoryType.ALL] as CategoryType[];
+    }
+    // 쿼리 파라미터가 있다면, 쉼표로 분할하여 배열로 반환
+    return categoryParam.split(',') as CategoryType[];
   }, [searchParams]);
 
   const handleSelectCategory = (newCategory: CategoryType) => {
     console.log('newCategory', newCategory);
     const updatedParams = new URLSearchParams(searchParams.toString()); // 기존 쿼리 파라미터 복사
-    let currentCategories = searchParams.get('categories')?.split(',') ?? CategoryType.ALL;
+    let currentCategories = searchParams.get('categories')?.split(',') ?? [CategoryType.ALL];
 
     // '전체' 포함되어 있으면 제거
     if (Array.isArray(currentCategories)) {
