@@ -14,6 +14,7 @@ export default function useCategory() {
   }, [searchParams]);
 
   const handleSelectCategory = (newCategory: CategoryType) => {
+    console.log('newCategory', newCategory);
     const updatedParams = new URLSearchParams(searchParams.toString()); // 기존 쿼리 파라미터 복사
     let currentCategories = searchParams.get('categories')?.split(',') ?? CategoryType.ALL;
 
