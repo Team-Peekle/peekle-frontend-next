@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef } from 'react';
 
 import Image from 'next/image';
@@ -17,6 +19,7 @@ import { PRICE_TYPE_LABELS } from '@features/events/constansts/filter';
 
 interface EventCardProps {
   eventData: Event;
+  isFirstPage: boolean;
 }
 
 const EventCardAnimation = {
@@ -33,11 +36,22 @@ const EventCardAnimation = {
   },
 };
 
-const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref) => {
+const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData, isFirstPage }, ref) => {
   const isMobile = useIsMobile();
+  // 첫번째 카드일 때만 애니메이션 적용
+  const MotionComponent = isFirstPage ? motion.div : 'div';
+  const animationProps = isFirstPage
+    ? {
+        initial: EventCardAnimation.initial,
+        animate: EventCardAnimation.animate,
+      }
+    : {};
 
   return (
-    <motion.div ref={ref} initial={EventCardAnimation.initial} animate={EventCardAnimation.animate}>
+    <MotionComponent
+      ref={ref}
+      {...animationProps} // isFirstPage 때만 애니메이션 props 전달
+    >
       {isMobile ? (
         <Link
           href={ROUTES.EVENTS.DETAIL(eventData.id)}
@@ -102,7 +116,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData }, ref
           </div>
         </Link>
       )}
-    </motion.div>
+    </MotionComponent>
   );
 });
 

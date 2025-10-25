@@ -28,15 +28,16 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
   const router = useRouter();
   const isMobile = useIsMobile();
   // 디테일 가져오기
-  // const { eventDetail } = useGetEventDetail(eventId);
-  const eventDetail = {
-    images: [
-      { imageUrl: '/images/signin/signin.png', order: 1 },
-      { imageUrl: '/images/signup/signup-complete.png', order: 2 },
-      { imageUrl: '/images/signin/signin.png', order: 3 },
-    ],
-    title: '제목',
-  };
+  const { eventDetail } = useGetEventDetail(eventId);
+  // 목 데이터
+  // const eventDetail = {
+  //   images: [
+  //     { imageUrl: '/images/signin/signin.png', order: 1 },
+  //     { imageUrl: '/images/signup/signup-complete.png', order: 2 },
+  //     { imageUrl: '/images/signin/signin.png', order: 3 },
+  //   ],
+  //   title: '제목',
+  // };
   // order 오름차순으로 정렬된 이미지 배열
   const sortedImages = useMemo(
     () => [...eventDetail.images].sort((a, b) => a.order - b.order),
@@ -84,7 +85,7 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
           <Image
             className="h-full w-full object-cover blur-lg"
             fill
-            src={sortedImages[currentIndex].imageUrl}
+            src={`https://${sortedImages[currentIndex].imageUrl}`}
             alt="배경 블러"
           />
           <div className="h-full w-full bg-black/30" />
@@ -116,8 +117,9 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
                     <Image
                       className="h-full w-full object-contain"
                       fill
-                      src={image.imageUrl}
+                      src={`https://${image.imageUrl}`}
                       alt={`${eventDetail.title}-img-${index}`}
+                      draggable={false}
                       onError={() => {
                         setImageErrors((prev) => {
                           const newErrors = [...prev];

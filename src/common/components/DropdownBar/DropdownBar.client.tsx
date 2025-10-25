@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { DropdownType } from '@common/types/dropdown';
 
@@ -30,6 +30,7 @@ interface DropdownState {
 const DropdownBar = () => {
   const { clearFilter } = useEventsFilter();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const openFilter = useOpenFilter();
   const { currentSort } = useSort();
@@ -155,6 +156,7 @@ const DropdownBar = () => {
             text="내가 찜한 이벤트"
             onClick={() => {
               setIsActiveBookmarkDropdown(false);
+              router.push(`?onlyScrapped=true`);
             }}
           />
         ) : (
@@ -163,7 +165,9 @@ const DropdownBar = () => {
             text="내가 찜한 이벤트"
             onClick={() => {
               setIsActiveBookmarkDropdown(true);
+              // 다른 드롭다우누 닫기
               setOpenedDropdowns({ filter: false, sort: false, category: false });
+              router.push(`?onlyScrapped=false`);
             }}
           />
         )}

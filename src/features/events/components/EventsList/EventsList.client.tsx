@@ -48,6 +48,7 @@ const EventsList = () => {
   const price = searchParams.get('price') ?? undefined;
   const locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
   const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
+  const onlyScrapped = searchParams.get('onlyScrapped') === 'true';
   const { myLocation } = useMyLocationInfo();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -78,26 +79,33 @@ const EventsList = () => {
     order: OrderType.ASC,
     startDate,
     endDate,
-    // isFree: price === PriceType.FREE ? true : false,
-    // locations,
-    // categories,
-    // latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
-    // longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
+    isFree: price === PriceType.FREE ? true : false,
+    locations,
+    categories,
+    latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
+    longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
+    onlyScrapped,
   });
 
-  const events = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
+  const allEvents = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
+  let eventIndexInAll = 0; // 전체 이벤트 배열에서의 인덱스를 추적
 
   return (
     <section className={cn(isMobile ? 'py-8pxr' : 'grid grid-cols-3')}>
-      {events.length > 0 ? (
+      {(data?.pages.length ?? 0 > 0) ? (
         <>
-          {events.map((event, index) => (
-            <EventCard
-              key={event.id}
-              eventData={event}
-              ref={index === events.length - 1 ? lastElementRef : null}
-            />
-          ))}
+          {data?.pages.map((page, pageIndex) =>
+            page?.events.map((event) => {
+              const isFirstPage = pageIndex === 0;
+              const ref = eventIndexInAll === allEvents.length - 1 ? lastElementRef : null;
+
+              eventIndexInAll++; // 다음 이벤트를 위해 전체 인덱스를 증가
+
+              return (
+                <EventCard isFirstPage={isFirstPage} key={event.id} eventData={event} ref={ref} />
+              );
+            }),
+          )}
         </>
       ) : (
         <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>
