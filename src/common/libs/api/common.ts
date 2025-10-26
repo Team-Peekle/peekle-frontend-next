@@ -49,7 +49,9 @@ export const fetcher = async <T extends z.ZodTypeAny>(
   if (!apiInstance) {
     apiInstance = baseApi;
   }
-  const response = await apiInstance(url, options as Options).json();
+
+  const cleanedUrl = url.startsWith('/') ? url.substring(1) : url;
+  const response = await apiInstance(cleanedUrl, options as Options).json();
 
   // api 응답 스키마로 먼저 검증
   const result = apiResponseSchema(schema).safeParse(response);
