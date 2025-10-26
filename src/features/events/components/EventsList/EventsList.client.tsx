@@ -8,9 +8,10 @@ import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
+import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
+
 import { CategoryType } from '@features/events/types/category';
-import { DurationType, LocationType } from '@features/events/types/filter';
-// import { PriceType } from '@features/events/types/filter';
+import { DurationType, LocationType, PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 import { OrderType } from '@features/events/types/sort';
 
@@ -45,10 +46,11 @@ const EventsList = () => {
     startDate = rawStartDate || undefined;
     endDate = rawEndDate || undefined;
   }
-  const _price = searchParams.get('price') ?? undefined;
-  const _locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
-  const _categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
-  const { myLocation: _myLocation } = useMyLocationInfo();
+  const price = searchParams.get('price') ?? undefined;
+  const locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
+  const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
+  const onlyScrapped = searchParams.get('onlyScrapped') === 'true';
+  const { myLocation } = useMyLocationInfo();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -72,36 +74,44 @@ const EventsList = () => {
     if (node) observerRef.current.observe(node);
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetEvents({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetEvents({
     limit: 20,
     sort,
     order: OrderType.ASC,
     startDate,
     endDate,
-    // isFree: price === PriceType.FREE ? true : false,
-    // locations,
-    // categories,
-    // latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
-    // longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
+    isFree: price === PriceType.FREE ? true : false,
+    locations,
+    categories,
+    latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
+    longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
+    onlyScrapped,
   });
 
-  const events = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
+  const allEvents = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
+  let eventIndexInAll = 0; // 전체 이벤트 배열에서의 인덱스를 추적
 
   return (
     <section className={cn(isMobile ? 'py-8pxr' : 'grid grid-cols-3')}>
-      {events.length > 0 ? (
+      {(data?.pages.length ?? 0 > 0) ? (
         <>
-          {events.map((event, index) => (
-            <EventCard
-              key={event.id}
-              eventData={event}
-              ref={index === events.length - 1 ? lastElementRef : null}
-            />
-          ))}
+          {data?.pages.map((page, pageIndex) =>
+            page?.events.map((event) => {
+              const isFirstPage = pageIndex === 0;
+              const ref = eventIndexInAll === allEvents.length - 1 ? lastElementRef : null;
+
+              eventIndexInAll++; // 다음 이벤트를 위해 전체 인덱스를 증가
+
+              return (
+                <EventCard isFirstPage={isFirstPage} key={event.id} eventData={event} ref={ref} />
+              );
+            }),
+          )}
         </>
       ) : (
-        <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>
+        <>{!isFetching && <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>}</>
       )}
+      {isFetching && allEvents.length === 0 && <DeferredLoader />}
     </section>
   );
 };

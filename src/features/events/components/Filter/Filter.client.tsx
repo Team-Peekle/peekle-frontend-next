@@ -44,7 +44,7 @@ const Filter = () => {
     <>
       {isOpenFilter &&
         (isMobile ? (
-          <div className="bg-gray-0 fixed inset-0 flex flex-col">
+          <div className="bg-gray-0 fixed inset-0 z-30 flex flex-col">
             <header className="p-16pxr mb-8pxr relative flex flex-row items-center justify-end border-b border-b-gray-100">
               <h2 className="text-p18 absolute inset-x-0 mx-auto w-fit text-gray-700">필터</h2>
               <Close onClick={closeFilter} className="cursor-pointer text-gray-600" />

@@ -12,7 +12,6 @@ const useSort = () => {
   const currentSort = searchParams.get('sort') ?? SortType.DATE;
 
   const handleSelectSort = (newSort: SortType) => {
-    console.log('newSort in handleSelectSort', newSort);
     const updatedParams = new URLSearchParams(searchParams.toString());
     updatedParams.set('sort', newSort);
 

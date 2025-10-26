@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+
+import { motion } from 'framer-motion';
 
 import { ProfileVariant } from '@common/types/profile';
 
@@ -12,6 +14,7 @@ import { ROUTES } from '@common/constants/routes';
 import { loginStore } from '@common/stores/loginStore';
 
 import UserProfile from '@common/components/UserProfile.client';
+import ModalLayout from '@common/components/modal/ModalLayout.client';
 
 import { Close } from '@/common/components/svg/Close';
 import { MenuIcon } from '@/common/components/svg/Menu';
@@ -20,6 +23,14 @@ import { Search } from '@/common/components/svg/Search';
 import { useIsMobile } from '@/common/hooks/useIsMobile';
 import { useIsScrolled } from '@/common/hooks/useIsScrolled';
 
+const menuVariants = {
+  // 초기 상태: 네비게이션바 높이 (64px)만큼 위에서 시작
+  initial: { opacity: 0, y: -8 },
+  // 진입 상태: 최종 위치 (y: 0)
+  animate: { opacity: 1, y: 0 },
+  // 퇴장 상태: 다시 위로 미끄러져 올라가면서 사라짐
+  exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
+};
 export default function Navbar() {
   const isMobile = useIsMobile();
   const isScrolled = useIsScrolled();
@@ -32,6 +43,7 @@ export default function Navbar() {
 }
 
 Navbar.Mobile = function NavbarMobile() {
+  const router = useRouter();
   let pathname = usePathname();
   if (!pathname) pathname = '/';
   const { isLoggedIn, checkLoginStatus } = loginStore();
@@ -54,10 +66,10 @@ Navbar.Mobile = function NavbarMobile() {
   ];
 
   return (
-    <div className="relative">
+    <div className="relative z-30">
       <nav className="py-10pxr pl-16pxr pr-4pxr bg-gray-0 max-w-799pxr h-64pxr flex w-full flex-row items-center justify-between">
         <div className="gap-12pxr flex flex-row items-center">
-          <PeekleLogo className="w-82pxr" />
+          <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />
           <p className="text-p16b">{route}</p>
         </div>
         <div className="flex flex-row">
@@ -80,29 +92,37 @@ Navbar.Mobile = function NavbarMobile() {
         </div>
       </nav>
 
-      <div
-        className={`bg-gray-0 absolute top-full left-0 z-10 w-full transition-all duration-300 ease-in-out ${
-          isMenuOpen
-            ? 'translate-y-0 transform opacity-100'
-            : 'pointer-events-none -translate-y-2 transform opacity-0'
-        }`}
-      >
-        {menuItems.map((item, index) => (
-          <Link
-            key={index}
-            href={item.href}
-            className="p-16pxr text-p16sb flex w-full items-center justify-start transition-colors duration-200 hover:bg-gray-50"
-            onClick={() => setIsMenuOpen(false)}
+      {isMenuOpen && (
+        <ModalLayout isCenter={false} onClickDimmed={() => setIsMenuOpen(false)}>
+          <motion.div
+            variants={menuVariants} // y: -8 -> 0 애니메이션
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            // Nav의 높이 아래 (64px)에서 시작하도록 fixed 위치 지정
+            className={`bg-gray-0 fixed top-[64px] left-0 z-40 w-full`}
+            onClick={(e) => e.stopPropagation()} // 메뉴 내부 클릭 시 닫힘 방지
           >
-            {item.label}
-          </Link>
-        ))}
-      </div>
+            {menuItems.map((item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                className="p-16pxr text-p16sb flex w-full items-center justify-start transition-colors duration-200 hover:bg-gray-50"
+                onClick={() => setIsMenuOpen(false)} // 메뉴 항목 클릭 시 닫기
+              >
+                {item.label}
+              </Link>
+            ))}
+          </motion.div>
+        </ModalLayout>
+      )}
     </div>
   );
 };
 
 Navbar.Web = function NavbarWeb() {
+  const router = useRouter();
   let pathname = usePathname();
   if (!pathname) pathname = ROUTES.ROOT;
   const { isLoggedIn, checkLoginStatus } = loginStore();
@@ -112,20 +132,19 @@ Navbar.Web = function NavbarWeb() {
     checkLoginStatus();
   }, [checkLoginStatus]);
 
+  const route = pathname.startsWith(ROUTES.COMMUNITY) ? '커뮤니티' : '이벤트';
+
   return (
     <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between">
       <div className="gap-32pxr flex flex-row items-center">
-        <PeekleLogo className="w-82pxr" />
+        <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />{' '}
         <div className="gap-24pxr text-16b flex flex-row">
-          <Link
-            href={ROUTES.ROOT}
-            className={pathname.startsWith(ROUTES.ROOT) ? 'text-black' : 'text-gray-200'}
-          >
+          <Link href={ROUTES.ROOT} className={route === '이벤트' ? 'text-black' : 'text-gray-200'}>
             이벤트
           </Link>
           <Link
             href={ROUTES.COMMUNITY}
-            className={pathname.startsWith(ROUTES.COMMUNITY) ? 'text-black' : 'text-gray-200'}
+            className={route === '커뮤니티' ? 'text-black' : 'text-gray-200'}
           >
             커뮤니티
           </Link>

@@ -24,27 +24,26 @@ interface ImageSliderProps {
 
 const DRAG_BUFFER = 50;
 
-const ImageSlider = ({ eventId: _eventId }: ImageSliderProps) => {
+const ImageSlider = ({ eventId }: ImageSliderProps) => {
   const router = useRouter();
   const isMobile = useIsMobile();
   // 디테일 가져오기
-  // const { eventDetail } = useGetEventDetail(eventId);
-  const eventDetail = {
-    images: [
-      { imageUrl: '/images/signin/signin.png', order: 1 },
-      { imageUrl: '/images/signup/signup-complete.png', order: 2 },
-      { imageUrl: '/images/signin/signin.png', order: 3 },
-    ],
-    title: '제목',
-  };
+  const { eventDetail } = useGetEventDetail(eventId);
+  // 목업 데이터
+  // const eventDetail = {
+  //   images: [
+  //     { imageUrl: '/images/signin/signin.png', order: 1 },
+  //     { imageUrl: '/images/signup/signup-complete.png', order: 2 },
+  //     { imageUrl: '/images/signin/signin.png', order: 3 },
+  //   ],
+  //   title: '제목',
+  // };
   // order 오름차순으로 정렬된 이미지 배열
   const sortedImages = useMemo(
     () => [...eventDetail.images].sort((a, b) => a.order - b.order),
     [eventDetail.images],
   );
   const imagesLength = sortedImages.length;
-  // 이미지 로드 에러 배열
-  const [imageErrors, setImageErrors] = useState<boolean[]>(Array(imagesLength).fill(false));
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -84,7 +83,7 @@ const ImageSlider = ({ eventId: _eventId }: ImageSliderProps) => {
           <Image
             className="h-full w-full object-cover blur-lg"
             fill
-            src={sortedImages[currentIndex].imageUrl}
+            src={`https://${sortedImages[currentIndex].imageUrl}`}
             alt="배경 블러"
           />
           <div className="h-full w-full bg-black/30" />
@@ -112,28 +111,13 @@ const ImageSlider = ({ eventId: _eventId }: ImageSliderProps) => {
                   key={index}
                   className="relative flex w-full shrink-0 items-center justify-center"
                 >
-                  {!imageErrors[index] && (
-                    <Image
-                      className="h-full w-full object-contain"
-                      fill
-                      src={image.imageUrl}
-                      alt={`${eventDetail.title}-img-${index}`}
-                      onError={() => {
-                        setImageErrors((prev) => {
-                          const newErrors = [...prev];
-                          newErrors[index] = true;
-                          return newErrors;
-                        });
-                      }}
-                      onLoad={() => {
-                        setImageErrors((prev) => {
-                          const newErrors = [...prev];
-                          newErrors[index] = false;
-                          return newErrors;
-                        });
-                      }}
-                    />
-                  )}
+                  <Image
+                    className="h-full w-full object-contain"
+                    fill
+                    src={`https://${image.imageUrl}`}
+                    alt={`${eventDetail.title}-이미지-${index}`}
+                    draggable={false}
+                  />
                 </div>
               ))}
             </motion.div>
@@ -148,11 +132,11 @@ const ImageSlider = ({ eventId: _eventId }: ImageSliderProps) => {
         {isMobile && (
           <Back
             onClick={() => router.back()}
-            className="text-gray-0 top-16pxr left-16pxr color-gray-0 w-18pxr h-18pxr absolute z-30 cursor-pointer"
+            className="text-gray-0 top-16pxr left-16pxr color-gray-0 w-18pxr h-18pxr absolute z-20 cursor-pointer"
           />
         )}
         {/* 페이지네이션 버튼 */}
-        <div className="absolute right-4 bottom-4 z-30">
+        <div className="absolute right-4 bottom-4 z-20">
           <FilePagination
             fileLength={imagesLength}
             currentPage={currentPage}

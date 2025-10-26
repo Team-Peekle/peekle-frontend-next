@@ -17,6 +17,9 @@ import { OrderType, SortType } from './sort';
  * @property {CategoryType[]} [categories] - 이벤트 카테고리 목록
  * @property {number} [latitude] - 현재 위치의 위도
  * @property {number} [longitude] - 현재 위치의 경도
+ * @property {string} [region1] - 지역(시/도)
+ * @property {string} [region2] - 지역(구/군)
+ * @property {boolean} [onlyScrapped] - 내가 찜한 이벤트만 여부 (로그인 필요)
  */
 export interface GetEventsParams {
   limit?: number;
@@ -30,4 +33,7 @@ export interface GetEventsParams {
   categories?: CategoryType[];
   latitude?: number;
   longitude?: number;
+  region1?: string;
+  region2?: string;
+  onlyScrapped?: boolean;
 }

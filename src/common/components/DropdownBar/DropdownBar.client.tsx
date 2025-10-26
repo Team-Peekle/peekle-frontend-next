@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { DropdownType } from '@common/types/dropdown';
+
+import { loginStore } from '@common/stores/loginStore';
 
 import CategoryMenu from '@common/components/CategoryMenu/CategoryMenu.client';
 import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
@@ -13,7 +15,11 @@ import ModalPortal from '@common/components/modal/ModalPortal.client';
 import { CategoryType } from '@features/events/types/category';
 import { SortType } from '@features/events/types/sort';
 
-import { useOpenFilter } from '@features/events/hooks/stores/useEventsModalStore';
+import {
+  useCloseOnlyScrapped,
+  useOpenFilter,
+  useOpenOnlyScrapped,
+} from '@features/events/hooks/stores/useEventsModalStore';
 import useEventsFilter from '@features/events/hooks/useEventsFilter';
 import useSort from '@features/events/hooks/useSort';
 
@@ -28,8 +34,11 @@ interface DropdownState {
 }
 
 const DropdownBar = () => {
+  const { isLoggedIn } = loginStore();
+  const openOnlyScrapped = useOpenOnlyScrapped();
   const { clearFilter } = useEventsFilter();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const openFilter = useOpenFilter();
   const { currentSort } = useSort();
@@ -98,9 +107,8 @@ const DropdownBar = () => {
 
     setOpenedDropdowns((prev) => ({
       filter: false,
-      sort: false,
-      category: false,
-      [menuName]: !prev[menuName],
+      sort: menuName === 'sort' ? !prev.sort : false,
+      category: menuName === 'category' ? !prev.category : false,
     }));
 
     if (menuName === 'filter') {
@@ -149,12 +157,14 @@ const DropdownBar = () => {
           text={categoriesStr}
           onClick={() => handleDropdownClick('category', categoryRef)}
         />
+        {/* Bookmark */}
         {isActiveBookmarkDropdown ? (
           <Dropdown
             dropdownType={DropdownType.VAR4}
             text="내가 찜한 이벤트"
             onClick={() => {
               setIsActiveBookmarkDropdown(false);
+              router.push(`?onlyScrapped=false`);
             }}
           />
         ) : (
@@ -162,8 +172,16 @@ const DropdownBar = () => {
             dropdownType={DropdownType.VAR5}
             text="내가 찜한 이벤트"
             onClick={() => {
-              setIsActiveBookmarkDropdown(true);
+              // 다른 드롭다운은 닫기
               setOpenedDropdowns({ filter: false, sort: false, category: false });
+              // 로그인 한 사용자인지 확인해 팝업 열기
+              if (!isLoggedIn) {
+                openOnlyScrapped();
+                return;
+              }
+              // 필터링 적용
+              setIsActiveBookmarkDropdown(true);
+              router.push(`?onlyScrapped=true`);
             }}
           />
         )}
