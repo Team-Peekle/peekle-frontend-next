@@ -82,7 +82,7 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
  * Google 인증 페이지로 이동 (로그인 시작)
  */
 export const getGoogleLoginUrl = () => {
-  return `${API_URL}v2/auth/google/login?frontEnv=${process.env.NEXT_PUBLIC_FRONT_URL}/`;
+  return `${API_URL}v2/auth/google/login?frontEnv=${process.env.NEXT_PUBLIC_FRONT_URL}`;
 };
 
 /**
