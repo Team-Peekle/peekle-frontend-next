@@ -9,7 +9,7 @@ import { CategoryType } from '@features/events/types/category';
 import { DurationType, FilterType, LocationType, PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 
-import Banner from '@features/events/components/Banner';
+import Banner from '@features/events/components/Banner.client';
 import ConfirmLocationPopup from '@features/events/components/ConfirmLocationPopup.client';
 import EventsList from '@features/events/components/EventsList/EventsList.client';
 import Filter from '@features/events/components/Filter/Filter.client';
