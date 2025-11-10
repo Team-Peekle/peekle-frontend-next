@@ -10,6 +10,11 @@ export function isPositiveNumber(val: string | number | bigint) {
     return false;
   }
 
+  // 정수인지 확인
+  if (!Number.isInteger(num)) {
+    return false;
+  }
+
   // 0보다 큰지 확인
   return num > 0;
 }
