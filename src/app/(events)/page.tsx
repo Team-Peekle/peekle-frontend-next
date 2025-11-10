@@ -5,12 +5,11 @@ import { SearchParamsType } from '@common/types/routes';
 import { isValidDate } from '@common/utils/dates';
 import isValidEnumValue from '@common/utils/isValidEnumValue';
 
-import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
-
 import { CategoryType } from '@features/events/types/category';
 import { DurationType, FilterType, LocationType, PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 
+import Banner from '@features/events/components/Banner';
 import ConfirmLocationPopup from '@features/events/components/ConfirmLocationPopup.client';
 import EventsList from '@features/events/components/EventsList/EventsList.client';
 import Filter from '@features/events/components/Filter/Filter.client';
@@ -75,12 +74,9 @@ const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParam
 
   return (
     <>
-      <div className="py-32pxr bg-banner gap-24pxr flex w-full flex-col">
-        <p className="p-16pxr text-p20 whitespace-pre-line text-gray-800">{`재취업·부업 시작을 위한 공공 강좌,\n 한곳에서 찾고 신청해 보세요.`}</p>
-        <DropdownBar />
-      </div>
-      {/* 이벤트 리스트 */}
+      <Banner />
       <EventsList />
+      {/* 팝업들 */}
       <ConfirmLocationPopup />
       <OnlyScrappedPopup />
       <Filter />
