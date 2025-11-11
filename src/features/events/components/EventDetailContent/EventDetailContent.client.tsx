@@ -65,7 +65,7 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
         >
           <div className="gap-20pxr flex shrink-0 flex-col">
             <span className="gap-4pxr flex flex-col">
-              <p className="text-gray-500">{eventDetail.category}</p>
+              <p className="text-p16m text-gray-500">{eventDetail.category}</p>
               <h3 className="text-h3 text-gray-800">{eventDetail.title}</h3>
             </span>
             <div className="py-20pxr gap-12pxr flex flex-col border-t border-b border-solid border-gray-100">
