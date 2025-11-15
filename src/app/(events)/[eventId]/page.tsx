@@ -1,10 +1,14 @@
 import { Suspense } from 'react';
 
+import { notFound } from 'next/navigation';
+
 import { HydrationBoundary } from '@tanstack/react-query';
 
 import queryKeys from '@common/constants/queryKeys';
 
 import getDehydratedState from '@common/libs/react-query/dehydrate';
+
+import { isPositiveNumber } from '@common/utils/isNumber';
 
 import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 
@@ -15,6 +19,12 @@ import ImageSlider from '@features/events/components/ImageSlider/ImageSlider.cli
 
 const EventDetailPage = async ({ params }: { params: Promise<{ [key: string]: string }> }) => {
   const { eventId } = await params;
+
+  // eventId가 양수로 변환 가능한지 확인
+  // 안되면 404 띄우기
+  if (!isPositiveNumber(eventId)) {
+    notFound();
+  }
 
   const { dehydratedState } = await getDehydratedState({
     prefetch: async (qc) =>

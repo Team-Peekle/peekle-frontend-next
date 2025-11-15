@@ -16,4 +16,5 @@ export const ROUTES = {
     },
   },
   SIGNUP_COMPLETE: '/signup/complete',
+  NOT_FOUND: '/not-found', // 실제로 없는 주소 - 404 페이지 수동으로 띄우기 위해
 } as const;

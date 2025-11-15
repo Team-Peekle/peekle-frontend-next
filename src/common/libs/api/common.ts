@@ -1,5 +1,9 @@
-import ky, { Options } from 'ky';
+import { notFound } from 'next/navigation';
+
+import ky, { HTTPError, Options } from 'ky';
 import { z } from 'zod';
+
+import { ROUTES } from '@common/constants/routes';
 
 import { apiResponseSchema, failSchema } from '@common/schemas/api';
 
@@ -50,27 +54,37 @@ export const fetcher = async <T extends z.ZodTypeAny>(
     apiInstance = baseApi;
   }
 
-  const cleanedUrl = url.startsWith('/') ? url.substring(1) : url;
-  const response = await apiInstance(cleanedUrl, options as Options).json();
+  try {
+    // 성공적인 응답(2xx)을 JSON으로 변환
+    const response = await apiInstance(url, options as Options).json();
 
-  // api 응답 스키마로 먼저 검증
-  const result = apiResponseSchema(schema).safeParse(response);
-  if (!result.success) {
-    console.error('API 응답 형식이 올바르지 않습니다:', result.error);
-    throw new Error('API 응답 형식이 올바르지 않습니다.');
-  }
+    // api 응답 스키마로 먼저 검증
+    const result = apiResponseSchema(schema).safeParse(response);
+    if (!result.success) {
+      console.error('API 응답 형식이 올바르지 않습니다:', result.error);
+      throw new Error('API 응답 형식이 올바르지 않습니다.');
+    }
 
-  const responseData = result.data;
-  // 실패 응답일 경우 에러 데이터를 포함하여 에러를 던짐
-  if (!responseData.status) {
-    const errorData = (responseData as z.infer<typeof failSchema>).error;
-    throw new ApiError(errorData.errorCode, errorData.reason, errorData.data);
-  }
+    const responseData = result.data;
+    // 실패 응답일 경우 에러 데이터를 포함하여 에러를 던짐
+    if (!responseData.status) {
+      const errorData = (responseData as z.infer<typeof failSchema>).error;
+      throw new ApiError(errorData.errorCode, errorData.reason, errorData.data);
+    }
 
-  // 성공 응답이면 response.data 반환
-  if ('data' in responseData) {
-    const validatedData = schema.parse(responseData.data);
-    return validatedData;
+    // 성공 응답이면 response.data 반환
+    if ('data' in responseData) {
+      const validatedData = schema.parse(responseData.data);
+      return validatedData;
+    }
+    throw new Error('Response data가 없습니다.');
+  } catch (error) {
+    // 404 에러 처리
+    if (error instanceof HTTPError && error.response.status === 404) {
+      notFound();
+    }
+
+    // 다른 에러는 그대로 throw
+    throw error;
   }
-  throw new Error('Response data가 없습니다.');
 };
