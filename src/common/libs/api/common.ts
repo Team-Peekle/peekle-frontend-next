@@ -3,8 +3,6 @@ import { notFound } from 'next/navigation';
 import ky, { HTTPError, Options } from 'ky';
 import { z } from 'zod';
 
-import { ROUTES } from '@common/constants/routes';
-
 import { apiResponseSchema, failSchema } from '@common/schemas/api';
 
 import ApiError from '@common/utils/ApiError';
