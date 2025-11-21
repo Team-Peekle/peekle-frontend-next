@@ -11,7 +11,7 @@ import ApiError from '@common/utils/ApiError';
 
 type SearchParamsValue = string | number | boolean | undefined;
 type CustomSearchParamsValue = SearchParamsValue | SearchParamsValue[];
-type CustomSearchParamsOption =
+export type CustomSearchParamsOption =
   | string
   | string[][]
   | URLSearchParams

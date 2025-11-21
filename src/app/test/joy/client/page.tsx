@@ -138,9 +138,9 @@ const JoyTestClientPage = () => {
         />
         <Share link="dummyLink" />
         <Bookmark
-          isBookmarked={true}
-          onStateChange={(newState, bookmarked) => {
-            console.log('새상태:', newState, '이전상태:', bookmarked);
+          isBookmarked={false}
+          onStateChange={(newState) => {
+            console.log('새상태:', newState);
           }}
         />
         <Category />

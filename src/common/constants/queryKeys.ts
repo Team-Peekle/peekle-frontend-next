@@ -11,6 +11,7 @@ const queryKeys = createQueryKeyStore({
     testToken: null,
     list: (params: GetEventsParams) => [params],
     detail: (eventId: string) => [eventId],
+    scrap: (eventId: string) => [eventId],
   },
 });
 

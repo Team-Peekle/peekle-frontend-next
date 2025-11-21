@@ -16,6 +16,7 @@ import getEventDetail from '@features/events/apis/get/getEventDetail';
 
 import EventDetailContent from '@features/events/components/EventDetailContent/EventDetailContent.client';
 import ImageSlider from '@features/events/components/ImageSlider/ImageSlider.client';
+import OnlyScrappedPopup from '@features/events/components/OnlyScrappedPopup.client';
 
 const EventDetailPage = async ({ params }: { params: Promise<{ [key: string]: string }> }) => {
   const { eventId } = await params;
@@ -36,10 +37,12 @@ const EventDetailPage = async ({ params }: { params: Promise<{ [key: string]: st
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ImageSlider eventId={eventId} />
       <Suspense fallback={<DeferredLoader />}>
+        <ImageSlider eventId={eventId} />
         <EventDetailContent eventId={eventId} />
       </Suspense>
+      {/* 팝업들 */}
+      <OnlyScrappedPopup />
     </HydrationBoundary>
   );
 };

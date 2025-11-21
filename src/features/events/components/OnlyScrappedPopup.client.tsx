@@ -22,6 +22,9 @@ const OnlyScrappedPopup = () => {
   };
 
   const handleConfirmSignIn = () => {
+    // 모달 닫기
+    closeOnlyScrapped();
+    // 페이지 이동
     router.push(ROUTES.SIGN_IN);
   };
 
