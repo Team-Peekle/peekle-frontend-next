@@ -111,7 +111,11 @@ const EventsList = () => {
       ) : (
         <>{!isFetching && <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>}</>
       )}
-      {isFetching && allEvents.length === 0 && <DeferredLoader />}
+      {isFetching && allEvents.length === 0 && (
+        <div className={cn('pt-40pxr', isMobile ? 'flex justify-center' : 'col-span-3')}>
+          <DeferredLoader />
+        </div>
+      )}
     </section>
   );
 };
