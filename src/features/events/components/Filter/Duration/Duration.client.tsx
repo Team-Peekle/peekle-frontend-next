@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { cn } from '@common/libs/utils';
 
 import { formatDate } from '@common/utils/dates';
@@ -21,7 +23,35 @@ import DateList from './DataList/DataList.client';
 const Duration = () => {
   const isMobile = useIsMobile();
 
-  const { handleSelect } = useEventsFilter(FilterType.DURATION);
+  const { handleSelect, filters } = useEventsFilter(FilterType.DURATION);
+  const currentFilterValue = filters[FilterType.DURATION];
+  /**
+   * 선택돼있는 날짜 계산
+   * 탭 활성화 위해
+   */
+  const defaultTabValue = useMemo(() => {
+    // 값이 없거나 'ALL'이면 -> ALL 탭
+    if (!currentFilterValue || currentFilterValue === DurationType.ALL) {
+      return DurationType.ALL;
+    }
+
+    // 값이 'CUSTOM'이면 -> CUSTOM 탭
+    if (currentFilterValue === DurationType.CUSTOM) {
+      return DurationType.CUSTOM;
+    }
+
+    // PREDEFINED_RANGES를 순회하며 매칭되는 키 찾기
+    const match = Object.entries(PREDEFINED_RANGES).find(([key, range]) => {
+      const startDate = formatDate(range[0]);
+      const endDate = formatDate(range[1]);
+      const rangeString = `${startDate},${endDate}`;
+
+      return rangeString === currentFilterValue;
+    });
+
+    // 매칭되는 것이 있으면 그 Key 반환, 없으면(직접 입력한 날짜 등) CUSTOM 반환
+    return match ? (match[0] as DurationType) : DurationType.CUSTOM;
+  }, [currentFilterValue]); // currentFilterValue가 바뀔 때만 재계산
 
   /**
    * 탭 클릭 시 최종 날짜를 계산하고 searchParams에 반영하는 함수
@@ -48,7 +78,7 @@ const Duration = () => {
     <Tabs
       listClassName={cn(isMobile ? 'pb-16pxr' : 'py-16pxr')}
       option="이벤트 기간 선택 탭"
-      defaultValue={DurationType.ALL}
+      defaultValue={defaultTabValue}
     >
       {/* 리스트 부분 */}
       <Tabs.List>

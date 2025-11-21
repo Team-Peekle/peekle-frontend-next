@@ -17,6 +17,7 @@ import { OrderType } from '@features/events/types/sort';
 
 import useGetEvents from '@features/events/hooks/queries/useGetEvents';
 import { useMyLocationInfo } from '@features/events/hooks/stores/useMyLocationStore';
+import useEventsFilter from '@features/events/hooks/useEventsFilter';
 
 import EventCard from './EventCard.client';
 
@@ -25,6 +26,8 @@ const EventsList = () => {
 
   // 필터, 정렬, 카테고리 값 가져오기
   const searchParams = useSearchParams();
+  const { myLocation } = useMyLocationInfo();
+  const { filters } = useEventsFilter();
   const sort = (searchParams.get('sort') as SortType) ?? SortType.DATE;
   // duration
   let startDate: string | undefined;
@@ -50,7 +53,6 @@ const EventsList = () => {
   const locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
   const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
   const onlyScrapped = searchParams.get('onlyScrapped') === 'true';
-  const { myLocation } = useMyLocationInfo();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -93,7 +95,14 @@ const EventsList = () => {
 
   return (
     <section className={cn(isMobile ? 'py-8pxr' : 'grid grid-cols-3')}>
-      {(data?.pages.length ?? 0 > 0) ? (
+      {/* 초기 진입 로딩 (데이터 없음 + 로딩 중) */}
+      {isFetching && allEvents.length === 0 && (
+        <div className={cn('pt-40pxr', isMobile ? 'flex justify-center' : 'col-span-3')}>
+          <DeferredLoader />
+        </div>
+      )}
+      {/* 데이터 렌더링 영역 */}
+      {(data?.pages[0]?.events.length ?? 0 > 0) ? (
         <>
           {data?.pages.map((page, pageIndex) =>
             page?.events.map((event) => {
@@ -109,12 +118,14 @@ const EventsList = () => {
           )}
         </>
       ) : (
-        <>{!isFetching && <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>}</>
-      )}
-      {isFetching && allEvents.length === 0 && (
-        <div className={cn('pt-40pxr', isMobile ? 'flex justify-center' : 'col-span-3')}>
-          <DeferredLoader />
-        </div>
+        // 로딩 끝, 데이터 없을 때
+        <>
+          {!isFetching && (
+            <p className={cn('pt-40pxr text-center text-gray-400', isMobile ? '' : 'col-span-3')}>
+              해당하는 이벤트가 없습니다.
+            </p>
+          )}
+        </>
       )}
     </section>
   );

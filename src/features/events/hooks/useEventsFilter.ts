@@ -76,6 +76,7 @@ export default function useEventsFilter(filterType?: FilterType) {
     const filterValue = filters[filterType as FilterType];
 
     if (filterType === FilterType.DURATION || filterType === FilterType.PRICE) {
+      if (filterType === FilterType.DURATION) console.log(value, filterValue);
       // 단일 선택이면 비교 후 바로 boolean 리턴
       return value === filterValue;
     }
@@ -151,6 +152,7 @@ export default function useEventsFilter(filterType?: FilterType) {
     isSelected,
     handleRemoveFilter,
     clearFilter,
+    filters,
     activeFilters,
   };
 }
