@@ -10,6 +10,8 @@ import { formatToKST } from '@common/utils/dates';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
+import { loginStore } from '@common/stores/loginStore';
+
 import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
 import Share from '@common/components/btn/Share/Share.client';
@@ -22,6 +24,8 @@ import addressFormatter from '@features/events/utils/addressFormatter';
 import priceFormatter from '@features/events/utils/priceFormatter';
 
 import useGetEventDetail from '@features/events/hooks/queries/useGetEventDetail';
+import { useOpenOnlyScrapped } from '@features/events/hooks/stores/useEventsModalStore';
+import useScrapEvent from '@features/events/hooks/useScrapEvent';
 
 import DetailRow from './DetailRow.client';
 
@@ -46,11 +50,28 @@ const EventDetailContetnanimation = {
 const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
   const isMobile = useIsMobile();
   const { eventDetail } = useGetEventDetail(eventId);
+  const { mutate: toggleScrap } = useScrapEvent(eventId);
   const [currentUrl, setCurrentUrl] = useState('');
+  const { isLoggedIn } = loginStore();
 
+  const isScrapped = eventDetail.isScrapped;
+  const openOnlyScrapped = useOpenOnlyScrapped();
+
+  // 공유용 현재 페이지 주소
   useEffect(() => {
     setCurrentUrl(window.location.href);
   }, []);
+
+  const handleClickScrap = () => {
+    // 로그인 한 사용자인지 확인해 팝업 열기
+    console.log(isLoggedIn);
+    if (!isLoggedIn) {
+      openOnlyScrapped();
+      return;
+    } else {
+      toggleScrap(isScrapped);
+    }
+  };
 
   return (
     <motion.div
@@ -65,7 +86,7 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
         >
           <div className="gap-20pxr flex shrink-0 flex-col">
             <span className="gap-4pxr flex flex-col">
-              <p className="text-gray-500">{eventDetail.category}</p>
+              <p className="text-p16m text-gray-500">{eventDetail.category}</p>
               <h3 className="text-h3 text-gray-800">{eventDetail.title}</h3>
             </span>
             <div className="py-20pxr gap-12pxr flex flex-col border-t border-b border-solid border-gray-100">
@@ -95,8 +116,7 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
                   <Share link={currentUrl} />
                 </div>
                 <div className="flex-1">
-                  {/* ✅ TODO: api 연결 필요 */}
-                  <Bookmark isBookmarked={true} onStateChange={() => console.log('북마크 클릭')} />
+                  <Bookmark isBookmarked={isScrapped} onStateChange={handleClickScrap} />
                 </div>
               </span>
             </div>
@@ -134,8 +154,7 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
                 <Share link={currentUrl} />
               </div>
               <div className="flex-1">
-                {/* ✅ TODO: api 연결 필요 */}
-                <Bookmark isBookmarked={true} onStateChange={() => console.log('북마크 클릭')} />
+                <Bookmark isBookmarked={isScrapped} onStateChange={handleClickScrap} />
               </div>
             </span>
           </div>

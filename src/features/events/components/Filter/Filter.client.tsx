@@ -101,9 +101,9 @@ const Filter = () => {
                 {/* 오른쪽 */}
                 <section className="flex-1">{filterPanels[activeFilterType]}</section>
               </main>
-              <footer className="py-19pxr px-16pxr absolute bottom-0 flex w-full flex-row items-center justify-between">
+              <footer className="py-19pxr gap-x-24pxr px-16pxr absolute bottom-0 flex w-full flex-row items-center justify-between">
                 <SelectedFilters />
-                <div className="gap-24pxr flex flex-row items-center">
+                <div className="gap-x-24pxr flex flex-row items-center">
                   <button
                     className="gap-8pxr flex flex-row items-center justify-center text-gray-500"
                     onClick={clearFilter}

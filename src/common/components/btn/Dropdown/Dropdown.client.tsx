@@ -19,7 +19,10 @@ interface DropdownProps extends ButtonsCommonProps {
 }
 
 const Dropdown = forwardRef<HTMLButtonElement | null, DropdownProps>(
-  ({ dropdownType, text, onClick }: DropdownProps, ref: Ref<HTMLButtonElement | null>) => {
+  (
+    { dropdownType, text, onClick, className, ...props }: DropdownProps,
+    ref: Ref<HTMLButtonElement | null>,
+  ) => {
     const handleClick = () => {
       // VAR4는 버튼이 아닌 태그 내의 X 아이콘이 클릭되도록 하기 위해 onClick 무시
       if (dropdownType === DropdownType.VAR4) {
@@ -41,8 +44,10 @@ const Dropdown = forwardRef<HTMLButtonElement | null, DropdownProps>(
             'cursor-default': dropdownType === DropdownType.VAR4,
             'bg-gray-800': dropdownType === DropdownType.VAR2 || dropdownType === DropdownType.VAR4,
           },
+          className,
         )}
         onClick={handleClick}
+        {...props}
       >
         {dropdownType === DropdownType.VAR5 && (
           <HeartIcon fill="outlined" className="h-13pxr w-15pxr text-gray-400" />

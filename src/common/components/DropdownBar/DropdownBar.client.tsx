@@ -16,7 +16,6 @@ import { CategoryType } from '@features/events/types/category';
 import { SortType } from '@features/events/types/sort';
 
 import {
-  useCloseOnlyScrapped,
   useOpenFilter,
   useOpenOnlyScrapped,
 } from '@features/events/hooks/stores/useEventsModalStore';

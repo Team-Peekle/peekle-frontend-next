@@ -3,15 +3,13 @@ import { notFound } from 'next/navigation';
 import ky, { HTTPError, Options } from 'ky';
 import { z } from 'zod';
 
-import { ROUTES } from '@common/constants/routes';
-
 import { apiResponseSchema, failSchema } from '@common/schemas/api';
 
 import ApiError from '@common/utils/ApiError';
 
 type SearchParamsValue = string | number | boolean | undefined;
 type CustomSearchParamsValue = SearchParamsValue | SearchParamsValue[];
-type CustomSearchParamsOption =
+export type CustomSearchParamsOption =
   | string
   | string[][]
   | URLSearchParams

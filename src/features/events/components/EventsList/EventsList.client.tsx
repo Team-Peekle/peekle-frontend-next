@@ -11,12 +11,13 @@ import { useIsMobile } from '@common/hooks/useIsMobile';
 import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 
 import { CategoryType } from '@features/events/types/category';
-import { DurationType, LocationType, PriceType } from '@features/events/types/filter';
+import { DurationType, FilterType, LocationType, PriceType } from '@features/events/types/filter';
 import { SortType } from '@features/events/types/sort';
 import { OrderType } from '@features/events/types/sort';
 
 import useGetEvents from '@features/events/hooks/queries/useGetEvents';
 import { useMyLocationInfo } from '@features/events/hooks/stores/useMyLocationStore';
+import useEventsFilter from '@features/events/hooks/useEventsFilter';
 
 import EventCard from './EventCard.client';
 
@@ -25,32 +26,39 @@ const EventsList = () => {
 
   // 필터, 정렬, 카테고리 값 가져오기
   const searchParams = useSearchParams();
+  const { myLocation } = useMyLocationInfo();
+  const { filters } = useEventsFilter();
+
+  // 데이터 가공 (Hook에서 가져온 Raw String -> API 요청용 변환)
+  // [Sort]
   const sort = (searchParams.get('sort') as SortType) ?? SortType.DATE;
-  // duration
+
+  // [Duration]
+  const durationVal = filters[FilterType.DURATION];
   let startDate: string | undefined;
   let endDate: string | undefined;
-  const duration = searchParams.get('duration') ?? '';
   // duration이 빈 문자열(''), 또는 'CUSTOM'일 경우, 날짜는 undefined로
-  if (!duration || duration === DurationType.CUSTOM) {
-    startDate = undefined;
-    endDate = undefined;
-  }
   // duration이 날짜 범위 문자열 ('YYYY-MM-DD,YYYY-MM-DD' 등)일 경우
-  else {
-    // 쉼표(,)를 기준으로 분리
-    const parts = duration.split(',');
-
-    const rawStartDate = parts[0];
-    const rawEndDate = parts[1];
-
-    startDate = rawStartDate || undefined;
-    endDate = rawEndDate || undefined;
+  // 쉼표(,)를 기준으로 분리
+  if (durationVal && durationVal !== DurationType.ALL && durationVal !== DurationType.CUSTOM) {
+    const parts = durationVal.split(',');
+    startDate = parts[0];
+    endDate = parts[1];
   }
-  const price = searchParams.get('price') ?? undefined;
-  const locations = (searchParams.get('locations')?.split(',') as LocationType[]) ?? undefined;
+
+  // [Price]
+  const priceVal = filters[FilterType.PRICE];
+  const isFree = priceVal === PriceType.FREE;
+
+  // [Location]
+  const locationVal = filters[FilterType.LOCATION];
+  const locations =
+    locationVal === LocationType.ALL ? undefined : (locationVal.split(',') as LocationType[]);
+
+  // 카테고리
   const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
+  // 찜한 이벤트
   const onlyScrapped = searchParams.get('onlyScrapped') === 'true';
-  const { myLocation } = useMyLocationInfo();
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -80,7 +88,7 @@ const EventsList = () => {
     order: OrderType.ASC,
     startDate,
     endDate,
-    isFree: price === PriceType.FREE ? true : false,
+    isFree,
     locations,
     categories,
     latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
@@ -93,7 +101,14 @@ const EventsList = () => {
 
   return (
     <section className={cn(isMobile ? 'py-8pxr' : 'grid grid-cols-3')}>
-      {(data?.pages.length ?? 0 > 0) ? (
+      {/* 초기 진입 로딩 (데이터 없음 + 로딩 중) */}
+      {isFetching && allEvents.length === 0 && (
+        <div className={cn('pt-40pxr', isMobile ? 'flex justify-center' : 'col-span-3')}>
+          <DeferredLoader />
+        </div>
+      )}
+      {/* 데이터 렌더링 영역 */}
+      {(data?.pages[0]?.events.length ?? 0 > 0) ? (
         <>
           {data?.pages.map((page, pageIndex) =>
             page?.events.map((event) => {
@@ -109,9 +124,15 @@ const EventsList = () => {
           )}
         </>
       ) : (
-        <>{!isFetching && <p className="p-16pxr text-gray-400">해당하는 이벤트가 없습니다.</p>}</>
+        // 로딩 끝, 데이터 없을 때
+        <>
+          {!isFetching && (
+            <p className={cn('pt-40pxr text-center text-gray-400', isMobile ? '' : 'col-span-3')}>
+              해당하는 이벤트가 없습니다.
+            </p>
+          )}
+        </>
       )}
-      {isFetching && allEvents.length === 0 && <DeferredLoader />}
     </section>
   );
 };

@@ -1,7 +1,7 @@
 export enum FilterType {
   DURATION = 'duration',
   PRICE = 'price',
-  LOCATION = 'location', // 여러개 선택 가능
+  LOCATION = 'locations', // 여러개 선택 가능
 }
 
 export enum DurationType {
