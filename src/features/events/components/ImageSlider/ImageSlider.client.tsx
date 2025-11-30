@@ -13,6 +13,7 @@ import { cn } from '@common/libs/utils';
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
 import { Back } from '@common/components/svg/Back';
+import { NotFound } from '@common/components/svg/NotFound';
 
 import useGetEventDetail from '@features/events/hooks/queries/useGetEventDetail';
 
@@ -32,15 +33,18 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
   // 목업 데이터
   // const eventDetail = {
   //   images: [
-  //     { imageUrl: '/images/signin/signin.png', order: 1 },
-  //     { imageUrl: '/images/signup/signup-complete.png', order: 2 },
-  //     { imageUrl: '/images/signin/signin.png', order: 3 },
+  //     { imageUrl: null, order: 1 },
+  //     { imageUrl: null, order: 2 },
   //   ],
   //   title: '제목',
   // };
+
   // order 오름차순으로 정렬된 이미지 배열
   const sortedImages = useMemo(
-    () => [...eventDetail.images].sort((a, b) => a.order - b.order),
+    () =>
+      [...eventDetail.images]
+        .filter((img) => img.imageUrl !== null)
+        .sort((a, b) => a.order - b.order),
     [eventDetail.images],
   );
   const imagesLength = sortedImages.length;
@@ -79,18 +83,26 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
         )}
       >
         {/* 배경 블러 */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            className="h-full w-full object-cover blur-lg"
-            fill
-            src={`https://${sortedImages[currentIndex].imageUrl}`}
-            alt="배경 블러"
-          />
-          <div className="h-full w-full bg-black/30" />
-        </div>
+        {hasImages && (
+          <div className="absolute inset-0 z-0">
+            <Image
+              className="h-full w-full object-cover blur-lg"
+              fill
+              src={`https://${sortedImages[currentIndex].imageUrl}`}
+              alt="배경 블러"
+            />
+            <div className="h-full w-full bg-black/30" />
+          </div>
+        )}
 
-        <motion.div className="z-10 flex h-full w-full items-center justify-center overflow-hidden">
-          {hasImages && (
+        {/* 2. 컨텐츠 레이어 (슬라이더 vs NotFound) */}
+        <motion.div
+          className={cn(
+            'z-10 flex h-full w-full items-center justify-center overflow-hidden',
+            !hasImages && 'bg-gray-900',
+          )}
+        >
+          {hasImages ? (
             <motion.div
               className="flex h-full"
               style={{
@@ -121,6 +133,8 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
                 </div>
               ))}
             </motion.div>
+          ) : (
+            <NotFound className="w-100pxr h-70pxr bg-gray-900" />
           )}
         </motion.div>
 
@@ -136,14 +150,16 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
           />
         )}
         {/* 페이지네이션 버튼 */}
-        <div className="absolute right-4 bottom-4 z-20">
-          <FilePagination
-            fileLength={imagesLength}
-            currentPage={currentPage}
-            onPrevPage={() => slideImage(-1)}
-            onNextPage={() => slideImage(1)}
-          />
-        </div>
+        {hasImages && (
+          <div className="absolute right-4 bottom-4 z-20">
+            <FilePagination
+              fileLength={imagesLength}
+              currentPage={currentPage}
+              onPrevPage={() => slideImage(-1)}
+              onNextPage={() => slideImage(1)}
+            />
+          </div>
+        )}
       </article>
     </section>
   );
