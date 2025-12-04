@@ -15,7 +15,7 @@ import { formatPeriod } from '@common/utils/dates';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
-import { NotFound } from '@common/components/svg/NotFound';
+import { Default } from '@common/components/svg/Default';
 
 import { Event } from '@features/events/schemas/getEventsSchema';
 
@@ -96,7 +96,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData, isFir
               </>
             ) : (
               /* 3. 이미지가 없는 경우: 기본 이미지 표시 */
-              <NotFound className="w-66pxr h-45pxr" />
+              <Default className="w-66pxr h-45pxr" />
             )}
           </div>
           <div>
@@ -139,7 +139,7 @@ const EventCard = forwardRef<HTMLDivElement, EventCardProps>(({ eventData, isFir
                 )}
               </>
             ) : (
-              <NotFound className="w-150pxr h-100pxr" />
+              <Default className="w-150pxr h-100pxr" />
             )}
           </div>
           <div>

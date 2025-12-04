@@ -36,4 +36,5 @@ export interface GetEventsParams {
   region1?: string;
   region2?: string;
   onlyScrapped?: boolean;
+  search?: string;
 }

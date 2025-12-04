@@ -4,7 +4,7 @@ import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
-import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
+import DropdownBar from './DropdownBar/DropdownBar.client';
 
 const Banner = () => {
   const isMobile = useIsMobile();
@@ -17,7 +17,6 @@ const Banner = () => {
           isMobile ? 'py-32pxr' : 'py-44pxr',
         )}
       >
-        {/* ✅ TODO: 데스크탑뷰 폰트 크기 조절 */}
         <p
           className={cn(
             'px-16pxr whitespace-pre-line text-gray-800',
