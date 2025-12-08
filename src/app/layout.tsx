@@ -42,13 +42,15 @@ const RootLayout = ({
         {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
         <SpeedInsights />
 
-        <OverlayProvider>
-          <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
-            <ReactQueryProvider>{children}</ReactQueryProvider>
-          </div>
-          <div id="modal" />
-          <Toaster />
-        </OverlayProvider>
+        <ReactQueryProvider>
+          <OverlayProvider>
+            <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
+              {children}
+            </div>
+            <div id="modal" />
+            <Toaster />
+          </OverlayProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -35,3 +35,15 @@ export const authOauthRegisterResponseSchema = z.object({
 });
 
 export type AuthOauthRegisterResponseDTO = z.infer<typeof authOauthRegisterResponseSchema>;
+
+/**
+ * GET /auth/test/token 응답 스키마
+ * 테스트 토큰 생성
+ */
+export const authTestTokenResponseSchema = z.object({
+  userId: z.string(),
+  accessToken: z.string(),
+  refreshToken: z.string(),
+});
+
+export type AuthTestTokenResponseDTO = z.infer<typeof authTestTokenResponseSchema>;
