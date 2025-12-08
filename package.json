@@ -23,6 +23,7 @@
     "@next/third-parties": "^15.5.2",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-switch": "^1.2.6",
     "@tanstack/react-query": "^5.87.1",
     "@tanstack/react-query-devtools": "^5.87.1",
     "@vercel/speed-insights": "^1.2.0",
@@ -80,5 +81,5 @@
     "typescript": "^5",
     "typescript-eslint": "^8.38.0"
   },
-  "packageManager": "pnpm@10.17.0"
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
 }
