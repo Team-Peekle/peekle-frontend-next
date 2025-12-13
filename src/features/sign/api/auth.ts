@@ -3,17 +3,22 @@ import { UseMutationOptions, queryOptions } from '@tanstack/react-query';
 import { deleteCookie, getCookie } from 'cookies-next';
 
 import { authenticatedClientFetcher } from '@common/libs/api/client';
-import { baseApi, fetcher } from '@common/libs/api/common';
+import { type CustomSearchParamsOption, baseApi, fetcher } from '@common/libs/api/common';
 
 import {
   type AuthOauthRegisterRequestDTO,
   type AuthOauthRegisterResponseDTO,
   type AuthProtectedResponseDTO,
+  type AuthTestTokenResponseDTO,
   authOauthRegisterResponseSchema,
   authProtectedResponseSchema,
+  authTestTokenResponseSchema,
 } from '../schemas/api/auth';
 
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL}` || '';
+const API_URL = (() => {
+  const url = process.env.NEXT_PUBLIC_API_URL || '';
+  return url.endsWith('/') ? url : `${url}/`;
+})();
 
 /**
  * GET /v1/auth/protected
@@ -82,7 +87,8 @@ export const postAuthOauthRegisterOptions = (): UseMutationOptions<
  * Google 인증 페이지로 이동 (로그인 시작)
  */
 export const getGoogleLoginUrl = () => {
-  return `${API_URL}v2/auth/google/login?frontEnv=${process.env.NEXT_PUBLIC_FRONT_URL}`;
+  const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL || '';
+  return `${API_URL}v2/auth/google/login?frontEnv=${frontUrl}`;
 };
 
 /**
@@ -90,5 +96,18 @@ export const getGoogleLoginUrl = () => {
  * Kakao 인증 페이지로 이동 (로그인 시작)
  */
 export const getKakaoLoginUrl = () => {
-  return `${API_URL}v1/auth/kakao/login?frontEnv=${process.env.NEXT_PUBLIC_FRONT_URL}`;
+  const frontUrl = process.env.NEXT_PUBLIC_FRONT_URL || '';
+  return `${API_URL}v1/auth/kakao/login?frontEnv=${frontUrl}`;
+};
+
+/**
+ * GET /auth/test/token
+ * 테스트 토큰 생성 API
+ * @param userId - 토큰을 생성할 사용자 ID
+ */
+export const getTestToken = async (userId: string): Promise<AuthTestTokenResponseDTO> => {
+  return fetcher('auth/test/token', authTestTokenResponseSchema, {
+    method: 'GET',
+    searchParams: { userId } as CustomSearchParamsOption,
+  });
 };

@@ -29,7 +29,6 @@ export function ScrapButton({ isScraped, likeCount, className, ...props }: Scrap
         className={cn('h-[15px] w-[18px]', isScraped ? 'text-semantic-red' : 'text-gray-400')}
       />
       찜하기
-      {likeCount !== undefined && <span>{likeCount}</span>}
     </button>
   );
 }

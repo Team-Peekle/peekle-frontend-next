@@ -11,9 +11,20 @@ import { useModal } from '@/common/hooks/useModal';
 interface DetailNavbarProps {
   onShare?: () => void;
   onScrap?: () => void;
+  isOwner?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
+  onReport?: () => void;
 }
 
-export default function DetailNavbar({ onShare: _onShare, onScrap: _onScrap }: DetailNavbarProps) {
+export default function DetailNavbar({
+  onShare: _onShare,
+  onScrap: _onScrap,
+  isOwner = false,
+  onEdit,
+  onDelete,
+  onReport,
+}: DetailNavbarProps) {
   const router = useRouter();
   const isScrolled = useIsScrolled();
   const { openModal } = useModal();
@@ -26,8 +37,19 @@ export default function DetailNavbar({ onShare: _onShare, onScrap: _onScrap }: D
     router.back();
   };
 
-  const _handleMoreClick = () => {
-    openModal(({ isOpen, onClose }) => <DetailNavbarModal isOpen={isOpen} onClose={onClose} />);
+  const hasMoreActions = isOwner ? !!(onEdit || onDelete) : !!onReport;
+
+  const handleMoreClick = () => {
+    openModal(({ isOpen, onClose }) => (
+      <DetailNavbarModal
+        isOpen={isOpen}
+        onClose={onClose}
+        isOwner={isOwner}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onReport={onReport}
+      />
+    ));
   };
 
   return (
@@ -43,6 +65,15 @@ export default function DetailNavbar({ onShare: _onShare, onScrap: _onScrap }: D
         <ArrowLeft className="h-[16px] w-[10px]" />
         <p className="text-p17m">뒤로</p>
       </button>
+      {hasMoreActions && (
+        <button
+          type="button"
+          onClick={handleMoreClick}
+          className="text-p15 flex items-center gap-2 text-gray-500 hover:text-gray-700"
+        >
+          더보기
+        </button>
+      )}
     </nav>
   );
 }
