@@ -3,13 +3,16 @@
 import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { motion } from 'framer-motion';
 
 import { ProfileVariant } from '@common/types/profile';
+import { PageContextType } from '@common/types/routes';
 
-import { ROUTES } from '@common/constants/routes';
+import { PAGE_CONTEXT_LABELS, ROUTES } from '@common/constants/routes';
+
+import useIsCommunityPage from '@common/hooks/queries/useIsCommunityPage';
 
 import { loginStore } from '@common/stores/loginStore';
 
@@ -44,8 +47,7 @@ export default function Navbar() {
 
 Navbar.Mobile = function NavbarMobile() {
   const router = useRouter();
-  let pathname = usePathname();
-  if (!pathname) pathname = '/';
+  const isCommunityPage = useIsCommunityPage();
   const { isLoggedIn, checkLoginStatus } = loginStore();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -54,7 +56,7 @@ Navbar.Mobile = function NavbarMobile() {
     checkLoginStatus();
   }, [checkLoginStatus]);
 
-  const route = pathname.startsWith(ROUTES.ROOT) ? '이벤트' : '커뮤니티';
+  const currentContext = isCommunityPage ? PageContextType.COMMUNITY : PageContextType.EVENT;
 
   const menuItems = [
     { label: '이벤트', href: ROUTES.ROOT },
@@ -70,11 +72,14 @@ Navbar.Mobile = function NavbarMobile() {
       <nav className="py-10pxr pl-16pxr pr-4pxr bg-gray-0 max-w-799pxr h-64pxr flex w-full flex-row items-center justify-between">
         <div className="gap-12pxr flex flex-row items-center">
           <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />
-          <p className="text-p16b">{route}</p>
+          <p className="text-p16b">{PAGE_CONTEXT_LABELS[currentContext]}</p>
         </div>
         <div className="flex flex-row">
           <Link
-            href={ROUTES.SEARCH}
+            href={{
+              pathname: ROUTES.SEARCH,
+              query: { context: currentContext },
+            }}
             className="size-44pxr flex cursor-pointer items-center justify-center"
           >
             <Search className="size-20pxr text-gray-600" />
@@ -123,8 +128,7 @@ Navbar.Mobile = function NavbarMobile() {
 
 Navbar.Web = function NavbarWeb() {
   const router = useRouter();
-  let pathname = usePathname();
-  if (!pathname) pathname = ROUTES.ROOT;
+  const isCommunityPage = useIsCommunityPage();
   const { isLoggedIn, checkLoginStatus } = loginStore();
 
   // 컴포넌트 마운트 시 로그인 상태 확인
@@ -132,27 +136,35 @@ Navbar.Web = function NavbarWeb() {
     checkLoginStatus();
   }, [checkLoginStatus]);
 
-  const route = pathname.startsWith(ROUTES.COMMUNITY) ? '커뮤니티' : '이벤트';
+  const currentContext = isCommunityPage ? PageContextType.COMMUNITY : PageContextType.EVENT;
 
   return (
     <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between">
       <div className="gap-32pxr flex flex-row items-center">
         <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />{' '}
         <div className="gap-24pxr text-16b flex flex-row">
-          <Link href={ROUTES.ROOT} className={route === '이벤트' ? 'text-black' : 'text-gray-200'}>
-            이벤트
+          <Link
+            href={ROUTES.ROOT}
+            className={currentContext === PageContextType.EVENT ? 'text-black' : 'text-gray-200'}
+          >
+            {PAGE_CONTEXT_LABELS[PageContextType.EVENT]}
           </Link>
           <Link
             href={ROUTES.COMMUNITY}
-            className={route === '커뮤니티' ? 'text-black' : 'text-gray-200'}
+            className={
+              currentContext === PageContextType.COMMUNITY ? 'text-black' : 'text-gray-200'
+            }
           >
-            커뮤니티
+            {PAGE_CONTEXT_LABELS[PageContextType.COMMUNITY]}
           </Link>
         </div>
       </div>
       <div className="gap-16pxr flex flex-row items-center">
         <Link
-          href={ROUTES.SEARCH}
+          href={{
+            pathname: ROUTES.SEARCH,
+            query: { context: currentContext },
+          }}
           className="size-40pxr flex cursor-pointer items-center justify-center"
         >
           <Search className="size-20pxr text-gray-600" />
