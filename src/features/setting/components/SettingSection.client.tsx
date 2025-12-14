@@ -18,16 +18,22 @@ export default function SettingSection() {
 SettingSection.Mobile = function SettingSectionMobile() {
   return (
     <section className="g-y-40pxr px-16pxr flex flex-col">
-      <Title title="커뮤니티 프로필" />
-      <ProfileRow />
+      <div className="mt-32pxr">
+        <Title title="커뮤니티 프로필" />
+        <ProfileRow />
+      </div>
 
-      <Title title="약관 및 개인정보처리" />
-      <LinkButton label={TERMS_LABELS.PRIVACY} href={ROUTES.TERMS.PRIVACY} />
-      <LinkButton label={TERMS_LABELS.TERMS} href={ROUTES.TERMS.TERMS} />
+      <div className="gap-y-8pxr py-8pxr flex flex-col">
+        <Title title="약관 및 개인정보처리" className="pb-16pxr" />
+        <LinkButton label={TERMS_LABELS.PRIVACY} href={ROUTES.TERMS.PRIVACY} />
+        <LinkButton label={TERMS_LABELS.TERMS} href={ROUTES.TERMS.TERMS} />
+      </div>
 
-      <Title title="설정" />
-      <LinkButton label="로그아웃" href={ROUTES.MODAL.SETTING.LOGOUT} />
-      <LinkButton label="탈퇴하기" href={ROUTES.MODAL.SETTING.WITHDRAW} />
+      <div className="gap-y-8pxr py-8pxr flex flex-col">
+        <Title title="설정" className="pb-16pxr" />
+        <LinkButton label="로그아웃" href={ROUTES.MODAL.SETTING.LOGOUT} />
+        <LinkButton label="탈퇴하기" href={ROUTES.MODAL.SETTING.WITHDRAW} />
+      </div>
     </section>
   );
 };

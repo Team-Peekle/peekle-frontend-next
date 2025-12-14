@@ -1,10 +1,18 @@
 'use client';
 
+import { cn } from '@common/libs/utils';
+
 interface TitleProps {
   title: string;
+  className?: string;
 }
-const Title = ({ title }: TitleProps) => {
-  return <h2 className="text-p17b pb-8pxr border-b border-gray-100 text-gray-800">{title}</h2>;
+
+const Title = ({ title, className }: TitleProps) => {
+  return (
+    <h2 className={cn('text-p17b pb-8pxr border-b border-gray-100 text-gray-800', className)}>
+      {title}
+    </h2>
+  );
 };
 
 export default Title;
