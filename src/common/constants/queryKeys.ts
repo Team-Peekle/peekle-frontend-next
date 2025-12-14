@@ -26,6 +26,11 @@ const queryKeys = createQueryKeyStore({
       params,
     ],
   },
+  user: {
+    me: null,
+    nicknameChange: null,
+    nicknameCheck: (nickname: string) => [nickname],
+  },
 });
 
 export default queryKeys;

@@ -17,7 +17,7 @@ interface TermsAgreementModalProps {
   isPending: boolean;
 }
 
-export function TermsAgreementModal({
+export default function TermsAgreementModal({
   control,
   isOpen,
   onClose,

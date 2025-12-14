@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { ProfileVariant } from '@common/types/profile';
+
+import { ROUTES } from '@common/constants/routes';
 
 import Cta from '@common/components/btn/Cta/Cta.client';
 import { Plus } from '@common/components/svg/Plus';
@@ -11,6 +15,7 @@ import Profile from '../Profile.server';
 import Textfield from '../Textfield';
 
 const ProfileEdit = () => {
+  const router = useRouter();
   // 임시 시용자 정보들
   const initialProfiles = ['임시 프사 주소1', '임시 프사 주소2', '임시 프사 주소3'];
   const initialNickname = '임시 닉네임';
@@ -31,7 +36,7 @@ const ProfileEdit = () => {
     setCurrentProfileSrc(src);
   };
 
-  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentNickname(e.target.value);
   };
 
@@ -41,8 +46,10 @@ const ProfileEdit = () => {
   };
 
   const handleEdit = () => {
-    console.log(`변경 내용: ${currentNickname}, ${currentProfileSrc}`);
-    // ✅ TODO: 여기서 실제 프로필 변경 로직 수행
+    // URL에 쿼리 파라미터를 붙여 모달 경로로 이동
+    router.push(
+      `${ROUTES.MODAL.SETTING.CHANGE_NICKNAME}?newNickname=${encodeURIComponent(currentNickname)}`,
+    );
     setIsChanged(false);
   };
 
@@ -81,7 +88,7 @@ const ProfileEdit = () => {
           label="닉네임"
           helperText="닉네임을 수정하면 30일간 변경할 수 없어요"
           value={currentNickname}
-          onChange={handleNicknameChange}
+          onChange={handleChangeNickname}
         />
       </div>
       <div className="gap-12pxr py-16pxr px-20pxr flex flex-row border-t border-t-gray-100">

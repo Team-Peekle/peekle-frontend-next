@@ -1,14 +1,17 @@
 import { queryOptions } from '@tanstack/react-query';
 
+import queryKeys from '@common/constants/queryKeys';
+
 import { authenticatedClientFetcher } from '@common/libs/api/client';
 import { fetcher } from '@common/libs/api/common';
 
+import { USER_API_ENDPOINTS } from '../../constants/apiEndPoints';
 import {
   type GetUsersMeResponseDTO,
   type GetUsersNicknameCheckResponseDTO,
   getUsersMeResponseSchema,
   getUsersNicknameCheckResponseSchema,
-} from '../schemas/api/user';
+} from '../../schemas/api/user';
 
 /**
  * GET /users/me
@@ -18,9 +21,11 @@ import {
  */
 export const getUsersMeOptions = () => {
   return queryOptions<GetUsersMeResponseDTO>({
-    queryKey: ['users', 'me'],
+    queryKey: queryKeys.user.me.queryKey,
     queryFn: () =>
-      authenticatedClientFetcher('v1/users/me', getUsersMeResponseSchema, { method: 'GET' }),
+      authenticatedClientFetcher(USER_API_ENDPOINTS.USER_DATA, getUsersMeResponseSchema, {
+        method: 'GET',
+      }),
   });
 };
 
@@ -31,13 +36,14 @@ export const getUsersMeOptions = () => {
  * 닉네임 사용 가능 여부를 확인합니다.
  */
 export const getUsersNicknameCheckOptions = (nickname: string) => {
+  const trimmedNickname = nickname.trim();
   return queryOptions<GetUsersNicknameCheckResponseDTO>({
-    queryKey: ['users', 'nickname', 'check', nickname],
+    queryKey: queryKeys.user.nicknameCheck(trimmedNickname).queryKey,
     queryFn: () =>
-      fetcher('v1/users/nickname/check', getUsersNicknameCheckResponseSchema, {
+      fetcher(USER_API_ENDPOINTS.NICKNAME_CHECK, getUsersNicknameCheckResponseSchema, {
         method: 'GET',
-        searchParams: { nickname: nickname.trim() },
+        searchParams: { nickname: trimmedNickname },
       }),
-    enabled: !!nickname && nickname.trim().length > 0,
+    enabled: !!nickname && trimmedNickname.length > 0,
   });
 };

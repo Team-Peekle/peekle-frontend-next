@@ -24,10 +24,11 @@ import { SignupSchema, signupSchema } from '@features/sign/types/signupSchema';
 
 import { useOauthInfo } from '@features/sign/hooks/useOauthInfo';
 
-import { TermsAgreementModal } from '@features/sign/components/TermsAgreementModal';
+import { getUsersNicknameCheckOptions } from '@features/setting/apis/get/userOptions';
+
+import TermsAgreementModal from '@features/sign/components/TermsAgreementModal';
 
 import { postAuthOauthRegisterOptions } from '@features/sign/api/auth';
-import { getUsersNicknameCheckOptions } from '@features/sign/api/user';
 
 export default function SignupPage() {
   const router = useRouter();

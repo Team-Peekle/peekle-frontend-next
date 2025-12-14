@@ -5,6 +5,6 @@ import { TermsType } from '@common/types/terms';
  */
 export const TERMS_LABELS = {
   [TermsType.PRIVACY]: '개인정보처리방침',
-  [TermsType.TERMS]: '서비스이용약관',
+  [TermsType.TERMS]: '서비스 이용약관',
   [TermsType.CONTACT]: '문의하기',
 } as const;
