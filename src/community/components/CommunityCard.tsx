@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 
 import { Comment } from '@common/components/svg/Comment';
@@ -23,9 +27,17 @@ interface CommunityCardProps {
 }
 
 export function CommunityCard({ post, onClick, onLikeClick, isLikeLoading }: CommunityCardProps) {
+  const [isLiked, setIsLiked] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setIsLiked(post.isLiked ?? false);
+  }, [post.isLiked]);
+
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onLikeClick?.(post.id, post.isLiked);
+    onLikeClick?.(post.id, isLiked);
   };
 
   const imageUrl = post.images?.[0]?.imageUrl;
@@ -34,7 +46,6 @@ export function CommunityCard({ post, onClick, onLikeClick, isLikeLoading }: Com
   const likeCount = post.likeCount ?? 0;
   const commentCount = post.commentCount ?? 0;
   const displayDate = post.formattedDate ?? post.createdAt;
-  const isLiked = Boolean(post.isLiked);
 
   return (
     <article
@@ -62,12 +73,12 @@ export function CommunityCard({ post, onClick, onLikeClick, isLikeLoading }: Com
             onClick={handleLikeClick}
             type="button"
             disabled={isLikeLoading}
-            aria-pressed={isLiked}
+            aria-pressed={mounted ? isLiked : false}
             className={`text-p15 flex items-center gap-1 ${
-              isLiked ? 'text-red-500' : 'text-gray-500'
+              mounted && isLiked ? 'text-red-500' : 'text-gray-500'
             } transition-colors hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50`}
           >
-            <HeartIcon className="h-4 w-4" fill={isLiked ? 'weight' : 'outlined'} />
+            <HeartIcon className="h-4 w-4" fill={mounted && isLiked ? 'weight' : 'outlined'} />
             <span>{likeCount}</span>
           </button>
           <div className="text-p15 flex items-center gap-1 text-gray-500">

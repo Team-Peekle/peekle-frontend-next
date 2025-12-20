@@ -70,12 +70,13 @@ export const fetcher = async <T extends z.ZodTypeAny>(
       throw new ApiError(errorData.errorCode, errorData.reason, errorData.data);
     }
 
-    // 성공 응답이면 response.data 반환
-    if ('data' in responseData) {
+    // 성공 응답이면 response.data 반환 (data가 없으면 빈 객체 반환)
+    if ('data' in responseData && responseData.data !== undefined) {
       const validatedData = schema.parse(responseData.data);
       return validatedData;
     }
-    throw new Error('Response data가 없습니다.');
+    // data가 없거나 undefined인 경우 빈 객체 반환 (좋아요 API 등)
+    return schema.parse({});
   } catch (error) {
     // 404 에러 처리
     if (error instanceof HTTPError && error.response.status === 404) {

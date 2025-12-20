@@ -15,6 +15,7 @@ interface DetailNavbarProps {
   onEdit?: () => void;
   onDelete?: () => void;
   onReport?: () => void;
+  onRemove?: () => void;
 }
 
 export default function DetailNavbar({
@@ -24,6 +25,7 @@ export default function DetailNavbar({
   onEdit,
   onDelete,
   onReport,
+  onRemove,
 }: DetailNavbarProps) {
   const router = useRouter();
   const isScrolled = useIsScrolled();
@@ -37,7 +39,7 @@ export default function DetailNavbar({
     router.back();
   };
 
-  const hasMoreActions = isOwner ? !!(onEdit || onDelete) : !!onReport;
+  const hasMoreActions = isOwner ? !!(onEdit || onDelete) : !!(onRemove || onReport);
 
   const handleMoreClick = () => {
     openModal(({ isOpen, onClose }) => (
@@ -48,6 +50,7 @@ export default function DetailNavbar({
         onEdit={onEdit}
         onDelete={onDelete}
         onReport={onReport}
+        onRemove={onRemove}
       />
     ));
   };

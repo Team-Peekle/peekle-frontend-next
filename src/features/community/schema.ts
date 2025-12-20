@@ -21,7 +21,15 @@ export const communityArticleSchema = z.object({
   commentCount: z.number().optional(),
 });
 
-export const communityArticlesResponseSchema = z.array(communityArticleSchema);
+export const communityArticlesResponseSchema = z.object({
+  articles: z.array(communityArticleSchema),
+  totalCount: z.number(),
+  currentPage: z.number(),
+  pageSize: z.number().optional(),
+  totalPages: z.number(),
+  hasNextPage: z.boolean().optional(),
+  hasPreviousPage: z.boolean().optional(),
+});
 export const communityArticleDetailResponseSchema = communityArticleSchema;
 
 export const getCommunityArticlesParamsSchema = z.object({
@@ -34,7 +42,7 @@ export const getCommunityArticlesParamsSchema = z.object({
 export const communityCommentSchema = z.object({
   id: z.string(),
   articleId: z.string(),
-  parentCommentId: z.string().nullable(),
+  parentCommentId: z.union([z.string(), z.number()]).nullable(),
   content: z.string(),
   authorId: z.string(),
   isAnonymous: z.boolean(),
@@ -44,11 +52,8 @@ export const communityCommentSchema = z.object({
   isLiked: z.boolean().optional(),
 });
 
-export const communityCommentsResponseSchema = z.array(communityCommentSchema);
-
-export const getCommunityArticleCommentsParamsSchema = z.object({
-  limit: z.number().int().positive().optional(),
-  page: z.number().int().positive().optional(),
+export const communityCommentsResponseSchema = z.object({
+  comments: z.array(communityCommentSchema),
 });
 
 export const createCommunityCommentRequestSchema = z.object({
@@ -82,12 +87,10 @@ export const communityCommentLikeResponseSchema = z.object({
 
 export const communityArticleLikeResponseSchema = z
   .object({
-    articleId: z.union([z.string(), z.number()]).optional(),
-    userId: z.union([z.string(), z.number()]).optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
+    articleId: z.union([z.string(), z.number(), z.bigint()]).optional(),
+    userId: z.union([z.string(), z.number(), z.bigint()]).optional(),
   })
-  .passthrough();
+  .strict();
 
 export const communityArticleMutationResponseSchema = communityArticleDetailResponseSchema
   .partial()
@@ -134,7 +137,8 @@ export const presignedUrlResponseSchema = z
 export type CommunityArticleImageDTO = z.infer<typeof communityArticleImageSchema>;
 export type CommunityArticleDTO = z.infer<typeof communityArticleSchema>;
 export type GetCommunityArticlesResponseDTO = z.infer<typeof communityArticlesResponseSchema>;
-export type GetCommunityArticlesResponseDTOArticles = GetCommunityArticlesResponseDTO[number];
+export type GetCommunityArticlesResponseDTOArticles =
+  GetCommunityArticlesResponseDTO['articles'][number];
 export type GetCommunityArticleDetailResponseDTO = z.infer<
   typeof communityArticleDetailResponseSchema
 >;
@@ -142,9 +146,6 @@ export type GetCommunityArticlesParams = z.infer<typeof getCommunityArticlesPara
 export type CommunityCommentDTO = z.infer<typeof communityCommentSchema>;
 export type GetCommunityArticleCommentsResponseDTO = z.infer<
   typeof communityCommentsResponseSchema
->;
-export type GetCommunityArticleCommentsParams = z.infer<
-  typeof getCommunityArticleCommentsParamsSchema
 >;
 export type CreateCommunityCommentRequestDTO = z.infer<typeof createCommunityCommentRequestSchema>;
 export type UpdateCommunityCommentRequestDTO = z.infer<typeof updateCommunityCommentRequestSchema>;

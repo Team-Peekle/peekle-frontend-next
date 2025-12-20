@@ -6,7 +6,7 @@ export const successSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
     status: z.literal(true),
     statusCode: z.number(),
     message: z.string(),
-    data: dataSchema,
+    data: dataSchema.optional(),
   });
 
 /** error 스키마 */

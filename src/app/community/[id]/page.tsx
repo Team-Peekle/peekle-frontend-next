@@ -1,13 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
-
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
-import { format } from 'date-fns';
 
 import { ProfileVariant } from '@common/types/profile';
 
@@ -16,44 +9,12 @@ import queryKeys from '@common/constants/queryKeys';
 import { useIsMobile } from '@common/hooks/useIsMobile';
 import { useModal } from '@common/hooks/useModal';
 
-import DetailNavbar from '@common/layout/DetailNavbar.client';
 import Navbar from '@common/layout/Navbar.client';
 
 import Profile from '@common/components/Profile.server';
 
-import CommentCard, { type CommentNode } from '@features/community/components/CommentCard';
-import CommentInput from '@features/community/components/CommentInput';
-import { CommunityArticleModal } from '@features/community/components/CommunityArticleModal';
-
-import {
-  getCommunityArticleCommentsOptions,
-  getCommunityArticleDetailOptions,
-  likeCommunityArticle,
-  likeCommunityComment,
-  unlikeCommunityArticle,
-  unlikeCommunityComment,
-} from '@features/community/api';
-import {
-  type CommunityCommentDTO,
-  type GetCommunityArticleCommentsParams,
-  type GetCommunityArticleCommentsResponseDTO,
-  type GetCommunityArticleDetailResponseDTO,
-} from '@features/community/schema';
-
-import PublishInfoCard from '@/community/components/PublishInfoCard.server';
-
-import { ShareButton } from '../../../community/components/btn/ClipButton.server';
-import { ScrapButton } from '../../../community/components/btn/ScrapButton.client';
-
-const COMMENT_LIST_PARAMS: GetCommunityArticleCommentsParams = {
-  page: 1,
-  limit: 20,
-};
-
-type HttpErrorLike = Error & { response?: Response };
-
-const isHttpError = (error: unknown): error is HttpErrorLike =>
-  error instanceof Error && 'response' in error && error.response instanceof Response;
+import ArticleSection from './_components/ArticleSection';
+import CommentsSection from './_components/CommentsSection';
 
 export default function CommunityDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -73,7 +34,7 @@ export default function CommunityDetailPage() {
             글쓰기
           </button>
         </section>
-        <div className="flex w-full flex-col gap-[32px]">
+        <div className="flex w-full flex-col gap-[24px]">
           <ArticleSection articleId={articleId} />
           <CommentsSection articleId={articleId} />
         </div>

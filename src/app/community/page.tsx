@@ -68,9 +68,8 @@ function CommunityPageContent({ onOpenArticleModal }: CommunityPageContentProps)
     limit,
     filterType,
   });
-
-  const { data: articles } = useSuspenseQuery(communityArticlesOptions);
-
+  const { data } = useSuspenseQuery(communityArticlesOptions);
+  const articles = data.articles;
   const likeMutation = useMutation({
     mutationFn: ({ articleId, isLiked }: { articleId: string; isLiked?: boolean }) =>
       isLiked ? unlikeCommunityArticle(articleId) : likeCommunityArticle(articleId),
@@ -81,23 +80,6 @@ function CommunityPageContent({ onOpenArticleModal }: CommunityPageContentProps)
     onError: (error, variables) => {
       if (isHttpError(error)) {
         const status = error.response?.status;
-        if (status === 409) {
-          setLikeError(
-            variables.isLiked ? '이미 좋아요를 취소한 게시글입니다.' : '이미 좋아요한 게시글입니다.',
-          );
-        } else if (status === 404) {
-          setLikeError(
-            variables.isLiked
-              ? '좋아요를 취소할 수 없습니다. 게시글이 존재하지 않습니다.'
-              : '좋아요할 수 없습니다. 게시글이 존재하지 않습니다.',
-          );
-        } else {
-          setLikeError(
-            variables.isLiked
-              ? '좋아요 취소에 실패했습니다. 다시 시도해주세요.'
-              : '좋아요 처리에 실패했습니다. 다시 시도해주세요.',
-          );
-        }
         queryClient.invalidateQueries({ queryKey: communityArticlesOptions.queryKey });
         return;
       }
