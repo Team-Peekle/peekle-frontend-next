@@ -123,7 +123,7 @@ export default function ArticleSection({ articleId }: { articleId: string }) {
   const isOwner = Boolean(article.owner);
 
   return (
-    <section className="max-mb:px-0 flex w-full flex-col gap-[32px] px-[16px]">
+    <section className="max-mb:px-0 flex w-full flex-col gap-[32px] max-mb:gap-[8px] px-[16px]">
       <DetailNavbar
         isOwner={isOwner}
         onEdit={isOwner ? handleEditArticle : undefined}
