@@ -1,4 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import queryKeys from '@common/constants/queryKeys';
 
@@ -18,7 +19,6 @@ import {
   communityArticleLikeResponseSchema,
   communityArticleMutationResponseSchema,
   communityArticlesResponseSchema,
-  communityCommentLikeResponseSchema,
   communityCommentMutationResponseSchema,
   communityCommentsResponseSchema,
   getCommunityArticlesParamsSchema,
@@ -117,7 +117,7 @@ export const updateCommunityComment = (
 export const deleteCommunityComment = (commentId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_COMMENT_PATH}/${commentId}`,
-    communityCommentMutationResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'DELETE',
     },
@@ -127,7 +127,7 @@ export const deleteCommunityComment = (commentId: string) => {
 export const likeCommunityComment = (commentId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_COMMENT_PATH}/${commentId}/like`,
-    communityCommentLikeResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'POST',
     },
@@ -137,7 +137,7 @@ export const likeCommunityComment = (commentId: string) => {
 export const unlikeCommunityComment = (commentId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_COMMENT_PATH}/${commentId}/like`,
-    communityCommentMutationResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'DELETE',
     },
@@ -147,7 +147,7 @@ export const unlikeCommunityComment = (commentId: string) => {
 export const likeCommunityArticle = (articleId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_ARTICLE_PATH}/${articleId}/like`,
-    communityArticleLikeResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'POST',
     },
@@ -157,7 +157,7 @@ export const likeCommunityArticle = (articleId: string) => {
 export const unlikeCommunityArticle = (articleId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_ARTICLE_PATH}/${articleId}/like`,
-    communityArticleLikeResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'DELETE',
     },

@@ -42,7 +42,7 @@ export const getCommunityArticlesParamsSchema = z.object({
 export const communityCommentSchema = z.object({
   id: z.string(),
   articleId: z.string(),
-  parentCommentId: z.string().nullable(),
+  parentCommentId: z.union([z.string(), z.number()]).nullable(),
   content: z.string(),
   authorId: z.string(),
   isAnonymous: z.boolean(),
