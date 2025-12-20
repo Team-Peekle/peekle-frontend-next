@@ -7,6 +7,8 @@ import { Close } from '@common/components/svg/Close';
 import DropdownBar from '@features/events/components/DropdownBar/DropdownBar.client';
 import EventsList from '@features/events/components/EventsList/EventsList.client';
 
+import CommunityList from './CommunityList';
+
 import {
   useClearRecentSearch,
   useRecentSearchInfo,
@@ -32,7 +34,7 @@ const SearchList = () => {
               <EventsList isSearchPage={true} />
             </>
           ) : (
-            <div>TODO: 커뮤니티 리스트 컴포넌트 넣어주세요</div>
+            <CommunityList isSearchPage={true} />
           )}
         </>
       ) : (
