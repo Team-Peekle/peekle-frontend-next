@@ -9,6 +9,7 @@ import { cn } from '@common/libs/utils';
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
 import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
+import { NotFound } from '@common/components/svg/NotFound';
 
 import { CategoryType } from '@features/events/types/category';
 import { DurationType, FilterType, LocationType, PriceType } from '@features/events/types/filter';
@@ -21,7 +22,11 @@ import useEventsFilter from '@features/events/hooks/useEventsFilter';
 
 import EventCard from './EventCard.client';
 
-const EventsList = () => {
+interface EventsListProps {
+  isSearchPage?: boolean;
+}
+
+const EventsList = ({ isSearchPage = false }: EventsListProps) => {
   const isMobile = useIsMobile();
 
   // 필터, 정렬, 카테고리 값 가져오기
@@ -32,6 +37,10 @@ const EventsList = () => {
   // 데이터 가공 (Hook에서 가져온 Raw String -> API 요청용 변환)
   // [Sort]
   const sort = (searchParams.get('sort') as SortType) ?? SortType.DATE;
+
+  // [searchQuery]
+  // URL이 /search?q=맥주축제 라면 '맥주축제'를 가져옴
+  const searchQuery = searchParams.get('q') ?? undefined;
 
   // [Duration]
   const durationVal = filters[FilterType.DURATION];
@@ -94,6 +103,7 @@ const EventsList = () => {
     latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
     longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
     onlyScrapped,
+    search: searchQuery,
   });
 
   const allEvents = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
@@ -127,9 +137,12 @@ const EventsList = () => {
         // 로딩 끝, 데이터 없을 때
         <>
           {!isFetching && (
-            <p className={cn('pt-40pxr text-center text-gray-400', isMobile ? '' : 'col-span-3')}>
-              해당하는 이벤트가 없습니다.
-            </p>
+            <div className={cn('flex flex-col items-center', !isMobile && 'col-span-3')}>
+              <NotFound className="w-329pxr h-231pxr" />
+              <p className="text-gray-400">
+                {isSearchPage ? '검색 결과가 없어요' : '해당하는 이벤트가 없습니다.'}
+              </p>
+            </div>
           )}
         </>
       )}

@@ -11,7 +11,6 @@ import Footer from '@common/layout/Footer/Footer.client';
 
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
-import DropdownBar from '@common/components/DropdownBar/DropdownBar.client';
 import Popup from '@common/components/Popup.server';
 import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
 import Terms from '@common/components/Terms/Terms.client';
@@ -144,7 +143,6 @@ const JoyTestClientPage = () => {
           }}
         />
         <Category />
-        <DropdownBar />
         <ProfileEdit />
         <WithDraw />
         <div className="w-200pxr">

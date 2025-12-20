@@ -5,14 +5,19 @@ import { useEffect, useState } from 'react';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import '@dotlottie/react-player/dist/index.css';
 
-const Loader = () => {
+import { cn } from '@common/libs/utils';
+
+interface LoaderProps {
+  className?: string;
+}
+const Loader = ({ className }: LoaderProps) => {
   return (
     <div
       role="status"
       aria-live="polite"
       aria-busy="true"
       aria-label="로더"
-      className="shirink-0 flex items-center justify-center"
+      className={cn('shirink-0 flex items-center justify-center', className)}
     >
       <DotLottiePlayer
         src="https://framerusercontent.com/assets/xooaDQeeaje1bgxgMHPn01Yazek.lottie" // Lottie 애니메이션 파일의 URL을 지정
@@ -24,7 +29,10 @@ const Loader = () => {
   );
 };
 
-const DeferredLoader = () => {
+interface DeferredLoaderProps {
+  className?: string;
+}
+const DeferredLoader = ({ className }: DeferredLoaderProps) => {
   const [isDeferred, setIsDeferred] = useState(false);
 
   useEffect(() => {
@@ -41,7 +49,7 @@ const DeferredLoader = () => {
     return null;
   }
 
-  return <Loader />;
+  return <Loader className={className} />;
 };
 
 export default DeferredLoader;

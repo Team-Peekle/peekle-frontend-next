@@ -13,7 +13,7 @@ import { cn } from '@common/libs/utils';
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
 import { Back } from '@common/components/svg/Back';
-import { NotFound } from '@common/components/svg/NotFound';
+import { Default } from '@common/components/svg/Default';
 
 import useGetEventDetail from '@features/events/hooks/queries/useGetEventDetail';
 
@@ -134,7 +134,7 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
               ))}
             </motion.div>
           ) : (
-            <NotFound className="w-100pxr h-70pxr bg-gray-900" />
+            <Default className="w-100pxr h-70pxr bg-gray-900" />
           )}
         </motion.div>
 

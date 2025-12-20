@@ -37,7 +37,7 @@
     "jwt-decode": "^4.0.0",
     "ky": "^1.10.0",
     "lucide-react": "^0.525.0",
-    "next": "^15.5.2",
+    "next": "15.5.9",
     "overlay-kit": "^1.8.5",
     "pretendard": "^1.3.9",
     "react": "^19.1.0",
@@ -81,5 +81,5 @@
     "typescript": "^5",
     "typescript-eslint": "^8.38.0"
   },
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
+  "packageManager": "pnpm@10.25.0+sha512.5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501"
 }
