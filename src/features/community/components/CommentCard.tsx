@@ -55,7 +55,7 @@ export default function CommentCard({
   const [editIsAnonymous, setEditIsAnonymous] = useState(comment.isAnonymous);
 
   const isReply = comment.depth > 0;
-  const isMyComment = userInfo?.id === comment.authorId;
+  const isMyComment = comment.owner ?? userInfo?.id === comment.author.id;
   const isEditing = editingCommentId === comment.id;
   const formattedTime = formatDistanceToNow(new Date(comment.createdAt), {
     addSuffix: true,
@@ -95,7 +95,11 @@ export default function CommentCard({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-3" data-depth={comment.depth}>
-        <Profile variant={ProfileVariant.SIZE_32} />
+        <Profile
+          src={comment.author.profileImage}
+          alt={comment.author.nickname}
+          variant={ProfileVariant.SIZE_32}
+        />
         <div className="flex flex-1 flex-col gap-2">
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap items-center gap-2">

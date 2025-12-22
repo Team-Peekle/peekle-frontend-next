@@ -8,15 +8,15 @@ export function buildCommentTree(comments: CommunityCommentDTO[]): CommentNode[]
 
   const getDisplayName = (comment: CommunityCommentDTO) => {
     if (!comment.isAnonymous) {
-      return comment.authorId;
+      return comment.author.nickname;
     }
 
-    if (!anonymousNameMap.has(comment.authorId)) {
-      anonymousNameMap.set(comment.authorId, `익명${anonymousCounter}`);
+    if (!anonymousNameMap.has(comment.author.id)) {
+      anonymousNameMap.set(comment.author.id, `익명${anonymousCounter}`);
       anonymousCounter += 1;
     }
 
-    return anonymousNameMap.get(comment.authorId)!;
+    return anonymousNameMap.get(comment.author.id)!;
   };
 
   const nodeMap = new Map<string, CommentNode>();

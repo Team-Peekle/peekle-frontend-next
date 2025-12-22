@@ -39,17 +39,31 @@ export const getCommunityArticlesParamsSchema = z.object({
   page: z.number().int().positive().optional(),
 });
 
+export const communityCommentAuthorSchema = z.object({
+  id: z.string(),
+  name: z.union([z.string(), z.object({})]).optional(),
+  nickname: z.string(),
+  birthdate: z.string().optional(),
+  gender: z.string().optional(),
+  phoneNumber: z.string().optional(),
+  profileImage: z.string().optional(),
+  role: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
 export const communityCommentSchema = z.object({
   id: z.string(),
   articleId: z.string(),
   parentCommentId: z.union([z.string(), z.number()]).nullable(),
   content: z.string(),
-  authorId: z.string(),
+  author: communityCommentAuthorSchema,
   isAnonymous: z.boolean(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
   likeCount: z.number().optional(),
   isLiked: z.boolean().optional(),
+  owner: z.boolean().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export const communityCommentsResponseSchema = z.object({
@@ -73,7 +87,7 @@ export const communityCommentMutationResponseSchema = communityCommentSchema.par
   articleId: true,
   parentCommentId: true,
   content: true,
-  authorId: true,
+  author: true,
   createdAt: true,
   updatedAt: true,
 });
