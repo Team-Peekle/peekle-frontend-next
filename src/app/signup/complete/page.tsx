@@ -15,7 +15,7 @@ import DefaultNavbar from '@common/layout/DefaultNavbar.client';
 
 import Cta from '@common/components/btn/Cta/Cta.client';
 
-import { getUsersMeOptions } from '@features/setting/apis/get/userOptions';
+import { getUsersMeOptions } from '@common/apis/get/userOptions';
 
 export default function SignupCompletePage() {
   const [mounted, setMounted] = useState(false);

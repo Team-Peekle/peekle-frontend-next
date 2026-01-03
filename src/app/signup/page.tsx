@@ -13,6 +13,7 @@ import { ROUTES } from '@common/constants/routes';
 
 import { cn } from '@common/libs/utils';
 
+import useNicknameCheck from '@common/hooks/queries/useNicknameCheck';
 import { useModal } from '@common/hooks/useModal';
 
 import DefaultNavbar from '@common/layout/DefaultNavbar.client';
@@ -23,8 +24,6 @@ import Cta from '@common/components/btn/Cta/Cta.client';
 import { SignupSchema, signupSchema } from '@features/sign/types/signupSchema';
 
 import { useOauthInfo } from '@features/sign/hooks/useOauthInfo';
-
-import { getUsersNicknameCheckOptions } from '@features/setting/apis/get/userOptions';
 
 import TermsAgreementModal from '@features/sign/components/TermsAgreementModal';
 
@@ -60,11 +59,7 @@ export default function SignupPage() {
     return () => clearTimeout(timer);
   }, [nickname]);
 
-  const { data: nicknameCheckData } = useQuery({
-    ...getUsersNicknameCheckOptions(debouncedNickname),
-    enabled: debouncedNickname.trim().length > 0 && !errors.nickname,
-  });
-
+  const { data: nicknameCheckData } = useNicknameCheck(debouncedNickname, !!errors.nickname);
   const oauthInfo = useOauthInfo();
 
   const registerMutation = useMutation({

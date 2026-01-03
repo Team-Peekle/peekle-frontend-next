@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { getPresignedUrl } from '@features/community/api';
-import { type PresignedUrlResponseDTO } from '@features/community/schema';
+import getPresignedUrl from '@common/apis/get/getPresignedUrl';
 
 interface UploadResult {
   fileUrl: string;
@@ -54,14 +53,14 @@ export function useCommunityPresignedUploader() {
       const results: UploadResult[] = [];
 
       for (const file of files) {
-        const presigned = (await getPresignedUrl({
+        const presigned = await getPresignedUrl({
           domain: 'community',
           kind: 'image',
           contentType: file.type,
           size: file.size,
           totalSize: file.size,
           batchCount: 1,
-        })) as PresignedUrlResponseDTO;
+        });
 
         const uploadUrl = presigned.uploadUrl;
         const fallbackOrigins = [

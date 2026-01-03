@@ -1,21 +1,20 @@
 import { z } from 'zod';
 
+export const nicknameSchema = z
+  .string()
+  .trim()
+  .min(1, '닉네임을 입력해주세요.')
+  .max(10, '닉네임은 최대 10자까지 입력할 수 있습니다.')
+  .regex(/^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9 ]+$/, '닉네임은 한글, 영문, 숫자, 공백만 사용할 수 있습니다.')
+  .refine((val) => val.trim().length > 0, {
+    message: '닉네임은 최소 한 글자 이상이어야 합니다.',
+  });
+
 /**
  * 회원가입 폼 스키마 (API 요청 스키마와 동일)
  */
 export const signupSchema = z.object({
-  nickname: z
-    .string()
-    .trim()
-    .min(1, '닉네임을 입력해주세요.')
-    .max(10, '닉네임은 최대 10자까지 입력할 수 있습니다.')
-    .regex(
-      /^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9 ]+$/,
-      '닉네임은 한글, 영문, 숫자, 공백만 사용할 수 있습니다.',
-    )
-    .refine((val) => val.trim().length > 0, {
-      message: '닉네임은 최소 한 글자 이상이어야 합니다.',
-    }),
+  nickname: nicknameSchema,
   terms: z
     .array(
       z.object({

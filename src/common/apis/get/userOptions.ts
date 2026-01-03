@@ -5,13 +5,13 @@ import queryKeys from '@common/constants/queryKeys';
 import { authenticatedClientFetcher } from '@common/libs/api/client';
 import { fetcher } from '@common/libs/api/common';
 
-import { USER_API_ENDPOINTS } from '../../constants/apiEndPoints';
+import { USER_API_ENDPOINTS } from '../../../features/setting/constants/apiEndPoints';
 import {
   type GetUsersMeResponseDTO,
   type GetUsersNicknameCheckResponseDTO,
   getUsersMeResponseSchema,
   getUsersNicknameCheckResponseSchema,
-} from '../../schemas/api/user';
+} from '../../../features/setting/schemas/api/user';
 
 /**
  * GET /users/me

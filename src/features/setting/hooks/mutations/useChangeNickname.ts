@@ -48,6 +48,7 @@ export default function useChangeNickname() {
     // 성공/실패 관계없이 최신 데이터 동기화
     onSettled: () => {
       qc.invalidateQueries({ queryKey: userKey });
+      qc.invalidateQueries({ queryKey: queryKeys.user.nicknameCheck._def });
     },
   });
 }

@@ -12,7 +12,6 @@ import Footer from '@common/layout/Footer/Footer.client';
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
 import Popup from '@common/components/Popup.server';
-import Terms from '@common/components/Terms/Terms.client';
 import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
 import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
@@ -25,6 +24,8 @@ import Select from '@common/components/btn/Select/Select.client';
 import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 import Tabs from '@common/components/tabs/Tabs.client';
+
+import TermsAgreementModal from '@features/sign/components/TermsAgreementModal';
 
 const JoyTestClientPage = () => {
   const handleClick = () => {
@@ -94,7 +95,6 @@ const JoyTestClientPage = () => {
           onLeft={() => console.log('왼쪽 클릭')}
           onRight={() => console.log('오른쪽 클릭')}
         />
-        <Terms />
         <Chip text="text" chipType={ChipType.DEFAULT} />
         <Chip text="text" chipType={ChipType.VAR1} />
         <Chip text="text" chipType={ChipType.VAR2} />

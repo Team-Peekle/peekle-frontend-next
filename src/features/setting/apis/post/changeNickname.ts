@@ -15,7 +15,7 @@ export default function changeNickname(nickname: string) {
     USER_API_ENDPOINTS.NICKNAME_CHANGE,
     ChangeNicknameResponseSchema,
     {
-      method: 'post',
+      method: 'PATCH',
       json: { nickname },
     },
   );

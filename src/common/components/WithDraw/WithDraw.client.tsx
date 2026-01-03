@@ -16,7 +16,7 @@ import Popup from '@common/components/Popup.server';
 import DescriptionCard from './DescriptionCard.client';
 
 interface WithDrawModalProps {
-  onClose: () => void; // 닫기 함수 추가
+  onClose: () => void;
 }
 
 const WithDraw = ({ onClose }: WithDrawModalProps) => {

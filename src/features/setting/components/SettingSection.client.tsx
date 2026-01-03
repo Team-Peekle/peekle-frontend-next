@@ -14,7 +14,7 @@ import UserProfile from '@common/components/UserProfile.client';
 import WithDraw from '@common/components/WithDraw/WithDraw.client';
 import ModalLayout from '@common/components/modal/ModalLayout.client';
 
-import { getUsersMeOptions } from '@features/setting/apis/get/userOptions';
+import { getUsersMeOptions } from '@common/apis/get/userOptions';
 
 import LogoutModal from '@features/events/components/LogoutModal.client';
 

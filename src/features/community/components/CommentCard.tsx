@@ -17,7 +17,7 @@ import Profile from '@common/components/Profile.server';
 import { Check } from '@common/components/svg/Check';
 import { HeartIcon } from '@common/components/svg/Heart';
 
-import { getUsersMeOptions } from '@features/setting/apis/get/userOptions';
+import { getUsersMeOptions } from '@common/apis/get/userOptions';
 
 import { type CommunityCommentDTO } from '../schema';
 
