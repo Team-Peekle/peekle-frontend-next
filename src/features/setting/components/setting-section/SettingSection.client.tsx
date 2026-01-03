@@ -7,7 +7,6 @@ import { ProfileVariant } from '@common/types/profile';
 import { ROUTES } from '@common/constants/routes';
 import { TERMS_LABELS } from '@common/constants/terms';
 
-import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 import UserProfile from '@common/components/UserProfile.client';
 
 import { GetUsersMeResponseDTO } from '@features/setting/schemas/api/user';
