@@ -2,10 +2,7 @@ import { createQueryKeyStore } from '@lukemorales/query-key-factory';
 
 import { GetEventsParams } from '@features/events/types/api';
 
-import {
-  GetCommunityArticleCommentsParams,
-  GetCommunityArticlesParams,
-} from '@features/community/schema';
+import { GetCommunityArticlesParams } from '@features/community/schema';
 
 // 도메인(기능)별로 키를 그룹화합니다.
 const queryKeys = createQueryKeyStore({
@@ -21,10 +18,7 @@ const queryKeys = createQueryKeyStore({
   community: {
     list: (communityId: string, params: GetCommunityArticlesParams = {}) => [communityId, params],
     detail: (articleId: string) => [articleId],
-    comments: (articleId: string, params: GetCommunityArticleCommentsParams = {}) => [
-      articleId,
-      params,
-    ],
+    comments: (articleId: string) => [articleId],
   },
   user: {
     me: null,

@@ -5,6 +5,7 @@ interface DetailNavbarModalProps {
   onEdit?: () => void;
   onDelete?: () => void;
   onReport?: () => void;
+  onRemove?: () => void;
 }
 
 export function DetailNavbarModal({
@@ -31,14 +32,14 @@ export function DetailNavbarModal({
             <button
               type="button"
               onClick={() => handleAction(onEdit)}
-              className="rounded-[6px] px-9 py-[9px] text-left hover:bg-gray-100"
+              className="flex items-center justify-center rounded-[6px] px-9 py-[9px] text-left hover:bg-gray-100"
             >
               수정하기
             </button>
             <button
               type="button"
               onClick={() => handleAction(onDelete)}
-              className="text-semantic-red rounded-[6px] px-9 py-[9px] text-left hover:bg-gray-100"
+              className="text-semantic-red flex items-center justify-center rounded-[6px] px-9 py-[9px] text-left hover:bg-gray-100"
             >
               삭제하기
             </button>

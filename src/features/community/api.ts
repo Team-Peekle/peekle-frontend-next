@@ -1,4 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import queryKeys from '@common/constants/queryKeys';
 
@@ -7,7 +8,6 @@ import { authenticatedClientFetcher } from '@common/libs/api/client';
 import {
   type CommunityArticleMutationResponseDTO,
   type CreateCommunityCommentRequestDTO,
-  type GetCommunityArticleCommentsParams,
   type GetCommunityArticleCommentsResponseDTO,
   type GetCommunityArticleDetailResponseDTO,
   type GetCommunityArticlesParams,
@@ -19,10 +19,8 @@ import {
   communityArticleLikeResponseSchema,
   communityArticleMutationResponseSchema,
   communityArticlesResponseSchema,
-  communityCommentLikeResponseSchema,
   communityCommentMutationResponseSchema,
   communityCommentsResponseSchema,
-  getCommunityArticleCommentsParamsSchema,
   getCommunityArticlesParamsSchema,
   presignedUrlRequestSchema,
   presignedUrlResponseSchema,
@@ -77,23 +75,15 @@ export const getCommunityArticleDetailOptions = (articleId: string) => {
   });
 };
 
-export const getCommunityArticleCommentsOptions = (
-  articleId: string,
-  params?: GetCommunityArticleCommentsParams,
-) => {
-  const validatedParams = getCommunityArticleCommentsParamsSchema.parse(params ?? {});
+export const getCommunityArticleCommentsOptions = (articleId: string) => {
   return queryOptions<GetCommunityArticleCommentsResponseDTO>({
-    queryKey: queryKeys.community.comments(articleId, validatedParams).queryKey,
+    queryKey: queryKeys.community.comments(articleId).queryKey,
     queryFn: () =>
       authenticatedClientFetcher(
-        `${COMMUNITY_ARTICLE_PATH}/comment`,
+        `${COMMUNITY_ARTICLE_PATH}/${articleId}/comment`,
         communityCommentsResponseSchema,
         {
           method: 'GET',
-          searchParams: toSearchParams({
-            articleId,
-            ...validatedParams,
-          }),
         },
       ),
   });
@@ -127,7 +117,7 @@ export const updateCommunityComment = (
 export const deleteCommunityComment = (commentId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_COMMENT_PATH}/${commentId}`,
-    communityCommentMutationResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'DELETE',
     },
@@ -137,7 +127,7 @@ export const deleteCommunityComment = (commentId: string) => {
 export const likeCommunityComment = (commentId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_COMMENT_PATH}/${commentId}/like`,
-    communityCommentLikeResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'POST',
     },
@@ -147,7 +137,7 @@ export const likeCommunityComment = (commentId: string) => {
 export const unlikeCommunityComment = (commentId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_COMMENT_PATH}/${commentId}/like`,
-    communityCommentMutationResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'DELETE',
     },
@@ -157,7 +147,7 @@ export const unlikeCommunityComment = (commentId: string) => {
 export const likeCommunityArticle = (articleId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_ARTICLE_PATH}/${articleId}/like`,
-    communityArticleLikeResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'POST',
     },
@@ -167,7 +157,7 @@ export const likeCommunityArticle = (articleId: string) => {
 export const unlikeCommunityArticle = (articleId: string) => {
   return authenticatedClientFetcher(
     `${COMMUNITY_ARTICLE_PATH}/${articleId}/like`,
-    communityArticleLikeResponseSchema,
+    z.object({}).passthrough(),
     {
       method: 'DELETE',
     },
@@ -226,6 +216,16 @@ export const updateCommunityArticle = (
       method: 'PATCH',
       body: formData,
       headers: multipartHeaders,
+    },
+  ) as Promise<CommunityArticleMutationResponseDTO>;
+};
+
+export const deleteCommunityArticle = (articleId: string) => {
+  return authenticatedClientFetcher(
+    `${COMMUNITY_ARTICLE_PATH}/${articleId}`,
+    communityArticleMutationResponseSchema,
+    {
+      method: 'DELETE',
     },
   ) as Promise<CommunityArticleMutationResponseDTO>;
 };

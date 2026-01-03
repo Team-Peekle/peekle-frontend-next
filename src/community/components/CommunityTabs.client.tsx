@@ -25,12 +25,13 @@ export default function CommunityTabs() {
   };
 
   return (
-    <div className="max-mb:gap-[6px] flex gap-[8px]">
+    <div className="max-mb:gap-[6px] flex gap-[8px] w-full overflow-x-auto overflow-y-hidden flex-nowrap scrollbar-hide">
       {tabs.map((tab) => (
         <Tab
           key={tab.value}
           isActive={currentCategory === tab.value}
           onClick={() => handleTabClick(tab.value)}
+          className="flex-shrink-0"
         >
           {tab.label}
         </Tab>
