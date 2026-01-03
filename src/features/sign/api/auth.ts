@@ -10,6 +10,7 @@ import {
   type AuthOauthRegisterResponseDTO,
   type AuthProtectedResponseDTO,
   type AuthTestTokenResponseDTO,
+  authLogoutResponseScheme,
   authOauthRegisterResponseSchema,
   authProtectedResponseSchema,
   authTestTokenResponseSchema,
@@ -109,5 +110,15 @@ export const getTestToken = async (userId: string): Promise<AuthTestTokenRespons
   return fetcher('auth/test/token', authTestTokenResponseSchema, {
     method: 'GET',
     searchParams: { userId } as CustomSearchParamsOption,
+  });
+};
+
+/**
+ * DELETE /v1/auth/logout
+ * 로그아웃 API
+ */
+export const logout = async () => {
+  return authenticatedClientFetcher('v1/auth/logout', authLogoutResponseScheme, {
+    method: 'DELETE',
   });
 };

@@ -1,4 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
+
 import { z } from 'zod';
 
 import queryKeys from '@common/constants/queryKeys';
@@ -12,8 +13,6 @@ import {
   type GetCommunityArticleDetailResponseDTO,
   type GetCommunityArticlesParams,
   type GetCommunityArticlesResponseDTO,
-  type PresignedUrlRequestDTO,
-  type PresignedUrlResponseDTO,
   type UpdateCommunityCommentRequestDTO,
   communityArticleDetailResponseSchema,
   communityArticleLikeResponseSchema,
@@ -22,8 +21,6 @@ import {
   communityCommentMutationResponseSchema,
   communityCommentsResponseSchema,
   getCommunityArticlesParamsSchema,
-  presignedUrlRequestSchema,
-  presignedUrlResponseSchema,
 } from './schema';
 
 const COMMUNITY_BASE_PATH = 'v1/community';
@@ -228,12 +225,4 @@ export const deleteCommunityArticle = (articleId: string) => {
       method: 'DELETE',
     },
   ) as Promise<CommunityArticleMutationResponseDTO>;
-};
-
-export const getPresignedUrl = (payload: PresignedUrlRequestDTO) => {
-  const body = presignedUrlRequestSchema.parse(payload);
-  return authenticatedClientFetcher('uploads/presigned', presignedUrlResponseSchema, {
-    method: 'POST',
-    json: body,
-  }) as Promise<PresignedUrlResponseDTO>;
 };

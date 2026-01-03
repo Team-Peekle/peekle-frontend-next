@@ -8,6 +8,7 @@ import { GetCommunityArticlesParams } from '@features/community/schema';
 const queryKeys = createQueryKeyStore({
   auth: {
     all: null,
+    logout: null,
   },
   events: {
     testToken: null,
@@ -19,6 +20,11 @@ const queryKeys = createQueryKeyStore({
     list: (communityId: string, params: GetCommunityArticlesParams = {}) => [communityId, params],
     detail: (articleId: string) => [articleId],
     comments: (articleId: string) => [articleId],
+  },
+  user: {
+    me: null,
+    nicknameChange: null,
+    nicknameCheck: (nickname: string) => [nickname],
   },
 });
 

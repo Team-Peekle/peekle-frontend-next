@@ -120,34 +120,6 @@ export const communityArticleFormSchema = z.object({
   isAnonymous: z.boolean(),
 });
 
-export const presignedUrlRequestSchema = z.object({
-  domain: z.enum(['community', 'profile']),
-  kind: z.enum(['image', 'attachment']),
-  contentType: z.string(),
-  size: z.number().optional(),
-  totalSize: z.number().optional(),
-  batchCount: z.number().optional(),
-});
-
-export const presignedUrlResponseSchema = z
-  .object({
-    uploadUrl: z.string().url(),
-    fileUrl: z.string().min(1).optional(),
-    publicUrl: z.string().min(1).optional(),
-    key: z.string().optional(),
-    upload: z
-      .object({
-        url: z.string().min(1).optional(),
-      })
-      .passthrough()
-      .optional(),
-  })
-  .passthrough()
-  .refine(
-    (data) => data.fileUrl || data.publicUrl || data.upload?.url,
-    '응답에 유효한 파일 URL이 없습니다.',
-  );
-
 export type CommunityArticleImageDTO = z.infer<typeof communityArticleImageSchema>;
 export type CommunityArticleDTO = z.infer<typeof communityArticleSchema>;
 export type GetCommunityArticlesResponseDTO = z.infer<typeof communityArticlesResponseSchema>;
@@ -168,5 +140,3 @@ export type CommunityArticleMutationResponseDTO = z.infer<
   typeof communityArticleMutationResponseSchema
 >;
 export type CommunityArticleFormValues = z.infer<typeof communityArticleFormSchema>;
-export type PresignedUrlRequestDTO = z.infer<typeof presignedUrlRequestSchema>;
-export type PresignedUrlResponseDTO = z.infer<typeof presignedUrlResponseSchema>;

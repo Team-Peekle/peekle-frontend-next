@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { ProfileVariant } from '@common/types/profile';
 
-import { getUsersMeOptions } from '@features/sign/api/user';
+import { getUsersMeOptions } from '@common/apis/get/userOptions';
 
 import Profile from './Profile.server';
 

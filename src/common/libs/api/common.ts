@@ -48,15 +48,23 @@ export const fetcher = async <T extends z.ZodTypeAny>(
   apiInstance?: typeof ky,
 ): Promise<z.infer<T>> => {
   // apiInstance가 없으면 기본 인스턴스 사용
-  if (!apiInstance) {
-    apiInstance = baseApi;
-  }
+  const instance = apiInstance ?? baseApi;
 
   try {
-    // 성공적인 응답(2xx)을 JSON으로 변환
-    const response = await apiInstance(url, options as Options).json();
+    const responseRaw = await instance(url, options as Options);
+    // 응답 바디 읽기 (비어있을 경우 대비)
+    const text = await responseRaw.text();
+    // 바디가 비어있다면 공통 규격에 맞춘 기본 객체 생성, 있다면 파싱
+    const response = text
+      ? JSON.parse(text)
+      : {
+          status: true,
+          statusCode: responseRaw.status,
+          message: 'No Content',
+          data: {},
+        };
 
-    // api 응답 스키마로 먼저 검증
+    // 공통 api 응답 스키마로 먼저 검증
     const result = apiResponseSchema(schema).safeParse(response);
     if (!result.success) {
       console.error('API 응답 형식이 올바르지 않습니다:', result.error);
@@ -71,12 +79,8 @@ export const fetcher = async <T extends z.ZodTypeAny>(
     }
 
     // 성공 응답이면 response.data 반환 (data가 없으면 빈 객체 반환)
-    if ('data' in responseData && responseData.data !== undefined) {
-      const validatedData = schema.parse(responseData.data);
-      return validatedData;
-    }
-    // data가 없거나 undefined인 경우 빈 객체 반환 (좋아요 API 등)
-    return schema.parse({});
+    const validatedData = responseData.data ?? {};
+    return schema.parse(validatedData);
   } catch (error) {
     // 404 에러 처리
     if (error instanceof HTTPError && error.response.status === 404) {

@@ -53,12 +53,12 @@ const SearchList = () => {
           </div>
           {/* 리스트 */}
           {recentSearches.length === 0 ? (
-            <p className="text-17b text-gray-600">최근 검색어가 없어요</p>
+            <p className="text-p17b text-gray-600">최근 검색어가 없어요</p>
           ) : (
             <ul className="rounded-16pxr gap-y-24pxr py-24pxr px-28pxr flex flex-col bg-gray-100">
               {recentSearches.map((keyword) => (
                 <li key={keyword} className="flex w-full items-center justify-between">
-                  <span className="text-17b cursor-pointer" onClick={() => handleSearch(keyword)}>
+                  <span className="text-p17b cursor-pointer" onClick={() => handleSearch(keyword)}>
                     {keyword}
                   </span>
                   <Close

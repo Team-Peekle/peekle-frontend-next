@@ -2,8 +2,9 @@
 
 import { ButtonHTMLAttributes } from 'react';
 
+import { cn } from '@common/libs/utils';
+
 import { HeartIcon } from '../../../common/components/svg/Heart';
-import { cn } from '../../../lib/utils';
 
 /**
  * ScrapButton

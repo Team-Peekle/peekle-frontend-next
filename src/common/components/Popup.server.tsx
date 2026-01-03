@@ -8,11 +8,22 @@ interface PopupProps {
   title: string;
   leftText: string;
   rightText?: string;
+  leftDisabled?: boolean;
+  rightDisabled?: boolean;
   onLeft: () => void;
   onRight?: () => void;
 }
 
-export default function Popup({ type, title, leftText, rightText, onLeft, onRight }: PopupProps) {
+export default function Popup({
+  type,
+  title,
+  leftText,
+  rightText,
+  leftDisabled,
+  rightDisabled,
+  onLeft,
+  onRight,
+}: PopupProps) {
   return (
     <div className="rounded-20pxr w-300pxr text-p16b px-12pxr pt-32pxr pb-12pxr gap-24pxr bg-gray-0 flex h-fit flex-col items-center">
       <div className="gap-18pxr flex flex-col items-center">
@@ -26,11 +37,16 @@ export default function Popup({ type, title, leftText, rightText, onLeft, onRigh
             type === PopupType.VAR1 ? 'text-gray-400' : 'text-primary-500',
           )}
           onClick={onLeft}
+          disabled={leftDisabled}
         >
           {leftText}
         </button>
         {type === PopupType.VAR1 && (
-          <button className="text-primary-500 px-45pxr py-12pxr" onClick={onRight}>
+          <button
+            className="text-primary-500 px-45pxr py-12pxr"
+            onClick={onRight}
+            disabled={rightDisabled}
+          >
             {rightText}
           </button>
         )}
