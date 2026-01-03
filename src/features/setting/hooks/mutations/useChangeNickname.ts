@@ -1,10 +1,20 @@
+import { ApiError } from 'next/dist/server/api-utils';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import queryKeys from '@common/constants/queryKeys';
 
-import { GetUsersMeResponseDTO } from '@features/setting/schemas/api/user';
+import {
+  ChangeNicknameResponseDTO,
+  GetUsersMeResponseDTO,
+} from '@features/setting/schemas/api/user';
 
 import changeNickname from '@features/setting/apis/post/changeNickname';
+
+// Context 타입 정의
+interface ChangeNicknameContext {
+  prev: GetUsersMeResponseDTO | undefined;
+}
 
 /**
  * 닉네임을 변경하는 훅
@@ -14,10 +24,15 @@ export default function useChangeNickname() {
   const userKey = queryKeys.user.me.queryKey;
 
   // 현재 상태(nickname)를 받아서 API를 분기
-  return useMutation({
+  return useMutation<
+    ChangeNicknameResponseDTO,
+    ApiError,
+    { newNickname: string },
+    ChangeNicknameContext
+  >({
     mutationKey: queryKeys.user.nicknameChange.queryKey,
 
-    mutationFn: ({ newNickname }: { newNickname: string }) => changeNickname(newNickname),
+    mutationFn: ({ newNickname }) => changeNickname(newNickname),
 
     // 낙관적 업데이트
     onMutate: async ({ newNickname }: { newNickname: string }) => {

@@ -33,3 +33,5 @@ export type GetUsersNicknameCheckResponseDTO = z.infer<typeof getUsersNicknameCh
 export const ChangeNicknameResponseSchema = z.object({
   message: z.string(),
 });
+
+export type ChangeNicknameResponseDTO = z.infer<typeof ChangeNicknameResponseSchema>;

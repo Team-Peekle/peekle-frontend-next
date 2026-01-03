@@ -9,7 +9,6 @@ import { ProfileVariant } from '@common/types/profile';
 import { ROUTES } from '@common/constants/routes';
 import { TERMS_LABELS } from '@common/constants/terms';
 
-import ProfileEdit from '@common/components/ProfileEdit/ProfileEdit.client';
 import UserProfile from '@common/components/UserProfile.client';
 import WithDraw from '@common/components/WithDraw/WithDraw.client';
 import ModalLayout from '@common/components/modal/ModalLayout.client';
@@ -17,6 +16,7 @@ import ModalLayout from '@common/components/modal/ModalLayout.client';
 import { getUsersMeOptions } from '@common/apis/get/userOptions';
 
 import LogoutModal from '@features/events/components/LogoutModal.client';
+import ProfileEdit from '@features/setting/components/profile-edit/ProfileEdit.client';
 
 import { useIsMobile } from '@/common/hooks/useIsMobile';
 
