@@ -2,20 +2,36 @@
 
 import Link from 'next/link';
 
+import { cn } from '@common/libs/utils';
+
 import { Arrow } from '@common/components/svg/Arrow';
 
 interface LinkButtonProps {
   label: string;
   href?: string;
+  showArrow?: boolean;
   onClick?: () => void;
+  className?: string;
+  isActive?: boolean;
 }
-const LinkButton = ({ label, href, onClick }: LinkButtonProps) => {
-  const baseClass = `rounded-10pxr px-12pxr py-8pxr bg-gray-0 flex items-center justify-between hover:bg-gray-100 w-full transition-colors`;
+const LinkButton = ({
+  label,
+  href,
+  showArrow = true,
+  onClick,
+  className,
+  isActive,
+}: LinkButtonProps) => {
+  const baseClass = cn(
+    'w-full flex items-center justify-between rounded-10pxr px-12pxr py-8pxr bg-gray-0 transition-colors hover:bg-gray-100',
+    isActive && 'bg-gray-100',
+    className,
+  );
 
   const Content = (
     <>
       <p className="text-p16sb text-gray-700">{label}</p>
-      <Arrow direction="right" className="w-13pxr h-14pxr text-gray-300" />
+      {showArrow && <Arrow direction="right" className="w-13pxr h-14pxr text-gray-300" />}
     </>
   );
 
