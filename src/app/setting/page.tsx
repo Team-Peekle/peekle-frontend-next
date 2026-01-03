@@ -4,6 +4,8 @@ import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.cli
 
 import SettingSection from '@features/setting/components/setting-section/SettingSection.client';
 
+export const dynamic = 'force-dynamic';
+
 const SettingPage = () => {
   return (
     <Suspense fallback={<DeferredLoader className="mt-200pxr" />}>

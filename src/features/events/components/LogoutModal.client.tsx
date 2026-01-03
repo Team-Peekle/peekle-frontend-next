@@ -1,7 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { PopupType } from '@common/types/popup';
 
 import Popup from '@common/components/Popup.server';
@@ -12,7 +10,6 @@ interface LogoutModalProps {
   onClose: () => void;
 }
 const LogoutModal = ({ onClose }: LogoutModalProps) => {
-  const router = useRouter();
   const { mutate: handleLogout, isPending } = useLogout();
 
   const handleCancel = () => {
