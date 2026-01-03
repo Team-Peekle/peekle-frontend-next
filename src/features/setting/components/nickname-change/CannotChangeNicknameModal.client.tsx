@@ -16,7 +16,7 @@ const CannotChangeModal = () => {
   return (
     <Popup
       type={PopupType.VAR3}
-      title={`닉네임을 변경할 수 있어요`}
+      title={`닉네임을 변경할 수 없어요`}
       leftText="확인"
       onLeft={handleConfirm}
     />

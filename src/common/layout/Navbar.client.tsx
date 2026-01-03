@@ -63,7 +63,7 @@ Navbar.Mobile = function NavbarMobile() {
     { label: '커뮤니티', href: ROUTES.COMMUNITY },
     {
       label: isLoggedIn ? '내정보' : '회원가입/로그인',
-      href: isLoggedIn ? ROUTES.MY : ROUTES.SIGN_IN,
+      href: isLoggedIn ? ROUTES.SETTING : ROUTES.SIGN_IN,
     },
   ];
 
@@ -170,7 +170,10 @@ Navbar.Web = function NavbarWeb() {
           <Search className="size-20pxr text-gray-600" />
         </Link>
         {isLoggedIn ? (
-          <UserProfile variant={ProfileVariant.SIZE_32} />
+          <UserProfile
+            variant={ProfileVariant.SIZE_32}
+            onClick={() => router.push(ROUTES.SETTING)}
+          />
         ) : (
           <Link
             href={ROUTES.SIGN_IN}

@@ -53,12 +53,14 @@ const ModalLayout = ({
       <div
         className={cn(
           'fixed inset-0 z-20 h-full w-full bg-black/40',
-          isCenter ? 'flex items-center justify-center' : '',
-          canClickDimmed ? 'cursor-pointer' : 'cursor-default',
+          isCenter && 'flex items-center justify-center',
+          canClickDimmed && 'cursor-pointer',
         )}
         onClick={handleDimmedClick}
       >
-        <div onClick={(e) => e.stopPropagation()}>{children}</div>
+        <div className="cursor-default" onClick={(e) => e.stopPropagation()}>
+          {children}
+        </div>
       </div>
     </ModalPortal>
   );

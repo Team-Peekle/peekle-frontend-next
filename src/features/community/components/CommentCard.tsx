@@ -2,20 +2,22 @@
 
 import { useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
+
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
 import { Ellipsis } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
 
 import { ProfileVariant } from '@common/types/profile';
+
+import { useModal } from '@common/hooks/useModal';
 
 import { DetailNavbarModal } from '@common/components/DetailNavbarModal';
 import Profile from '@common/components/Profile.server';
 import { Check } from '@common/components/svg/Check';
 import { HeartIcon } from '@common/components/svg/Heart';
-import { useModal } from '@common/hooks/useModal';
 
-import { getUsersMeOptions } from '@features/sign/api/user';
+import { getUsersMeOptions } from '@features/setting/apis/get/userOptions';
 
 import { type CommunityCommentDTO } from '../schema';
 
@@ -119,7 +121,7 @@ export default function CommentCard({
           {isEditing ? (
             <div className="flex flex-col gap-2">
               <div className="flex items-start justify-between gap-[12px]">
-                <label className="flex items-center gap-[5px] cursor-pointer">
+                <label className="flex cursor-pointer items-center gap-[5px]">
                   <div className="relative">
                     <input
                       type="checkbox"
@@ -128,7 +130,7 @@ export default function CommentCard({
                       onChange={(e) => setEditIsAnonymous(e.target.checked)}
                     />
                     <div
-                      className={`size-[16px] rounded flex items-center justify-center transition-colors duration-200 ${
+                      className={`flex size-[16px] items-center justify-center rounded transition-colors duration-200 ${
                         editIsAnonymous
                           ? 'border-gray-900 bg-gray-900'
                           : 'border-gray-200 bg-gray-600'
@@ -137,12 +139,12 @@ export default function CommentCard({
                       {editIsAnonymous && <Check className="size-4 text-white" />}
                     </div>
                   </div>
-                  <span className="text-p15b text-gray-700 whitespace-nowrap">익명</span>
+                  <span className="text-p15b whitespace-nowrap text-gray-700">익명</span>
                 </label>
                 <textarea
                   value={editContent}
                   onChange={(e) => setEditContent(e.target.value)}
-                  className="h-46px w-full resize-none rounded-[8px] border border-gray-200 px-3 py-2 text-gray-900 placeholder:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="h-46px focus:ring-primary-500 w-full resize-none rounded-[8px] border border-gray-200 px-3 py-2 text-gray-900 placeholder:text-gray-200 focus:ring-2 focus:outline-none"
                   placeholder="댓글을 입력해주세요"
                   rows={3}
                 />
@@ -159,7 +161,7 @@ export default function CommentCard({
                   type="button"
                   onClick={handleEditSubmit}
                   disabled={!editContent.trim()}
-                  className="text-p14b rounded-[8px] bg-primary-500 px-4 py-2 text-white transition-opacity disabled:opacity-50"
+                  className="text-p14b bg-primary-500 rounded-[8px] px-4 py-2 text-white transition-opacity disabled:opacity-50"
                 >
                   수정
                 </button>
@@ -178,7 +180,9 @@ export default function CommentCard({
               <button
                 type="button"
                 onClick={() => onReply?.(comment)}
-                className={selectedCommentId === comment.id ? 'text-primary-500' : 'hover:text-gray-700'}
+                className={
+                  selectedCommentId === comment.id ? 'text-primary-500' : 'hover:text-gray-700'
+                }
               >
                 답글달기
               </button>

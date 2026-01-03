@@ -52,9 +52,11 @@ const ChangeNicknameModal = ({ newNickname }: ChangeNicknameModalProps) => {
       type={PopupType.VAR1}
       title={`정말 닉네임을 변경할까요?\n닉네임은 30일마다 1번\n수정할 수 있어요.`}
       leftText="취소"
-      rightText="변경"
+      rightText={isPending ? '처리 중...' : '변경'}
       onLeft={handleCancel}
       onRight={handleConfirmChange}
+      leftDisabled={isPending}
+      rightDisabled={isPending}
     />
   );
 };

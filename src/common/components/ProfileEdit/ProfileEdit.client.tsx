@@ -6,15 +6,17 @@ import { useRouter } from 'next/navigation';
 
 import { ProfileVariant } from '@common/types/profile';
 
-import { ROUTES } from '@common/constants/routes';
-
 import Cta from '@common/components/btn/Cta/Cta.client';
 import { Plus } from '@common/components/svg/Plus';
 
 import Profile from '../Profile.server';
 import Textfield from '../Textfield';
 
-const ProfileEdit = () => {
+interface ProfileEditProps {
+  onClose: () => void;
+}
+
+const ProfileEdit = ({ onClose }: ProfileEditProps) => {
   const router = useRouter();
   // 임시 시용자 정보들
   const initialProfiles = ['임시 프사 주소1', '임시 프사 주소2', '임시 프사 주소3'];
@@ -46,11 +48,9 @@ const ProfileEdit = () => {
   };
 
   const handleEdit = () => {
-    // URL에 쿼리 파라미터를 붙여 모달 경로로 이동
-    router.push(
-      `${ROUTES.MODAL.SETTING.CHANGE_NICKNAME}?newNickname=${encodeURIComponent(currentNickname)}`,
-    );
+    // TODO:
     setIsChanged(false);
+    onClose();
   };
 
   return (

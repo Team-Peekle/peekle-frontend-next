@@ -1,25 +1,37 @@
 'use client';
 
-import { ButtonsCommonProps } from '@common/types/btn';
+import Link from 'next/link';
+
 import { TermsType } from '@common/types/terms';
 
 import { TERMS_LABELS } from '@common/constants/terms';
 
-interface TermsButtonProps extends Omit<ButtonsCommonProps, 'onClick'> {
+interface TermsButtonProps {
+  href?: string;
+  onClick?: () => void;
   termsType: TermsType;
-  onClick: (termsType: TermsType) => void;
 }
 
 /**
  * @description Footer에서 사용하는 terms 관련 버튼
  */
-const TermsButton = ({ termsType, onClick }: TermsButtonProps) => {
+const TermsButton = ({ termsType, href, onClick }: TermsButtonProps) => {
+  const baseClass = `bg-gray-0 gap-6pxr rounded-6pxr px-6pxr py-4pxr flex items-center justify-center hover:bg-gray-100`;
+
+  const Content = <p className="text-p14-15 text-gray-500">{TERMS_LABELS[termsType]}</p>;
+
+  // href가 있으면 Link, 없으면 button 렌더링
+  if (href) {
+    return (
+      <Link href={href} className={baseClass}>
+        {Content}
+      </Link>
+    );
+  }
+
   return (
-    <button
-      className="bg-gray-0 gap-6pxr rounded-6pxr px-6pxr py-4pxr flex items-center justify-center hover:bg-gray-100"
-      onClick={() => onClick(termsType)}
-    >
-      <p className="text-p14-15 text-gray-500">{TERMS_LABELS[termsType]}</p>
+    <button onClick={onClick} className={baseClass}>
+      {Content}
     </button>
   );
 };

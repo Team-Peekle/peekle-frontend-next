@@ -1,7 +1,8 @@
 import { ButtonHTMLAttributes, useState } from 'react';
 
+import { cn } from '@common/libs/utils';
+
 import { ShareIcon2 } from '../../../common/components/svg/ShareIcon2';
-import { cn } from '../../../lib/utils';
 
 /**
  * ClipButton

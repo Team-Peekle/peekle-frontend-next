@@ -6,15 +6,21 @@ import { PopupType } from '@common/types/popup';
 
 import Popup from '@common/components/Popup.server';
 
-const LogoutModal = () => {
+import useLogout from '@features/sign/hooks/mutations/useLogout';
+
+interface LogoutModalProps {
+  onClose: () => void;
+}
+const LogoutModal = ({ onClose }: LogoutModalProps) => {
   const router = useRouter();
+  const { mutate: handleLogout, isPending } = useLogout();
 
   const handleCancel = () => {
-    router.back();
+    onClose();
   };
 
   const handleConfirmLogout = () => {
-    // TODO: 실제 로그아웃 처리 로직 수행
+    handleLogout();
   };
 
   return (
@@ -22,9 +28,11 @@ const LogoutModal = () => {
       type={PopupType.VAR1}
       title="로그아웃 하시겠어요?"
       leftText="취소"
-      rightText="로그아웃"
+      rightText={isPending ? '처리 중...' : '로그아웃'}
       onLeft={handleCancel}
       onRight={handleConfirmLogout}
+      leftDisabled={isPending}
+      rightDisabled={isPending}
     />
   );
 };

@@ -15,14 +15,17 @@ import Popup from '@common/components/Popup.server';
 
 import DescriptionCard from './DescriptionCard.client';
 
-const WithDraw = () => {
+interface WithDrawModalProps {
+  onClose: () => void; // 닫기 함수 추가
+}
+
+const WithDraw = ({ onClose }: WithDrawModalProps) => {
   const router = useRouter();
   const [isChecked, setIsCecked] = useState(false);
   const [isWithdrawed, setIsWithdrawed] = useState(false);
 
   const handleCancle = () => {
-    // parallel router 쓴다고 가정하고 이전 경로로 이동 (모달 닫기 역할)
-    router.back();
+    onClose();
   };
 
   const handleWithdraw = () => {
@@ -74,7 +77,7 @@ const WithDraw = () => {
           type={PopupType.VAR3}
           title={`탈퇴 처리가 완료되었습니다. \n서비스를 이용해주셔서 감사합니다.`}
           leftText="확인"
-          onLeft={() => router.push(ROUTES.SIGN_IN)}
+          onLeft={() => router.push(ROUTES.ROOT)}
         />
       )}
     </>
