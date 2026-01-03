@@ -12,13 +12,7 @@ interface LoaderProps {
 }
 const Loader = ({ className }: LoaderProps) => {
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      aria-busy="true"
-      aria-label="로더"
-      className={cn('shirink-0 flex items-center justify-center', className)}
-    >
+    <div role="status" aria-live="polite" aria-busy="true" aria-label="로더" className={className}>
       <DotLottiePlayer
         src="https://framerusercontent.com/assets/xooaDQeeaje1bgxgMHPn01Yazek.lottie" // Lottie 애니메이션 파일의 URL을 지정
         autoplay // 애니메이션 자동 재생
@@ -49,7 +43,7 @@ const DeferredLoader = ({ className }: DeferredLoaderProps) => {
     return null;
   }
 
-  return <Loader className={className} />;
+  return <Loader className={cn('flex h-full w-full items-center justify-center', className)} />;
 };
 
 export default DeferredLoader;

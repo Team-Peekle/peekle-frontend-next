@@ -1,44 +1,50 @@
 'use client';
 
-import { useState } from 'react';
-
 import { useRouter, useSearchParams } from 'next/navigation';
-
-import { useQuery } from '@tanstack/react-query';
 
 import { ProfileVariant } from '@common/types/profile';
 
 import { ROUTES } from '@common/constants/routes';
 import { TERMS_LABELS } from '@common/constants/terms';
 
+import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 import UserProfile from '@common/components/UserProfile.client';
-import WithDraw from '@common/components/WithDraw/WithDraw.client';
-import ModalLayout from '@common/components/modal/ModalLayout.client';
 
-import { getUsersMeOptions } from '@common/apis/get/userOptions';
+import { GetUsersMeResponseDTO } from '@features/setting/schemas/api/user';
 
-import LogoutModal from '@features/events/components/LogoutModal.client';
-import ProfileEdit from '@features/setting/components/profile-edit/ProfileEdit.client';
+import useSettingSection from '@features/setting/hooks/useSettingSection';
 
 import { useIsMobile } from '@/common/hooks/useIsMobile';
 
-import { ModalType } from '../constants/modal';
-import LinkButton from './LinkButton.client';
-import Title from './Title.client';
+import { ModalType } from '../../constants/modal';
+import LinkButton from '../LinkButton.client';
+import Title from '../Title.client';
+import SettingModals from './SettingModals.client';
 
+interface SettingSectionCommonProps {
+  userInfo: GetUsersMeResponseDTO;
+  openModal: (modalType: ModalType) => void;
+}
 export default function SettingSection() {
   const isMobile = useIsMobile();
+  const common = useSettingSection();
 
-  return <>{isMobile ? <SettingSection.Mobile /> : <SettingSection.Web />}</>;
+  return (
+    <>
+      {isMobile ? (
+        <SettingSection.Mobile userInfo={common.userInfo} openModal={common.openModal} />
+      ) : (
+        <SettingSection.Web userInfo={common.userInfo} openModal={common.openModal} />
+      )}
+      <SettingModals activeModal={common.activeModal} onClose={common.closeModal} />
+    </>
+  );
 }
 
-SettingSection.Mobile = function SettingSectionMobile() {
-  const { data: userInfo } = useQuery(getUsersMeOptions());
-
-  const [activeModal, setActiveModal] = useState<ModalType | null>(null);
-
-  const closeModal = () => setActiveModal(null);
-
+SettingSection.Mobile = function SettingSectionMobile({
+  userInfo,
+  openModal,
+}: SettingSectionCommonProps) {
   return (
     <>
       <section className="g-y-40pxr px-16pxr flex flex-col">
@@ -50,7 +56,7 @@ SettingSection.Mobile = function SettingSectionMobile() {
               <p className="text-p16sb text-gray-800">{userInfo?.nickname}</p>
             </span>
             <button
-              onClick={() => setActiveModal(ModalType.PROFILE_EDIT)}
+              onClick={() => openModal(ModalType.PROFILE_EDIT)}
               className="text-p14 rounded-8pxr py-5pxr px-10pxr shrink-0 bg-gray-100 text-gray-900"
             >
               프로필 수정
@@ -66,40 +72,20 @@ SettingSection.Mobile = function SettingSectionMobile() {
 
         <div className="gap-y-8pxr py-8pxr flex flex-col">
           <Title title="설정" />
-          <LinkButton label="로그아웃" onClick={() => setActiveModal(ModalType.LOGOUT)} />
-          <LinkButton label="탈퇴하기" onClick={() => setActiveModal(ModalType.WITHDRAW)} />
+          <LinkButton label="로그아웃" onClick={() => openModal(ModalType.LOGOUT)} />
+          <LinkButton label="탈퇴하기" onClick={() => openModal(ModalType.WITHDRAW)} />
         </div>
       </section>
-      {/* 모달들 */}
-      {activeModal === ModalType.PROFILE_EDIT && (
-        <ModalLayout canClickDimmed={false}>
-          <ProfileEdit onClose={closeModal} />
-        </ModalLayout>
-      )}
-
-      {activeModal === ModalType.LOGOUT && (
-        <ModalLayout canClickDimmed={false}>
-          <LogoutModal onClose={closeModal} />
-        </ModalLayout>
-      )}
-
-      {activeModal === ModalType.WITHDRAW && (
-        <ModalLayout canClickDimmed={false}>
-          <WithDraw onClose={closeModal} />
-        </ModalLayout>
-      )}
     </>
   );
 };
 
-SettingSection.Web = function SettingSectionWeb() {
+SettingSection.Web = function SettingSectionWeb({
+  userInfo,
+  openModal,
+}: SettingSectionCommonProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { data: userInfo } = useQuery(getUsersMeOptions());
-
-  const [activeModal, setActiveModal] = useState<ModalType | null>(null);
-
-  const closeModal = () => setActiveModal(null);
 
   // URL에서 tab 파라미터를 가져옴 (기본값: profile)
   const currentTab = searchParams.get('settingTab') || 'profile';
@@ -143,7 +129,7 @@ SettingSection.Web = function SettingSectionWeb() {
                   <p className="text-p16sb text-gray-800">{userInfo?.nickname}</p>
                 </span>
                 <button
-                  onClick={() => setActiveModal(ModalType.PROFILE_EDIT)}
+                  onClick={() => openModal(ModalType.PROFILE_EDIT)}
                   className="text-p14 rounded-8pxr py-5pxr px-10pxr shrink-0 bg-gray-100 text-gray-900"
                 >
                   프로필 수정
@@ -164,31 +150,13 @@ SettingSection.Web = function SettingSectionWeb() {
             <div className="flex flex-col">
               <Title title="설정" className="pt-6pxr pl-18pxr text-p20" />
               <span className="gap-y-8pxr pt-8pxr pl-6pxr flex flex-col">
-                <LinkButton label="로그아웃" onClick={() => setActiveModal(ModalType.LOGOUT)} />
-                <LinkButton label="탈퇴하기" onClick={() => setActiveModal(ModalType.WITHDRAW)} />
+                <LinkButton label="로그아웃" onClick={() => openModal(ModalType.LOGOUT)} />
+                <LinkButton label="탈퇴하기" onClick={() => openModal(ModalType.WITHDRAW)} />
               </span>
             </div>
           )}
         </div>
       </section>
-      {/* 모달들 */}
-      {activeModal === ModalType.PROFILE_EDIT && (
-        <ModalLayout canClickDimmed={false}>
-          <ProfileEdit onClose={closeModal} />
-        </ModalLayout>
-      )}
-
-      {activeModal === ModalType.LOGOUT && (
-        <ModalLayout canClickDimmed={false}>
-          <LogoutModal onClose={closeModal} />
-        </ModalLayout>
-      )}
-
-      {activeModal === ModalType.WITHDRAW && (
-        <ModalLayout canClickDimmed={false}>
-          <WithDraw onClose={closeModal} />
-        </ModalLayout>
-      )}
     </>
   );
 };
