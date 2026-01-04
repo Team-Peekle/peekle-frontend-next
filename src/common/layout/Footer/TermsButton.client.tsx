@@ -22,8 +22,14 @@ const TermsButton = ({ termsType, href, onClick }: TermsButtonProps) => {
 
   // href가 있으면 Link, 없으면 button 렌더링
   if (href) {
+    const isExternal = href.startsWith('http');
     return (
-      <Link href={href} className={baseClass}>
+      <Link
+        href={href}
+        className={baseClass}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+      >
         {Content}
       </Link>
     );

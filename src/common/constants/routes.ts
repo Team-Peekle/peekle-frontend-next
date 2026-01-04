@@ -15,7 +15,7 @@ export const ROUTES = {
   TERMS: {
     [TermsType.PRIVACY]: '/policy/privacy',
     [TermsType.TERMS]: '/policy/terms',
-    [TermsType.CONTACT]: '/policy/contact',
+    [TermsType.CONTACT]: 'https://open.kakao.com/o/sv8H2c8g',
   },
   SIGNUP_COMPLETE: '/signup/complete',
   NOT_FOUND: '/not-found', // 실제로 없는 주소 - 404 페이지 수동으로 띄우기 위해
