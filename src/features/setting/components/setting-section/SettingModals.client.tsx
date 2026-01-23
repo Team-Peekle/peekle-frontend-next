@@ -1,12 +1,12 @@
 'use client';
 
-import WithDraw from '@common/components/WithDraw/WithDraw.client';
 import ModalLayout from '@common/components/modal/ModalLayout.client';
 
 import { ModalType } from '@features/setting/constants/modal';
 
 import LogoutModal from '@features/events/components/LogoutModal.client';
 import ProfileEdit from '@features/setting/components/profile-edit/ProfileEdit.client';
+import WithDraw from '@features/setting/components/withdraw/WithDraw.client';
 
 interface SettingModalsProps {
   activeModal: ModalType | null;

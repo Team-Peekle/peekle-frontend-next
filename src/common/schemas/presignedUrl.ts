@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const presignedUrlRequestSchema = z.object({
-  domain: z.enum(['community', 'profile']),
+  domain: z.enum(['community', 'events', 'profile']),
   kind: z.enum(['image', 'attachment']),
   contentType: z.string(),
   size: z.number().optional(),

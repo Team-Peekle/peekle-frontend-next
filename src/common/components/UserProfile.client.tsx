@@ -2,7 +2,7 @@
 
 import { Suspense } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { ProfileVariant } from '@common/types/profile';
 
@@ -18,12 +18,12 @@ interface UserProfileProps {
 }
 
 function UserProfileContent({ variant, className, isSelected, onClick }: UserProfileProps) {
-  const { data: userInfo } = useQuery(getUsersMeOptions());
+  const { data: userInfo } = useSuspenseQuery(getUsersMeOptions());
 
   return (
     <Profile
-      src={userInfo?.profileImage || undefined}
-      alt={userInfo?.nickname || 'Profile'}
+      src={userInfo.profileImages[0].imageUrl}
+      alt={userInfo.nickname || 'Profile'}
       variant={variant}
       className={className}
       isSelected={isSelected}

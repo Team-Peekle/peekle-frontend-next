@@ -2,14 +2,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import queryKeys from '@common/constants/queryKeys';
 
-import { GetUsersMeResponseDTO } from '@features/setting/schemas/api/user';
+import {
+  GetUsersMeResponseDTO,
+  UpdateProfileImageRequestDTO,
+} from '@features/setting/schemas/api/user';
 
-import changeNickname from '@features/setting/apis/patch/changeNickname';
+import changeProfileImage from '@features/setting/apis/patch/changeProfileImage';
 
 /**
- * 닉네임을 변경하는 훅
+ * 프로필 이미지를 변경하는 훅
  */
-export default function useChangeNickname() {
+export default function useChangeProfileImage() {
   const qc = useQueryClient();
   const userKey = queryKeys.user.me.queryKey;
 
@@ -17,10 +20,15 @@ export default function useChangeNickname() {
   return useMutation({
     mutationKey: queryKeys.user.nicknameChange.queryKey,
 
-    mutationFn: ({ newNickname }) => changeNickname(newNickname),
+    mutationFn: ({ newProfileImages }: { newProfileImages: UpdateProfileImageRequestDTO[] }) =>
+      changeProfileImage(newProfileImages),
 
     // 낙관적 업데이트
-    onMutate: async ({ newNickname }: { newNickname: string }) => {
+    onMutate: async ({
+      newProfileImages,
+    }: {
+      newProfileImages: UpdateProfileImageRequestDTO[];
+    }) => {
       // 진행 중인 쿼리 취소 (덮어쓰기 방지)
       await qc.cancelQueries({ queryKey: userKey });
       // 이전 데이터 스냅샷 (롤백용)
@@ -30,7 +38,10 @@ export default function useChangeNickname() {
       if (prev) {
         qc.setQueryData<GetUsersMeResponseDTO>(userKey, {
           ...prev,
-          nickname: newNickname,
+          profileImages: newProfileImages.map((img, idx) => ({
+            ...img,
+            id: `temp-${idx}`, // 낙관적 업데이트를 위한 임시 ID 부여
+          })),
         });
       }
 
@@ -48,7 +59,6 @@ export default function useChangeNickname() {
     // 성공/실패 관계없이 최신 데이터 동기화
     onSettled: () => {
       qc.invalidateQueries({ queryKey: userKey });
-      qc.invalidateQueries({ queryKey: queryKeys.user.nicknameCheck._def });
     },
   });
 }

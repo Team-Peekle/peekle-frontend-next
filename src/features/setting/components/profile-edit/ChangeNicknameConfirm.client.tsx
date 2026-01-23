@@ -8,36 +8,65 @@ import { useAddToast } from '@common/hooks/stores/useToastStore';
 
 import Popup from '@common/components/Popup.server';
 
-import useChangeNickname from '@features/setting/hooks/mutations/useChangeNickname';
+import { UpdateProfileImageRequestDTO } from '@features/setting/schemas/api/user';
 
-interface LogoutModalProps {
+import useChangeNickname from '@features/setting/hooks/mutations/useChangeNickname';
+import useChangeProfileImage from '@features/setting/hooks/mutations/useChangeProfileImage';
+
+interface ChangeNicknameConfirmProps {
   onClose: () => void;
   onParentClose: () => void;
+  onResetNickname: () => void;
   newNickname: string;
+  newProfileImages: UpdateProfileImageRequestDTO[];
 }
-const ChangeNicknameConfirm = ({ onClose, onParentClose, newNickname }: LogoutModalProps) => {
-  const { mutate: changeNicknameMutate, isPending } = useChangeNickname();
+const ChangeNicknameConfirm = ({
+  onClose,
+  onParentClose,
+  onResetNickname,
+  newNickname,
+  newProfileImages,
+}: ChangeNicknameConfirmProps) => {
+  const { mutate: changeNicknameMutate, isPending: isNicknamePending } = useChangeNickname();
+  const { mutate: changeImageMutate, isPending: isImagePending } = useChangeProfileImage();
   const addToast = useAddToast();
   const [serverError, setServerError] = useState<string | null>(null);
 
+  const isPending = isNicknamePending || isImagePending;
+
   const handleErrorConfirm = () => {
     setServerError(null);
+    onResetNickname(); // 확인 버튼 누를 때 닉네임 원복
     onClose();
   };
 
-  const handleChangeNickname = () => {
+  const handleChangeProfile = () => {
+    // 1. 먼저 닉네임 변경
     changeNicknameMutate(
       { newNickname },
       {
         onSuccess: () => {
-          addToast({ text: '닉네임이 변경되었습니다.' });
-          onClose(); // 컨펌 팝업 닫기
-          onParentClose(); // 프로필 수정 모달도 함께 닫기
+          // 닉네임 변경 성공 시, 이미지를 변경
+          changeImageMutate(
+            { newProfileImages },
+            {
+              onSuccess: () => {
+                addToast({ text: '프로필이 성공적으로 수정되었습니다.' });
+                onClose();
+                onParentClose();
+              },
+              onError: () => {
+                // 이미지는 실패하고 닉네임만 성공한 경우에 대한 처리
+                addToast({ text: '닉네임은 변경되었으나 이미지 변경에 실패했습니다.' });
+                onClose();
+                onParentClose();
+              },
+            },
+          );
         },
         onError: (err) => {
-          // 서버에서 내려주는 에러 메시지 추출 (구조에 따라 조정)
-          const message = err?.message ?? '닉네임 변경에 실패했습니다.';
-          setServerError(message);
+          console.log(err);
+          setServerError(err.message);
         },
       },
     );
@@ -59,7 +88,7 @@ const ChangeNicknameConfirm = ({ onClose, onParentClose, newNickname }: LogoutMo
           leftText="취소"
           rightText={isPending ? '변경 중...' : '변경하기'}
           onLeft={onClose}
-          onRight={handleChangeNickname}
+          onRight={handleChangeProfile}
           leftDisabled={isPending}
           rightDisabled={isPending}
         />

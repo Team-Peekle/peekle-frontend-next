@@ -17,10 +17,18 @@ export const errorSchema = z.object({
 });
 
 /** 실패 응답을 위한 스키마 */
+// export const failSchema = z.object({
+//   status: z.literal(false),
+//   statusCode: z.number(),
+//   error: errorSchema,
+// });
+
+/** 임시 수정본 */
 export const failSchema = z.object({
   status: z.literal(false),
-  statusCode: z.number(),
-  error: errorSchema,
+  statusCode: z.coerce.number(),
+  message: z.string(),
+  data: z.any().nullable(),
 });
 
 /** 성공 또는 실패 응답을 처리하는 공통 스키마 */

@@ -9,15 +9,16 @@ import { cn } from '@common/libs/utils';
 
 interface LoaderProps {
   className?: string;
+  size?: number;
 }
-const Loader = ({ className }: LoaderProps) => {
+const Loader = ({ className, size = 32 }: LoaderProps) => {
   return (
     <div role="status" aria-live="polite" aria-busy="true" aria-label="로더" className={className}>
       <DotLottiePlayer
         src="https://framerusercontent.com/assets/xooaDQeeaje1bgxgMHPn01Yazek.lottie" // Lottie 애니메이션 파일의 URL을 지정
         autoplay // 애니메이션 자동 재생
         loop // 애니메이션 무한 반복
-        style={{ width: '32px', height: '32px' }}
+        style={{ width: `${size}px`, height: `${size}px` }}
       />
     </div>
   );
@@ -25,8 +26,9 @@ const Loader = ({ className }: LoaderProps) => {
 
 interface DeferredLoaderProps {
   className?: string;
+  size?: number;
 }
-const DeferredLoader = ({ className }: DeferredLoaderProps) => {
+const DeferredLoader = ({ className, size }: DeferredLoaderProps) => {
   const [isDeferred, setIsDeferred] = useState(false);
 
   useEffect(() => {
@@ -43,7 +45,12 @@ const DeferredLoader = ({ className }: DeferredLoaderProps) => {
     return null;
   }
 
-  return <Loader className={cn('flex h-full w-full items-center justify-center', className)} />;
+  return (
+    <Loader
+      size={size}
+      className={cn('flex h-full w-full items-center justify-center', className)}
+    />
+  );
 };
 
 export default DeferredLoader;
