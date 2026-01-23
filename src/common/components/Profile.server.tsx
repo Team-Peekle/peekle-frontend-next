@@ -57,10 +57,11 @@ export default function Profile({
         `${getAvatarSize()} ${className}`,
         onClick && 'cursor-pointer',
         isSelected && 'ring-2 ring-gray-800 ring-offset-2',
+        'bg-gray-100',
       )}
     >
       <AvatarImage src={src} alt={alt} />
-      <AvatarFallback className="bg-gray-100">{getFallbackIcon()}</AvatarFallback>
+      <AvatarFallback>{getFallbackIcon()}</AvatarFallback>
     </Avatar>
   );
 }

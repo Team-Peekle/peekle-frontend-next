@@ -49,7 +49,6 @@ export const authTestTokenResponseSchema = z.object({
 export type AuthTestTokenResponseDTO = z.infer<typeof authTestTokenResponseSchema>;
 
 /**
- * GET /auth/test/token 응답 스키마
- * 테스트 토큰 생성
+ * 로그아웃 응답 스키마
  */
 export const authLogoutResponseScheme = z.object({});

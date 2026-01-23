@@ -24,6 +24,7 @@ const queryKeys = createQueryKeyStore({
   user: {
     me: null,
     nicknameChange: null,
+    withdraw: null,
     nicknameCheck: (nickname: string) => [nickname],
   },
 });

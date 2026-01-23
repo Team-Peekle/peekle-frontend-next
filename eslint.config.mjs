@@ -1,30 +1,36 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import eslint from '@eslint/js';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
 import prettierConfig from 'eslint-config-prettier';
+import eslint from '@eslint/js';
 import eslintPluginReact from 'eslint-plugin-react';
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 import storybook from 'eslint-plugin-storybook';
-import { dirname } from 'path';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import tseslint from 'typescript-eslint';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const eslintConfig = defineConfig([
+  globalIgnores([
+    'node_modules/**',
+    '.next/**',
+    'out/**',
+    'build/**',
+    'coverage/**',
+    'next-env.d.ts',
+    'prisma/generated/**',
+    'prisma/migrations/**',
+  ]),
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+  // Next.js 공식 플랫 설정 적용
+  ...nextVitals,
+  ...nextTs,
 
-const eslintConfig = [
-  // Next.js의 core-web-vitals와 typescript 설정을 확장
-  ...compat.extends('next/core-web-vitals'),
-  ...compat.extends('next/typescript'),
+  eslint.configs.recommended,
   // Storybook의 권장 설정을 확장
   ...storybook.configs['flat/recommended'],
-  // ESLint의 기본 권장 설정
-  eslint.configs.recommended,
   // TypeScript ESLint의 권장 설정
   ...tseslint.configs.recommended,
+
+  // 커스텀 규칙
   {
     // CommonJS 파일에 대한 특별 설정
     files: ['**/*.cjs'],
@@ -51,9 +57,7 @@ const eslintConfig = [
   {
     files: ['**/*.jsx', '**/*.tsx'],
     plugins: {
-      // React와 React Hooks 플러그인 설정
       react: eslintPluginReact,
-      'react-hooks': eslintPluginReactHooks,
     },
     settings: {
       // React 버전 자동 감지
@@ -62,7 +66,8 @@ const eslintConfig = [
       },
     },
     rules: {
-      // JSX를 사용할 수 있는 파일 확장자 제한
+      ...eslintPluginReact.configs.recommended.rules,
+      ...eslintPluginReactHooks.configs.recommended.rules,
       'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
       // React import 구문 필수 해제
       'react/react-in-jsx-scope': 'off',
@@ -71,6 +76,6 @@ const eslintConfig = [
     },
   },
   prettierConfig,
-];
+]);
 
 export default eslintConfig;

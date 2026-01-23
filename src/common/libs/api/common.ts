@@ -74,19 +74,36 @@ export const fetcher = async <T extends z.ZodTypeAny>(
     const responseData = result.data;
     // 실패 응답일 경우 에러 데이터를 포함하여 에러를 던짐
     if (!responseData.status) {
-      const errorData = (responseData as z.infer<typeof failSchema>).error;
-      throw new ApiError(errorData.errorCode, errorData.reason, errorData.data);
+      // const errorData = (responseData as z.infer<typeof failSchema>).error;
+      // throw new ApiError(errorData.errorCode, errorData.reason, errorData.data);
+      throw new ApiError(String(responseData.statusCode), responseData.message, responseData.data);
     }
 
     // 성공 응답이면 response.data 반환 (data가 없으면 빈 객체 반환)
     const validatedData = responseData.data ?? {};
     return schema.parse(validatedData);
   } catch (error) {
-    // 404 에러 처리
-    if (error instanceof HTTPError && error.response.status === 404) {
-      notFound();
-    }
+    if (error instanceof HTTPError) {
+      // 404 에러 처리
+      if (error instanceof HTTPError && error.response.status === 404) {
+        notFound();
+      }
+      // 나머지 에러 처리
+      // 서버가 보낸 에러 JSON 읽기
+      try {
+        const errorJson = await error.response.json();
 
+        throw new ApiError(
+          String(errorJson.statusCode),
+          errorJson.message ?? error.message,
+          errorJson.data,
+        );
+      } catch (parseError) {
+        // 본문이 JSON이 아니거나 파싱 실패 시 원본 에러 던짐
+        if (parseError instanceof ApiError) throw parseError;
+        throw error;
+      }
+    }
     // 다른 에러는 그대로 throw
     throw error;
   }

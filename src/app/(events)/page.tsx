@@ -14,6 +14,7 @@ import ConfirmLocationPopup from '@features/events/components/ConfirmLocationPop
 import EventsList from '@features/events/components/EventsList/EventsList.client';
 import Filter from '@features/events/components/Filter/Filter.client';
 import OnlyScrappedPopup from '@features/events/components/OnlyScrappedPopup.client';
+import WithdrawSuccessWrapper from '@features/setting/components/withdraw/WithdrawSuccessWrapper.client copy';
 
 const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParamsType> }) => {
   // 유효한 searchParam 값이 아니면 404 띄우기
@@ -80,6 +81,7 @@ const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParam
       <ConfirmLocationPopup />
       <OnlyScrappedPopup />
       <Filter />
+      <WithdrawSuccessWrapper />
     </>
   );
 };
