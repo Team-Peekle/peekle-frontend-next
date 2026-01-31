@@ -8,15 +8,18 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 
 import { format } from 'date-fns';
 
+import { ROUTES } from '@common/constants/routes';
+
 import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 import { useModal } from '@common/hooks/useModal';
 
+import { loginStore } from '@common/stores/loginStore';
+
 import Footer from '@common/layout/Footer/Footer.client';
 import Navbar from '@common/layout/Navbar.client';
 
-import Profile from '@common/components/Profile.server';
 import { Comment } from '@common/components/svg/Comment';
 
 import { CommunityArticleModal } from '@features/community/components/CommunityArticleModal';
@@ -28,9 +31,8 @@ import {
 } from '@features/community/api';
 
 import { CommunityCard } from '@/community/components/CommunityCard';
+import CommunitySidebarProfile from '@/community/components/CommunitySidebarProfile.client';
 import CommunityTabs from '@/community/components/CommunityTabs.client';
-
-import { ProfileVariant } from '../../common/types/profile';
 
 const DEFAULT_LIMIT = 10;
 const DEFAULT_COMMUNITY_ID = '1';
@@ -140,10 +142,16 @@ function CommunityPageContent({ onOpenArticleModal }: CommunityPageContentProps)
 }
 
 export default function CommunityPage() {
+  const router = useRouter();
   const isMobile = useIsMobile();
   const { openModal } = useModal();
 
   const handleOpenArticleModal = () => {
+    if (!loginStore.getState().isLoggedIn) {
+      router.push(ROUTES.SIGN_IN);
+      return;
+    }
+
     openModal(({ isOpen, onClose }) => (
       <CommunityArticleModal
         isOpen={isOpen}
@@ -175,10 +183,7 @@ export default function CommunityPage() {
       </article>
       <main className="flex w-full flex-row items-start gap-[64px] px-[16px]">
         <section className="max-mb:hidden flex min-w-[280px] flex-row items-center justify-between">
-          <div className="flex flex-row items-center gap-2.5">
-            <Profile variant={ProfileVariant.SIZE_40} />
-            <p className="text-p17b">피클1135</p>
-          </div>
+          <CommunitySidebarProfile />
           <button
             onClick={handleOpenArticleModal}
             className="text-p15b flex h-fit w-fit flex-row justify-items-center rounded-[8px] border-1 border-solid px-4 py-[7px]"
