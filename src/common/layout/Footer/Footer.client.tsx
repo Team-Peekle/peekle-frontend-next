@@ -2,23 +2,21 @@
 
 import { TermsType } from '@common/types/terms';
 
-import { ROUTES } from '@common/constants/routes';
-import { TERMS_LABELS } from '@common/constants/terms';
+import { POLICY_LINKS } from '@common/constants/terms';
 
 import FooterButton from './TermsButton.client';
 
-const Footer = () => {
-  // 구분선
-  const Divider = () => <p className="text-p14-15 text-gray-200">|</p>;
+const Divider = () => <p className="text-p14-15 text-gray-200">|</p>;
 
+const Footer = () => {
   return (
     <footer className="pt-40pxr pb-24pxr px-18pxr gap-8pxr bg-gray-0 flex flex-col items-center">
       <div className="gap-x-4pxr flex items-center">
-        <FooterButton termsType={TermsType.PRIVACY} href={ROUTES.TERMS.PRIVACY} />
+        <FooterButton termsType={TermsType.PRIVACY} href={POLICY_LINKS.PRIVACY} />
         <Divider />
-        <FooterButton termsType={TermsType.TERMS} href={ROUTES.TERMS.TERMS} />
+        <FooterButton termsType={TermsType.TERMS} href={POLICY_LINKS.TERMS} />
         <Divider />
-        <FooterButton termsType={TermsType.CONTACT} href={ROUTES.TERMS.CONTACT} />
+        <FooterButton termsType={TermsType.CONTACT} href={POLICY_LINKS.CONTACT} />
       </div>
       <p className="text-p14-15 text-center text-gray-300">ⓒ 2025 Peekle. All rights reserved</p>
     </footer>
