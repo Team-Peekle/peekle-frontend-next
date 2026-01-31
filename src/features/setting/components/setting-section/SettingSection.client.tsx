@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ProfileVariant } from '@common/types/profile';
 
 import { ROUTES } from '@common/constants/routes';
-import { TERMS_LABELS } from '@common/constants/terms';
+import { POLICY_LINKS, TERMS_LABELS } from '@common/constants/terms';
 
 import UserProfile from '@common/components/UserProfile.client';
 
@@ -65,8 +65,8 @@ SettingSection.Mobile = function SettingSectionMobile({
 
         <div className="gap-y-8pxr py-8pxr flex flex-col">
           <Title title="약관 및 개인정보처리" />
-          <LinkButton label={TERMS_LABELS.PRIVACY} href={ROUTES.TERMS.PRIVACY} />
-          <LinkButton label={TERMS_LABELS.TERMS} href={ROUTES.TERMS.TERMS} />
+          <LinkButton label={TERMS_LABELS.PRIVACY} href={POLICY_LINKS.PRIVACY} isExternal={true} />
+          <LinkButton label={TERMS_LABELS.TERMS} href={POLICY_LINKS.TERMS} isExternal={true} />
         </div>
 
         <div className="gap-y-8pxr py-8pxr flex flex-col">
@@ -140,8 +140,16 @@ SettingSection.Web = function SettingSectionWeb({
             <div className="flex flex-col">
               <Title title="약관 및 개인정보 처리" className="pt-6pxr pl-18pxr text-p20" />
               <span className="gap-y-8pxr pt-8pxr pl-6pxr flex flex-col">
-                <LinkButton label={TERMS_LABELS.PRIVACY} href={ROUTES.TERMS.PRIVACY} />
-                <LinkButton label={TERMS_LABELS.TERMS} href={ROUTES.TERMS.TERMS} />
+                <LinkButton
+                  label={TERMS_LABELS.PRIVACY}
+                  href={POLICY_LINKS.PRIVACY}
+                  isExternal={true}
+                />
+                <LinkButton
+                  label={TERMS_LABELS.TERMS}
+                  href={POLICY_LINKS.TERMS}
+                  isExternal={true}
+                />
               </span>
             </div>
           )}

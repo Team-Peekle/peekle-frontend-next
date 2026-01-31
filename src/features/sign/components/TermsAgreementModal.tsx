@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Control, Controller } from 'react-hook-form';
 
 import { ROUTES } from '@common/constants/routes';
+import { POLICY_LINKS } from '@common/constants/terms';
 
 import { cn } from '@common/libs/utils';
 
@@ -88,7 +89,12 @@ export default function TermsAgreementModal({
                         />
                         <label className="text-p16m text-gray-900">(필수) 서비스 이용약관</label>
                       </div>
-                      <Link className="text-p16m text-gray-300" href={ROUTES.TERMS.TERMS}>
+                      <Link
+                        className="text-p16m text-gray-300"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={POLICY_LINKS.TERMS}
+                      >
                         보기
                       </Link>
                     </div>
@@ -101,7 +107,12 @@ export default function TermsAgreementModal({
                         />
                         <label className="text-p16m text-gray-900">(필수) 개인정보처리방침</label>
                       </div>
-                      <Link className="text-p16m text-gray-300" href={ROUTES.TERMS.PRIVACY}>
+                      <Link
+                        className="text-p16m text-gray-300"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={POLICY_LINKS.PRIVACY}
+                      >
                         보기
                       </Link>
                     </div>

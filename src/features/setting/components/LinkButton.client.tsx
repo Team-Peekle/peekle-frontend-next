@@ -13,6 +13,7 @@ interface LinkButtonProps {
   onClick?: () => void;
   className?: string;
   isActive?: boolean;
+  isExternal?: boolean;
 }
 const LinkButton = ({
   label,
@@ -21,6 +22,7 @@ const LinkButton = ({
   onClick,
   className,
   isActive,
+  isExternal,
 }: LinkButtonProps) => {
   const baseClass = cn(
     'w-full flex items-center justify-between rounded-10pxr px-12pxr py-8pxr bg-gray-0 transition-colors hover:bg-gray-100',
@@ -38,7 +40,13 @@ const LinkButton = ({
   // href가 있으면 Link, 없으면 button 렌더링
   if (href) {
     return (
-      <Link href={href} className={baseClass}>
+      <Link
+        href={href}
+        className={baseClass}
+        // isExternal이 true일 때만 새 탭 속성 적용
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+      >
         {Content}
       </Link>
     );
