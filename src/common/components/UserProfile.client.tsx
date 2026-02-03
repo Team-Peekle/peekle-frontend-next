@@ -22,7 +22,7 @@ function UserProfileContent({ variant, className, isSelected, onClick }: UserPro
 
   return (
     <Profile
-      src={userInfo.profileImages[0].imageUrl}
+      src={userInfo.profileImages[0]?.imageUrl}
       alt={userInfo.nickname || 'Profile'}
       variant={variant}
       className={className}
