@@ -30,14 +30,15 @@ const EventDetailPage = async ({ params }: { params: Promise<{ [key: string]: st
   const { dehydratedState } = await getDehydratedState({
     prefetch: async (qc) =>
       qc.prefetchQuery({
-        queryKey: queryKeys.events.detail(eventId).queryKey,
+        queryKey: queryKeys.events.detail(eventId, false).queryKey,
+        // 서버는 기본적으로 isLoggedIn: false인 상태의 키를 프리페치함
         queryFn: () => getEventDetail(eventId),
       }),
   });
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <Suspense fallback={<DeferredLoader />}>
+      <Suspense fallback={<DeferredLoader className="mt-100pxr" size={40} />}>
         <ImageSlider eventId={eventId} />
         <EventDetailContent eventId={eventId} />
       </Suspense>

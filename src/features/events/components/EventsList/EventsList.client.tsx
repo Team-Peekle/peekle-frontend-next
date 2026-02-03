@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
@@ -8,7 +8,6 @@ import { cn } from '@common/libs/utils';
 
 import { useIsMobile } from '@common/hooks/useIsMobile';
 
-import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 import { NotFound } from '@common/components/svg/NotFound';
 
 import { CategoryType } from '@features/events/types/category';
@@ -57,12 +56,19 @@ const EventsList = ({ isSearchPage = false }: EventsListProps) => {
 
   // [Price]
   const priceVal = filters[FilterType.PRICE];
-  const isFree = priceVal === PriceType.FREE;
+  const isFree = useMemo(() => {
+    if (priceVal === PriceType.ALL) return undefined;
+    return priceVal === PriceType.FREE;
+  }, [priceVal]);
 
   // [Location]
   const locationVal = filters[FilterType.LOCATION];
-  const locations =
-    locationVal === LocationType.ALL ? undefined : (locationVal.split(',') as LocationType[]);
+  const locations = useMemo(() => {
+    if (!locationVal || locationVal === LocationType.ALL) return undefined;
+
+    // Enum 값(쉼표로 연결된 문자열)을 다시 split해서 배열로 만듦
+    return locationVal.split(',');
+  }, [locationVal]);
 
   // 카테고리
   const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
@@ -72,7 +78,7 @@ const EventsList = ({ isSearchPage = false }: EventsListProps) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   const lastElementRef = (node: HTMLDivElement) => {
-    if (isFetchingNextPage) return;
+    if (isFetching || isFetchingNextPage) return;
     if (observerRef.current) observerRef.current.disconnect();
 
     observerRef.current = new IntersectionObserver(
@@ -91,32 +97,42 @@ const EventsList = ({ isSearchPage = false }: EventsListProps) => {
     if (node) observerRef.current.observe(node);
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetEvents({
-    limit: 20,
-    sort,
-    order: OrderType.ASC,
-    startDate,
-    endDate,
-    isFree,
-    locations,
-    categories,
-    latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
-    longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
-    onlyScrapped,
-    search: searchQuery,
-  });
+  const queryParams = useMemo(
+    () => ({
+      limit: 20,
+      sort,
+      order: OrderType.ASC,
+      startDate,
+      endDate,
+      isFree,
+      locations,
+      categories,
+      latitude: sort === SortType.DISTANCE ? myLocation?.latitude : undefined,
+      longitude: sort === SortType.DISTANCE ? myLocation?.longitude : undefined,
+      onlyScrapped,
+      search: searchQuery,
+    }),
+    [
+      sort,
+      startDate,
+      endDate,
+      isFree,
+      locations,
+      categories,
+      myLocation,
+      onlyScrapped,
+      searchQuery,
+    ],
+  );
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
+    useGetEvents(queryParams);
 
   const allEvents = data?.pages.flatMap((page) => page?.events ?? []) ?? [];
   let eventIndexInAll = 0; // 전체 이벤트 배열에서의 인덱스를 추적
 
   return (
     <section className={cn(isMobile ? 'py-8pxr' : 'grid grid-cols-3')}>
-      {/* 초기 진입 로딩 (데이터 없음 + 로딩 중) */}
-      {isFetching && allEvents.length === 0 && (
-        <div className={cn('pt-40pxr', isMobile ? 'flex justify-center' : 'col-span-3')}>
-          <DeferredLoader />
-        </div>
-      )}
       {/* 데이터 렌더링 영역 */}
       {(data?.pages[0]?.events.length ?? 0 > 0) ? (
         <>

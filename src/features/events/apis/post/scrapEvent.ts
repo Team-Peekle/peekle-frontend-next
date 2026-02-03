@@ -1,6 +1,6 @@
-import { z } from 'zod';
-
 import { authenticatedClientFetcher } from '@common/libs/api/client';
+
+import { scrapEventSchema } from '@features/events/schemas/scrapEventSchema';
 
 import { EVENTS_API_ENDPOINTS } from '../../constants/apiEndPoints';
 
@@ -14,9 +14,13 @@ import { EVENTS_API_ENDPOINTS } from '../../constants/apiEndPoints';
  *
  */
 export default function scrapEvent(eventId: string) {
-  const response = authenticatedClientFetcher(EVENTS_API_ENDPOINTS.SCRAP(eventId), z.any(), {
-    method: 'post',
-  });
+  const response = authenticatedClientFetcher(
+    EVENTS_API_ENDPOINTS.SCRAP(eventId),
+    scrapEventSchema,
+    {
+      method: 'post',
+    },
+  );
 
   return response;
 }

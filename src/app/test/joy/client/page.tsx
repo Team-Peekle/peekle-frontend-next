@@ -12,7 +12,6 @@ import Footer from '@common/layout/Footer/Footer.client';
 import Category from '@common/components/CategoryMenu/CategoryMenu.client';
 import Chip from '@common/components/Chip/Chip.client';
 import Popup from '@common/components/Popup.server';
-import Bookmark from '@common/components/btn/Bookmark/Bookmark.client';
 import Cta from '@common/components/btn/Cta/Cta.client';
 import Dropdown from '@common/components/btn/Dropdown/Dropdown.client';
 import Heart from '@common/components/btn/Heart/Heart.client';
@@ -24,8 +23,6 @@ import Select from '@common/components/btn/Select/Select.client';
 import Share from '@common/components/btn/Share/Share.client';
 import Write from '@common/components/btn/Write/Write.client';
 import Tabs from '@common/components/tabs/Tabs.client';
-
-import TermsAgreementModal from '@features/sign/components/TermsAgreementModal';
 
 const JoyTestClientPage = () => {
   const handleClick = () => {
@@ -134,12 +131,6 @@ const JoyTestClientPage = () => {
           }}
         />
         <Share link="dummyLink" />
-        <Bookmark
-          isBookmarked={false}
-          onStateChange={(newState) => {
-            console.log('새상태:', newState);
-          }}
-        />
         <Category />
         <div className="w-200pxr">
           <Tabs

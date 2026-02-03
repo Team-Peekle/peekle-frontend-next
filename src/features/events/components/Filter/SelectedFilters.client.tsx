@@ -18,7 +18,7 @@ const SelectedFilters = () => {
             key={`${filter.key}-${filter.value}`}
             text={filter.label}
             onClick={() => handleRemoveFilter(filter.key, filter.value)}
-            className="flex-shrink-0"
+            className="flex shrink-0"
           />
         ))}
       </div>

@@ -10,7 +10,7 @@ const SearchPage = () => {
   return (
     // 페이지 진입하자마자 애니메이션 시작
     <AnimationWrapper>
-      <Suspense fallback={<DeferredLoader />}>
+      <Suspense fallback={<DeferredLoader className="mt-100pxr" size={40} />}>
         <SearchHeader />
         <SearchList />
       </Suspense>

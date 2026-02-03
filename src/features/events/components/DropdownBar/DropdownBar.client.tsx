@@ -90,7 +90,7 @@ const DropdownBar = () => {
   }, [openedDropdowns]);
 
   // 내가 찜한 이벤트 드롭다운 활성화 상태
-  const [isActiveBookmarkDropdown, setIsActiveBookmarkDropdown] = useState(false);
+  const isActiveBookmarkDropdown = searchParams.get('onlyScrapped') === 'true';
 
   const handleDropdownClick = (
     menuName: keyof DropdownState,
@@ -162,8 +162,9 @@ const DropdownBar = () => {
             dropdownType={DropdownType.VAR4}
             text="내가 찜한 이벤트"
             onClick={() => {
-              setIsActiveBookmarkDropdown(false);
-              router.push(`?onlyScrapped=false`);
+              const params = new URLSearchParams(searchParams.toString());
+              params.set('onlyScrapped', 'false');
+              router.push(`?${params.toString()}`);
             }}
           />
         ) : (
@@ -178,9 +179,9 @@ const DropdownBar = () => {
                 openOnlyScrapped();
                 return;
               }
-              // 필터링 적용
-              setIsActiveBookmarkDropdown(true);
-              router.push(`?onlyScrapped=true`);
+              const params = new URLSearchParams(searchParams.toString());
+              params.set('onlyScrapped', 'true');
+              router.push(`?${params.toString()}`);
             }}
           />
         )}

@@ -22,6 +22,7 @@ function OAuthCallbackContent() {
     const registerToken = searchParams.get('registerToken');
     const accessToken = searchParams.get('accessToken');
     const refreshToken = searchParams.get('refreshToken');
+    const errorCode = searchParams.get('errorCode');
 
     if (type === 'login') {
       if (accessToken && refreshToken) {
@@ -58,13 +59,17 @@ function OAuthCallbackContent() {
         addToast({ text: '회원가입 세션이 만료되었거나 올바르지 않습니다.' });
         router.push(ROUTES.SIGN_IN);
       }
+    } else if (type === 'error') {
+      if (errorCode === 'USER_WITHDRAWN') {
+        router.replace(ROUTES.WITHDRAWN);
+      }
     } else {
       // 그 외 정의되지 않은 type 처리
       console.error(`[OAuth-Error] 알 수 없는 type이 수신되었습니다: ${type}`);
       addToast({ text: '잘못된 접근입니다. 다시 로그인해주세요.' });
       router.push(ROUTES.SIGN_IN);
     }
-  }, [router, searchParams]);
+  }, [router, searchParams, addToast]);
 
   return (
     <div className="flex h-screen items-center justify-center">
