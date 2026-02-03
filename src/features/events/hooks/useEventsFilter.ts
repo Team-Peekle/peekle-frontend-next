@@ -36,7 +36,8 @@ export default function useEventsFilter(filterType?: FilterType) {
 
     if (filterType === FilterType.LOCATION) {
       // 중복 허용 필터 타입일 때 - 지역
-      let currentValues = filters[filterType as FilterType]?.split(',') ?? LocationType.ALL;
+      const rawValue = filters[filterType as FilterType] ?? LocationType.ALL;
+      let currentValues = rawValue === LocationType.ALL ? [] : rawValue.split(',');
 
       // '전체' 포함되어 있으면 제거
       currentValues = currentValues.filter((v) => v !== LocationType.ALL);
@@ -44,25 +45,28 @@ export default function useEventsFilter(filterType?: FilterType) {
       if (newValue === LocationType.ALL) {
         // '전체' 선택시
         updatedParams.set(filterType, LocationType.ALL);
-      } else if (currentValues.includes(newValue)) {
-        // 이미 선택된 값이면 제거
-        const newValues = currentValues.filter((v) => v !== newValue);
-        updatedParams.set(
-          filterType,
-          newValues.length === 0 ? LocationType.ALL : newValues.join(','),
-        );
       } else {
-        // 새로운 값 추가
-        const newValues = [...currentValues, newValue];
-        // 추가 후 모든 옵션이 선택되면 '전체'로 변경
-        if (newValues.length === exceptAllLocationOptions.length) {
+        // newValue가 '광진,성동...' 처럼 쉼표를 포함할 수 있으므로 배열로 변환
+        const tokens = newValue.split(',');
+        const isAlreadySelected = tokens.every((t) => currentValues.includes(t));
+
+        let newValues: string[];
+        if (isAlreadySelected) {
+          // 이미 선택된 값이면 제거
+          newValues = currentValues.filter((v) => !tokens.includes(v));
+        } else {
+          // 그룹 내 값 중 하나라도 없으면 추가 - 중복 제거 위해 Set 사용
+          newValues = Array.from(new Set([...currentValues, ...tokens]));
+        }
+        // 모든 지역 옵션 개수와 비교하여 '전체' 여부 결정 (exceptAllLocationOptions 기반)
+        if (newValues.length === 0 || newValues.length === exceptAllLocationOptions.length) {
           updatedParams.set(filterType, LocationType.ALL);
         } else {
           updatedParams.set(filterType, newValues.join(','));
         }
       }
     } else if (filterType === FilterType.PRICE || filterType === FilterType.DURATION) {
-      // 단일 선택만 가능한 필터 타입일 때
+      // 단일 선택 필터 처리
       updatedParams.set(filterType, newValue);
     }
 
@@ -133,11 +137,37 @@ export default function useEventsFilter(filterType?: FilterType) {
             active.push({ key: filterKey, value: currentValue, label });
           }
         } else if (key === FilterType.LOCATION) {
-          const locationValues = currentValue.split(',');
-          locationValues.forEach((value) => {
-            const label = LOCATION_TYPE_LABELS[value as LocationType];
-            if (label) {
-              active.push({ key: filterKey, value, label: label.replace(/\s/g, '') });
+          // 현재 URL에 있는 모든 개별 지역 추출
+          const currentSelectedLocations = currentValue.split(',');
+
+          // Enum 구조를 순회하며 그룹 라벨 찾기
+          (Object.keys(LOCATION_TYPE_LABELS) as LocationType[]).forEach((type) => {
+            if (type === LocationType.ALL) return;
+
+            const groupTokens = type.split(','); // ['강남', '서초', '양재']
+
+            // 해당 그룹의 모든 토큰이 현재 선택된 목록에 포함되어 있는지 확인
+            const isGroupSelected = groupTokens.every((t) => currentSelectedLocations.includes(t));
+
+            if (isGroupSelected) {
+              active.push({
+                key: filterKey,
+                value: type, // 그룹 문자열 전체 ('강남,서초,양재')
+                label: LOCATION_TYPE_LABELS[type].replace(/\s/g, ''),
+              });
+
+              // 이미 추가된 지역들은 검사 목록에서 제외 (중복 방지)
+              groupTokens.forEach((t) => {
+                const idx = currentSelectedLocations.indexOf(t);
+                if (idx > -1) currentSelectedLocations.splice(idx, 1);
+              });
+            }
+          });
+
+          // 만약 그룹에 속하지 않은 개별 지역이 남아있다면 처리
+          currentSelectedLocations.forEach((loc) => {
+            if (loc) {
+              active.push({ key: filterKey, value: loc, label: loc });
             }
           });
         }

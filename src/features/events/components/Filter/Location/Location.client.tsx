@@ -26,9 +26,7 @@ const Location = () => {
       )}
       {/* select 목록 */}
       <div className="gap-12pxr grid grid-cols-2">
-        {Object.keys(LOCATION_TYPE_LABELS).map((key) => {
-          const type = key as LocationType;
-
+        {(Object.keys(LOCATION_TYPE_LABELS) as LocationType[]).map((type) => {
           return (
             <Select
               key={type}

@@ -52,8 +52,11 @@ const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParam
   if (locationParam) {
     if (typeof locationParam === 'string') {
       const locations = locationParam.split(',');
+      // 허용되는 위치 str 다 합친 긴 문자열
+      const allValidLocations = Object.values(LocationType).join(',');
+
       for (const loc of locations) {
-        if (!isValidEnumValue(loc, LocationType)) {
+        if (!allValidLocations.split(',').includes(loc)) {
           notFound();
         }
       }

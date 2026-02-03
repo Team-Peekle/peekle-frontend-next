@@ -29,7 +29,7 @@ export interface GetEventsParams {
   startDate?: string;
   endDate?: string;
   isFree?: boolean;
-  locations?: LocationType[];
+  locations?: string[];
   categories?: CategoryType[];
   latitude?: number;
   longitude?: number;

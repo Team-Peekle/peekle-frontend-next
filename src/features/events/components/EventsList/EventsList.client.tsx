@@ -56,12 +56,19 @@ const EventsList = ({ isSearchPage = false }: EventsListProps) => {
 
   // [Price]
   const priceVal = filters[FilterType.PRICE];
-  const isFree = priceVal === PriceType.FREE;
+  const isFree = useMemo(() => {
+    if (priceVal === PriceType.ALL) return undefined;
+    return priceVal === PriceType.FREE;
+  }, [priceVal]);
 
   // [Location]
   const locationVal = filters[FilterType.LOCATION];
-  const locations =
-    locationVal === LocationType.ALL ? undefined : (locationVal.split(',') as LocationType[]);
+  const locations = useMemo(() => {
+    if (!locationVal || locationVal === LocationType.ALL) return undefined;
+
+    // Enum 값(쉼표로 연결된 문자열)을 다시 split해서 배열로 만듦
+    return locationVal.split(',');
+  }, [locationVal]);
 
   // 카테고리
   const categories = (searchParams.get('categories')?.split(',') as CategoryType[]) ?? undefined;
