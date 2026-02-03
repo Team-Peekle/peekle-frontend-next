@@ -1,6 +1,6 @@
-import { z } from 'zod';
-
 import { authenticatedClientFetcher } from '@common/libs/api/client';
+
+import { cancleScrapEventSchema } from '@features/events/schemas/scrapEventSchema';
 
 import { EVENTS_API_ENDPOINTS } from '../../constants/apiEndPoints';
 
@@ -14,9 +14,13 @@ import { EVENTS_API_ENDPOINTS } from '../../constants/apiEndPoints';
  *
  */
 export default function cancleScrapEvent(eventId: string) {
-  const response = authenticatedClientFetcher(EVENTS_API_ENDPOINTS.SCRAP(eventId), z.any(), {
-    method: 'delete',
-  });
+  const response = authenticatedClientFetcher(
+    EVENTS_API_ENDPOINTS.SCRAP(eventId),
+    cancleScrapEventSchema,
+    {
+      method: 'delete',
+    },
+  );
 
   return response;
 }

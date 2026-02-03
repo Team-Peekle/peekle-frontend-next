@@ -1,9 +1,13 @@
+import { Suspense } from 'react';
+
 import { notFound } from 'next/navigation';
 
 import { SearchParamsType } from '@common/types/routes';
 
 import { isValidDate } from '@common/utils/dates';
 import isValidEnumValue from '@common/utils/isValidEnumValue';
+
+import DeferredLoader from '@common/components/DeferredLoader/DeferredLoader.client';
 
 import { CategoryType } from '@features/events/types/category';
 import { DurationType, FilterType, LocationType, PriceType } from '@features/events/types/filter';
@@ -76,7 +80,9 @@ const EventsPage = async ({ searchParams }: { searchParams?: Promise<SearchParam
   return (
     <>
       <Banner />
-      <EventsList />
+      <Suspense fallback={<DeferredLoader className="mt-100pxr" size={40} />}>
+        <EventsList />
+      </Suspense>
       {/* 팝업들 */}
       <ConfirmLocationPopup />
       <OnlyScrappedPopup />

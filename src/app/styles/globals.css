@@ -139,8 +139,7 @@
     cursor: pointer;
 
     &:disabled {
-      cursor: not-allowed;
-      pointer-events: none;
+      cursor: not-allowed !important;
     }
   }
 

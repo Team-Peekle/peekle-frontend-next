@@ -12,8 +12,8 @@ const queryKeys = createQueryKeyStore({
   },
   events: {
     testToken: null,
-    list: (params: GetEventsParams) => [params],
-    detail: (eventId: string) => [eventId],
+    list: (params: GetEventsParams, isLoggedIn: boolean) => [params, isLoggedIn],
+    detail: (eventId: string, isLoggedIn: boolean) => [eventId, isLoggedIn],
     scrap: (eventId: string) => [eventId],
   },
   community: {

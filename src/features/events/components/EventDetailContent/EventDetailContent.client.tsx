@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { startTransition } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -33,7 +33,7 @@ interface EventDetailContentProps {
   eventId: string;
 }
 
-const EventDetailContetnanimation = {
+const EventDetailContentanimation = {
   initial: { opacity: 0, y: -5 },
   animate: {
     opacity: 1,
@@ -50,33 +50,33 @@ const EventDetailContetnanimation = {
 const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
   const isMobile = useIsMobile();
   const { eventDetail } = useGetEventDetail(eventId);
-  const { mutate: toggleScrap } = useScrapEvent(eventId);
-  const [currentUrl, setCurrentUrl] = useState('');
+  const { mutateAsync: toggleScrap, isPending: isScrapPending } = useScrapEvent(eventId);
   const { isLoggedIn } = loginStore();
 
   const isScrapped = eventDetail.isScrapped;
   const openOnlyScrapped = useOpenOnlyScrapped();
 
-  // 공유용 현재 페이지 주소
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
-
   const handleClickScrap = () => {
-    // 로그인 한 사용자인지 확인해 팝업 열기
-    console.log(isLoggedIn);
-    if (!isLoggedIn) {
-      openOnlyScrapped();
-      return;
-    } else {
+    startTransition(async () => {
+      if (isScrapPending) return;
+
+      // 로그인 한 사용자인지 확인해 팝업 열기
+      if (!isLoggedIn) {
+        openOnlyScrapped();
+        return;
+      }
+
       toggleScrap(isScrapped);
-    }
+    });
   };
+
+  // 공유용 현재 페이지 주소
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 
   return (
     <motion.div
-      initial={EventDetailContetnanimation.initial}
-      animate={EventDetailContetnanimation.animate}
+      initial={EventDetailContentanimation.initial}
+      animate={EventDetailContentanimation.animate}
     >
       <section
         className={cn(isMobile ? 'pt-24pxr px-16pxr w-full' : 'gap-40pxr p-24pxr flex flex-row')}
@@ -116,7 +116,11 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
                   <Share link={currentUrl} />
                 </div>
                 <div className="flex-1">
-                  <Bookmark isBookmarked={isScrapped} onStateChange={handleClickScrap} />
+                  <Bookmark
+                    disabled={isScrapPending}
+                    isBookmarked={isScrapped}
+                    onClick={handleClickScrap}
+                  />
                 </div>
               </span>
             </div>
@@ -154,7 +158,11 @@ const EventDetailContent = ({ eventId }: EventDetailContentProps) => {
                 <Share link={currentUrl} />
               </div>
               <div className="flex-1">
-                <Bookmark isBookmarked={isScrapped} onStateChange={handleClickScrap} />
+                <Bookmark
+                  disabled={isScrapPending}
+                  isBookmarked={isScrapped}
+                  onClick={handleClickScrap}
+                />
               </div>
             </span>
           </div>

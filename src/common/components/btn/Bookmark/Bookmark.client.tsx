@@ -6,20 +6,16 @@ import { HeartIcon } from '@common/components/svg/Heart';
 
 interface BookmarkProps extends ButtonsCommonProps {
   isBookmarked: boolean;
-  // 상태 변경 요청을 부모에게 알리는 함수
-  onStateChange: (nextState: boolean) => void;
+  onClick: () => void;
 }
 
-const Bookmark = ({ isBookmarked, onStateChange, ...props }: BookmarkProps) => {
-  const handleClick = () => {
-    onStateChange(!isBookmarked);
-  };
-
+const Bookmark = ({ isBookmarked, onClick, ...props }: BookmarkProps) => {
   return (
     <button
       aria-label="찜하기 버튼"
       aria-pressed={isBookmarked}
-      onClick={handleClick}
+      onClick={onClick}
+      disabled={props.disabled}
       className="py-16pxr px-32pxr gap-8pxr rounded-12pxr transition-spring flex h-fit w-full flex-row items-center justify-center bg-gray-50"
       {...props}
     >

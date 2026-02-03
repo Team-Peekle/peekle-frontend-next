@@ -30,14 +30,6 @@ const ImageSlider = ({ eventId }: ImageSliderProps) => {
   const isMobile = useIsMobile();
   // 디테일 가져오기
   const { eventDetail } = useGetEventDetail(eventId);
-  // 목업 데이터
-  // const eventDetail = {
-  //   images: [
-  //     { imageUrl: null, order: 1 },
-  //     { imageUrl: null, order: 2 },
-  //   ],
-  //   title: '제목',
-  // };
 
   // order 오름차순으로 정렬된 이미지 배열
   const sortedImages = useMemo(
