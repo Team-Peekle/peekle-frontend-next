@@ -71,7 +71,10 @@ Navbar.Mobile = function NavbarMobile() {
     <div className="relative z-30">
       <nav className="py-10pxr pl-16pxr pr-4pxr bg-gray-0 max-w-799pxr h-64pxr flex w-full flex-row items-center justify-between">
         <div className="gap-12pxr flex flex-row items-center">
-          <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />
+          <PeekleLogo
+            className="w-82pxr cursor-pointer text-gray-900"
+            onClick={() => router.push(ROUTES.ROOT)}
+          />
           <p className="text-p16b">{PAGE_CONTEXT_LABELS[currentContext]}</p>
         </div>
         <div className="flex flex-row">
@@ -141,7 +144,10 @@ Navbar.Web = function NavbarWeb() {
   return (
     <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between">
       <div className="gap-32pxr flex flex-row items-center">
-        <PeekleLogo className="w-82pxr cursor-pointer" onClick={() => router.push(ROUTES.ROOT)} />{' '}
+        <PeekleLogo
+          className="w-82pxr cursor-pointer text-gray-900"
+          onClick={() => router.push(ROUTES.ROOT)}
+        />{' '}
         <div className="gap-24pxr text-16b flex flex-row">
           <Link
             href={ROUTES.ROOT}
