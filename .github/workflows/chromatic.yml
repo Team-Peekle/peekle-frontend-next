@@ -34,3 +34,6 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: build-storybook
+        env:
+          NEXT_PUBLIC_API_URL: https://api.peekle.kr/
+          NEXT_PUBLIC_FRONT_URL: production
