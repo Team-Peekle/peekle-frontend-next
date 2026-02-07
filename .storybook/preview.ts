@@ -10,7 +10,7 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'dark',
+      default: 'light',
       values: [
         {
           name: 'dark',
@@ -21,6 +21,12 @@ const preview: Preview = {
           value: '#ffffff',
         },
       ],
+    },
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/',
+      },
     },
   },
 };
