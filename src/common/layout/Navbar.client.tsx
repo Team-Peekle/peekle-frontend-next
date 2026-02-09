@@ -69,13 +69,13 @@ Navbar.Mobile = function NavbarMobile() {
 
   return (
     <div className="relative z-30">
-      <nav className="py-10pxr pl-16pxr pr-4pxr bg-gray-0 max-w-799pxr h-64pxr flex w-full flex-row items-center justify-between">
+      <nav className="py-10pxr pl-16pxr pr-4pxr bg-gray-0 max-w-799pxr h-64pxr flex w-full flex-row items-center justify-between border-b border-gray-100">
         <div className="gap-12pxr flex flex-row items-center">
           <PeekleLogo
             className="w-82pxr cursor-pointer text-gray-900"
             onClick={() => router.push(ROUTES.ROOT)}
           />
-          <p className="text-p16b">{PAGE_CONTEXT_LABELS[currentContext]}</p>
+          <p className="text-p16b text-gray-900">{PAGE_CONTEXT_LABELS[currentContext]}</p>
         </div>
         <div className="flex flex-row">
           <Link
@@ -116,7 +116,7 @@ Navbar.Mobile = function NavbarMobile() {
               <Link
                 key={index}
                 href={item.href}
-                className="p-16pxr text-p16sb flex w-full items-center justify-start transition-colors duration-200 hover:bg-gray-50"
+                className="p-16pxr text-p16sb flex w-full items-center justify-start text-gray-900 transition-colors duration-200 hover:bg-gray-50"
                 onClick={() => setIsMenuOpen(false)} // 메뉴 항목 클릭 시 닫기
               >
                 {item.label}
@@ -142,23 +142,23 @@ Navbar.Web = function NavbarWeb() {
   const currentContext = isCommunityPage ? PageContextType.COMMUNITY : PageContextType.EVENT;
 
   return (
-    <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between">
+    <nav className="min-w-800pxr h-64pxr bg-gray-0 px-16pxr flex w-full flex-row items-center justify-between border-b border-gray-100">
       <div className="gap-32pxr flex flex-row items-center">
         <PeekleLogo
           className="w-82pxr cursor-pointer text-gray-900"
           onClick={() => router.push(ROUTES.ROOT)}
-        />{' '}
-        <div className="gap-24pxr text-16b flex flex-row">
+        />
+        <div className="gap-24pxr text-p16b flex flex-row">
           <Link
             href={ROUTES.ROOT}
-            className={currentContext === PageContextType.EVENT ? 'text-black' : 'text-gray-200'}
+            className={currentContext === PageContextType.EVENT ? 'text-gray-900' : 'text-gray-300'}
           >
             {PAGE_CONTEXT_LABELS[PageContextType.EVENT]}
           </Link>
           <Link
             href={ROUTES.COMMUNITY}
             className={
-              currentContext === PageContextType.COMMUNITY ? 'text-black' : 'text-gray-200'
+              currentContext === PageContextType.COMMUNITY ? 'text-gray-900' : 'text-gray-300'
             }
           >
             {PAGE_CONTEXT_LABELS[PageContextType.COMMUNITY]}

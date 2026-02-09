@@ -15,7 +15,7 @@
   }
 
   .text-p20 {
-    @apply text-[20px] leading-[1.6em] font-bold tracking-normal;
+    @apply text-20pxr leading-[1.6em] font-bold tracking-normal;
   }
 
   .text-p18-20 {
@@ -76,6 +76,6 @@
   }
 
   .text-p14 {
-    @apply text-14pxr leading-[1.5em] font-normal tracking-[-0.02em];
+    @apply text-14pxr leading-[1.5em] font-bold tracking-[-0.02em];
   }
 }

@@ -37,7 +37,7 @@ export default function SigninPage() {
           className="text-p16sb px-106pxr max-mb:px-70pxr w-fit cursor-pointer gap-[8px] bg-[#FEE500] text-gray-900"
           onClick={() => handleSocialLogin('kakao')}
         >
-          <Kakao className="size-6 text-black" /> 카카오계정으로 계속하기
+          <Kakao className="size-6 text-gray-900" /> 카카오계정으로 계속하기
         </Cta>
         <Cta
           className="text-p16sb px-116pxr max-mb:px-80pxr w-fit cursor-pointer gap-[8px] bg-gray-100 text-gray-900"

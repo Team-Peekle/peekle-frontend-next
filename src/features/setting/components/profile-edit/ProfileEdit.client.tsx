@@ -445,7 +445,7 @@ const ProfileEdit = ({ onClose }: ProfileEditProps) => {
                     {image.status === UploadStatusEnum.enum.failed && (
                       <div className="gap-y-4pxr absolute inset-0 flex flex-col items-center justify-center rounded-full bg-black/50 text-white">
                         <button
-                          className="text-8pxr px-4pxr rounded bg-gray-200 font-bold text-black hover:bg-gray-300"
+                          className="text-8pxr px-4pxr rounded bg-gray-200 font-bold text-gray-900 hover:bg-gray-300"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleCancelUpload(image.id);
@@ -454,7 +454,7 @@ const ProfileEdit = ({ onClose }: ProfileEditProps) => {
                           취소
                         </button>
                         <button
-                          className="text-8pxr px-4pxr rounded bg-white font-bold text-black hover:bg-gray-100"
+                          className="text-8pxr px-4pxr rounded bg-white font-bold text-gray-900 hover:bg-gray-100"
                           onClick={(e) => {
                             e.stopPropagation();
                             retryUpload(image.id);
