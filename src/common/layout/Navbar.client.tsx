@@ -151,14 +151,14 @@ Navbar.Web = function NavbarWeb() {
         <div className="gap-24pxr text-p16b flex flex-row">
           <Link
             href={ROUTES.ROOT}
-            className={currentContext === PageContextType.EVENT ? 'text-gray-900' : 'text-gray-300'}
+            className={currentContext === PageContextType.EVENT ? 'text-black' : 'text-gray-300'}
           >
             {PAGE_CONTEXT_LABELS[PageContextType.EVENT]}
           </Link>
           <Link
             href={ROUTES.COMMUNITY}
             className={
-              currentContext === PageContextType.COMMUNITY ? 'text-gray-900' : 'text-gray-300'
+              currentContext === PageContextType.COMMUNITY ? 'text-black' : 'text-gray-300'
             }
           >
             {PAGE_CONTEXT_LABELS[PageContextType.COMMUNITY]}
