@@ -16,8 +16,8 @@ import {
   communityArticleFormSchema,
 } from '@features/community/schema';
 
-import { useCommunityPresignedUploader } from '../hooks/useCommunityPresignedUploader';
 import { useCommunityArticleMutation } from '../hooks/useCommunityArticleMutation';
+import { useCommunityPresignedUploader } from '../hooks/useCommunityPresignedUploader';
 
 const MAX_IMAGES = 5;
 const MAX_SIZE_MB = 8;
@@ -27,10 +27,10 @@ type UploadStatus = 'idle' | 'uploading' | 'uploaded' | 'failed';
 
 interface ArticleImageItem {
   id: string;
-  url?: string; 
+  url?: string;
   previewUrl: string;
   status: UploadStatus;
-  shouldRevoke?: boolean; 
+  shouldRevoke?: boolean;
   isNew: boolean;
   errorMessage?: string;
   file?: File;
@@ -456,7 +456,7 @@ export function CommunityArticleModal({
               {...form.register('content')}
               placeholder="자유롭게 내용을 입력해주세요."
               rows={6}
-              className="text-p15b w-full h-[320px] resize-none rounded-xl outline-none text-gray-900 placeholder:text-gray-400 focus:border-gray-300"
+              className="text-p15b h-[320px] w-full resize-none rounded-xl text-gray-900 outline-none placeholder:text-gray-400 focus:border-gray-300"
               aria-label="내용"
             />
             {form.formState.errors.content && (
@@ -500,7 +500,7 @@ export function CommunityArticleModal({
                       <span className="text-p13">업로드 실패</span>
                       <button
                         type="button"
-                        className="rounded bg-white/90 px-2 py-1 text-xs text-black"
+                        className="rounded bg-white/90 px-2 py-1 text-xs text-gray-900"
                         onClick={() => retryUpload(image.id)}
                       >
                         재시도
@@ -520,14 +520,14 @@ export function CommunityArticleModal({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={images.length >= MAX_IMAGES || isUploading || isSubmitting}
-              className="flex h-fit w-fit items-center justify-center  text-gray-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-fit w-fit items-center justify-center text-gray-500 disabled:cursor-not-allowed disabled:opacity-50"
               aria-label="이미지 추가"
             >
               <Camera className="size-6" />
             </button>
           </div>
 
-          <label htmlFor={switchId} className="flex items-center gap-2 cursor-pointer">
+          <label htmlFor={switchId} className="flex cursor-pointer items-center gap-2">
             <div className="relative">
               <input
                 id={switchId}
@@ -537,7 +537,7 @@ export function CommunityArticleModal({
                 onChange={(event) => onAnonymousChange(event.target.checked)}
               />
               <div
-                className={`size-[16px] rounded flex items-center justify-center transition-colors duration-200 ${
+                className={`flex size-[16px] items-center justify-center rounded transition-colors duration-200 ${
                   anonymousField.value
                     ? 'border-gray-900 bg-gray-900'
                     : 'border-gray-200 bg-gray-600'

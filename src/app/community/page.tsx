@@ -23,6 +23,7 @@ import Navbar from '@common/layout/Navbar.client';
 import { Comment } from '@common/components/svg/Comment';
 
 import { CommunityArticleModal } from '@features/community/components/CommunityArticleModal';
+import Banner from '@features/events/components/Banner.client';
 
 import {
   getCommunityArticlesOptions,
@@ -167,21 +168,10 @@ export default function CommunityPage() {
   };
 
   return (
-    <div className="flex w-full flex-col gap-[26px]">
+    <div className="flex w-full flex-col">
       <Navbar />
-      <article className="flex h-[250px] w-full items-center justify-start bg-gradient-to-r from-[#f7fff9] from-0% to-[#ceced2] to-100%">
-        <h2
-          className={cn(
-            'p-[16px] text-[32px] leading-[1.6em] font-bold tracking-tight',
-            isMobile && 'text-p20',
-          )}
-        >
-          배움·일·일상 이야기를
-          <br />
-          익명으로 자유롭게 나눠요.
-        </h2>
-      </article>
-      <main className="flex w-full flex-row items-start gap-[64px] px-[16px]">
+      <Banner />
+      <main className="mt-26pxr flex w-full flex-row items-start gap-[64px] px-[16px]">
         <section className="max-mb:hidden flex min-w-[280px] flex-row items-center justify-between">
           <CommunitySidebarProfile />
           <button

@@ -35,18 +35,15 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="ko">
-      <body>
+      <body className={cn(pretendard.variable, 'font-pretendard')}>
         {/* 분석 도구 */}
         <MicrosoftClarity />
         {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
         {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
         <SpeedInsights />
-
         <ReactQueryProvider>
           <OverlayProvider>
-            <div className={cn('font-pretendard mx-auto w-full max-w-[1200px]', pretendard.variable)}>
-              {children}
-            </div>
+            <div className={'mx-auto w-full max-w-[1200px]'}>{children}</div>
             <div id="modal" />
             <Toaster />
           </OverlayProvider>

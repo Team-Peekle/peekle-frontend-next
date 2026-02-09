@@ -132,7 +132,7 @@ const EventsList = ({ isSearchPage = false }: EventsListProps) => {
   let eventIndexInAll = 0; // 전체 이벤트 배열에서의 인덱스를 추적
 
   return (
-    <section className={cn(isMobile ? 'py-8pxr' : 'grid grid-cols-3')}>
+    <section className={cn(isMobile ? 'py-8pxr' : 'gap-y-24pxr py-24pxr grid grid-cols-3')}>
       {/* 데이터 렌더링 영역 */}
       {(data?.pages[0]?.events.length ?? 0 > 0) ? (
         <>

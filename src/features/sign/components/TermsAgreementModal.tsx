@@ -34,7 +34,7 @@ export default function TermsAgreementModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="bg-gray-0 relative z-10 rounded-[16px] p-[20px] shadow-lg">
+      <div className="bg-gray-0 mx-16pxr max-w-600pxr p-20pxr relative w-full rounded-[16px] shadow-lg">
         <form onSubmit={onFormSubmit} className="flex flex-col gap-[44px]">
           <div className="flex flex-col gap-[4px] pt-[20px]">
             <h2 className="text-h3 text-gray-900">약관에 동의해주세요</h2>

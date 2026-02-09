@@ -1,7 +1,10 @@
-import type { Preview } from "@storybook/nextjs";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import "../src/app/styles/globals.css";
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import type { Preview } from '@storybook/nextjs';
+
+import '../src/app/styles/globals.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
