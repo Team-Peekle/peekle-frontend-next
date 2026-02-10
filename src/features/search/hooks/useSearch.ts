@@ -81,7 +81,7 @@ export default function useSearch() {
 
   // 5. 엔터 키 핸들러
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       handleSearch();
     }
   };
