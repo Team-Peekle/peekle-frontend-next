@@ -40,7 +40,7 @@ const SearchHeader = () => {
       <header className="p-12pxr gap-x-10pxr flex">
         <div className="rounded-12pxr px-16pxr py-14pxr gap-x-12pxr flex flex-1 items-center bg-gray-50">
           <Search
-            onClick={() => handleSearch}
+            onClick={() => handleSearch()}
             className="w-20pxr h-20pxr cursor-pointer text-gray-400"
           />
           <input
